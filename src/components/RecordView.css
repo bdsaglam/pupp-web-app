@@ -1,0 +1,47 @@
+.RecordView .RecordButton {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-top: 10px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+.RecordView .RecordButton .fa-microphone {
+    font-size: 1.5em;
+    color: white;
+}
+
+.RecordView .RecordButton:focus {
+    outline: none;
+}
+
+.RecordView .RecordButton.Still {
+    background-color: #e40956;
+}
+
+.RecordView .RecordButton.Still:hover {
+    background-color: #c51261;
+}
+
+.RecordView .RecordButton.Recording {
+    animation: pulse 2s infinite linear;
+    background-color: #298d77;
+}
+
+.RecordView .RecordButton.Recording:hover {
+    background-color: #25806c;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}

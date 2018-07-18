@@ -1,0 +1,30 @@
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import withAnimation from "../libs/withAnimation";
+import avatarStatic from "../img/avatar-static.png";
+import avatarGIF from "../img/avatar.gif";
+import "./Avatar.css";
+
+class Avatar extends Component {
+    render() {
+        const className = "Avatar " + this.props.className;
+        return (
+            <div className={className}>
+                <img className="static"
+                    src={avatarStatic} />
+                <img className="active"
+                    src={avatarGIF} />
+            </div>
+        );
+    }
+}
+
+Avatar.propTypes = {
+    className: PropTypes.string,
+};
+
+Avatar.defaultProps = {
+    className: "",
+};
+
+export default withAnimation(Avatar);

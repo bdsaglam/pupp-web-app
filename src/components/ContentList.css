@@ -1,0 +1,12 @@
+.ContentList .header-row {
+    display: flex;
+    align-items: center;
+}
+
+.ContentList a {
+    color: rgb(29, 25, 25);
+}
+
+.ContentList a:hover {
+    text-decoration: none;
+}

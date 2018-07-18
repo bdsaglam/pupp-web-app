@@ -1,0 +1,25 @@
+.LecturePanel .VideoPanel {
+    position: relative;
+}
+
+.LecturePanel .VideoPanel .ScoreBoard {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.LecturePanel .VideoPanel .Avatar {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.LecturePanel .VideoPanel .SkipButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.LecturePanel .AnswerPanel {
+    padding: 10px;
+}

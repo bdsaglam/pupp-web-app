@@ -1,0 +1,28 @@
+.Contact textarea.form-control {
+    min-height: 30vh;
+}
+
+.ContactSuccessful {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20vh 10vw 10vh 10vw;
+}
+
+.ContactSuccessful .ThanksMessage {
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.ContactSuccessful .RedirectSpinner {
+    margin-top: 10vh;
+}
+
+.ContactSuccessful .RedirectMessage {
+    margin-top: 40px;
+    font-size: 0.8em;
+}
+

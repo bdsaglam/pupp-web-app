@@ -1,0 +1,33 @@
+.ScoreBoard {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.ScoreBoard .score-text {
+    position: absolute;
+    top: 25%;
+    left: 42%;
+    font-size: 1.125em;
+    color: blue;
+}
+
+.ScoreBoard.Animate {
+    animation: flashNpulse 0.5s 1 linear;
+}
+
+.ScoreBoard.Animate .score-text {
+    display: none;
+}
+
+@keyframes flashNpulse {
+    from,
+    to {
+        transform: scale3d(1, 1, 1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale3d(1.2, 1.2, 1.2);
+        opacity: 0.3;
+    }
+}

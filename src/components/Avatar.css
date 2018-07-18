@@ -1,0 +1,11 @@
+.Avatar img {
+    width: 100px;
+}
+
+.Avatar .static {
+    position: absolute;
+}
+
+.Avatar.Animate .static {
+    opacity: 0;
+}

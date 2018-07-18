@@ -1,0 +1,25 @@
+.HintCard img {
+    width: 8vw;
+}
+
+.HintCard.Animate {
+    animation: rororo 0.15s 5 cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes rororo {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

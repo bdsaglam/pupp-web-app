@@ -1,0 +1,884 @@
+{
+  "contents": [
+    {
+      "id": "1",
+      "level": 1,
+      "questions": [
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "apple",
+                "viewUri": "apple"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 0,
+            "center": {
+              "x": 0,
+              "y": 0.3
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "fruit",
+              "entityValue": "apple",
+              "name": "fruits-vegetables"
+            }
+          ],
+          "startTime": 1,
+          "stopTime": 3,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "grapes",
+                "viewUri": "grapes"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "banana",
+                "viewUri": "banana"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 0,
+            "center": {
+              "x": 0.05,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "fruit",
+              "entityValue": "banana",
+              "name": "fruits-vegetables"
+            }
+          ],
+          "startTime": 11,
+          "stopTime": 20,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "orange",
+                "viewUri": "orange"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "cabbage",
+                "viewUri": "cabbage"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 0,
+            "center": {
+              "x": 0,
+              "y": 0.3
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "vegetable",
+              "entityValue": "cabbage",
+              "name": "fruits-vegetables"
+            }
+          ],
+          "startTime": 21,
+          "stopTime": 30,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "apple",
+                "viewUri": "apple"
+              },
+              "type": "image"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "fruit",
+        "vegetable",
+        "food"
+      ],
+      "title": "Fruits and Vegetables",
+      "media": {
+        "type": "video",
+        "provider": "youtube",
+        "id": "utwgf_G91Eo"
+      },
+      "scenario": [
+        "quiz",
+        "flashcard"
+      ],
+      "skills": [
+        "vocabulary",
+        "speaking",
+        "pronunciation"
+      ]
+    },
+    {
+      "id": "2",
+      "level": 2,
+      "questions": [
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "parrot",
+                "viewUri": "parrot"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": -90,
+            "center": {
+              "x": 0.1,
+              "y": 0.4
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "parrot",
+              "name": "Animals"
+            }
+          ],
+          "startTime": 17,
+          "stopTime": 46,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "hippo",
+                "viewUri": "hippo"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "monkey",
+                "viewUri": "monkey"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.45,
+              "y": 0.35
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "monkey",
+              "name": "Animals"
+            }
+          ],
+          "startTime": 66,
+          "stopTime": 108,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "zebra",
+                "viewUri": "zebra"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "giraffe",
+                "viewUri": "giraffe"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": -45,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "giraffe",
+              "name": "Animals"
+            }
+          ],
+          "startTime": 118,
+          "stopTime": 150,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "parrot",
+                "viewUri": "parrot"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "zebra",
+                "viewUri": "zebra"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.2
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "zebra",
+              "name": "Animals"
+            }
+          ],
+          "startTime": 164,
+          "stopTime": 190,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "giraffe",
+                "viewUri": "giraffe"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "hippo",
+                "viewUri": "hippo"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "hippo",
+              "name": "Animals"
+            }
+          ],
+          "startTime": 211,
+          "stopTime": 220,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "monkey",
+                "viewUri": "monkey"
+              },
+              "type": "image"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "animal",
+        "safari",
+        "steve and maggie"
+      ],
+      "title": "Animals",
+      "media": {
+        "type": "video",
+        "provider": "youtube",
+        "id": "9nHuh8SrvR4"
+      },
+      "scenario": [
+        "question",
+        "answer",
+        "flashcard"
+      ],
+      "skills": [
+        "vocabulary",
+        "speaking",
+        "pronunciation"
+      ]
+    },
+    {
+      "id": "3",
+      "level": 2,
+      "questions": [
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "horse",
+                "viewUri": "horse"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": -90,
+            "center": {
+              "x": 0.1,
+              "y": 0.4
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "horse",
+              "name": "animal"
+            }
+          ],
+          "startTime": 53,
+          "stopTime": 59,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "cow",
+                "viewUri": "cow"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "green",
+                "viewUri": "green"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.45,
+              "y": 0.35
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "color",
+              "entityValue": "green",
+              "name": "color"
+            }
+          ],
+          "startTime": 86,
+          "stopTime": 111,
+          "speechText": "What color is the horse?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "purple",
+                "viewUri": "purple"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "cow",
+                "viewUri": "cow"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": -45,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "cow",
+              "name": "animal"
+            }
+          ],
+          "startTime": 118,
+          "stopTime": 134,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "sheep",
+                "viewUri": "sheep"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "purple",
+                "viewUri": "purple"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.2
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "color",
+              "entityValue": "purple",
+              "name": "color"
+            }
+          ],
+          "startTime": 153,
+          "stopTime": 187,
+          "speechText": "What color are the cows?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "red",
+                "viewUri": "red"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "yellow",
+                "viewUri": "yellow"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "color",
+              "entityValue": "yellow",
+              "name": "color"
+            }
+          ],
+          "startTime": 211,
+          "stopTime": 220,
+          "speechText": "What color are the pigs?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "green",
+                "viewUri": "green"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "sheep",
+                "viewUri": "sheep"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "animal",
+              "entityValue": "ship",
+              "name": "animal"
+            }
+          ],
+          "startTime": 268,
+          "stopTime": 285,
+          "speechText": "What is this?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "horse",
+                "viewUri": "horse"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "red",
+                "viewUri": "red"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "color",
+              "entityValue": "yellow",
+              "name": "color"
+            }
+          ],
+          "startTime": 324,
+          "stopTime": 344,
+          "speechText": "What color are the sheeps?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "yellow",
+                "viewUri": "yellow"
+              },
+              "type": "image"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "animal",
+        "color",
+        "farm",
+        "steve and maggie"
+      ],
+      "title": "Animals and Colors",
+      "media": {
+        "type": "video",
+        "provider": "youtube",
+        "id": "B1F-o7DP3A0"
+      },
+      "scenario": [
+        "question",
+        "answer",
+        "flashcard",
+        "combination"
+      ],
+      "skills": [
+        "vocabulary",
+        "speaking",
+        "pronunciation"
+      ]
+    },
+    {
+      "id": "4",
+      "level": 3,
+      "questions": [
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "grandmother",
+                "viewUri": "grandmother"
+              },
+              "type": "image"
+            }
+          ],
+          "intentions": [
+            {
+              "entityParameter": "lrrh",
+              "entityValue": "grandmother",
+              "name": "little-red-riding-hood"
+            }
+          ],
+          "startTime": 26,
+          "stopTime": 32,
+          "speechText": "Who is ill?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "mother",
+                "viewUri": "mother"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "flowers",
+                "viewUri": "flowers"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 240,
+            "center": {
+              "x": 0.5,
+              "y": 0.55
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "lrrh",
+              "entityValue": "flowers",
+              "name": "little-red-riding-hood"
+            }
+          ],
+          "startTime": 59,
+          "stopTime": 73,
+          "speechText": "What is the road filled with?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "bushes",
+                "viewUri": "bushes"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "hunter",
+                "viewUri": "hunter"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 180,
+            "center": {
+              "x": 0.45,
+              "y": 0.08
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "lrrh",
+              "entityValue": "hunter",
+              "name": "little-red-riding-hood"
+            }
+          ],
+          "startTime": 193,
+          "stopTime": 201,
+          "speechText": "Who takes the girl to her grandma's home?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "the big wolf",
+                "viewUri": "wolf"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "night cab and glasses",
+                "viewUri": "night_cab_and_glasses"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 180,
+            "center": {
+              "x": 0.65,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "lrrh",
+              "entityValue": "night cab and glasses",
+              "name": "little-red-riding-hood"
+            }
+          ],
+          "startTime": 311,
+          "stopTime": 326,
+          "speechText": "What does the wolf wear to look like the grandma?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "drapes",
+                "viewUri": "drapes"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "hunter",
+                "viewUri": "hunter"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 15,
+            "center": {
+              "x": 0.35,
+              "y": 0.1
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "lrrh",
+              "entityValue": "hunter",
+              "name": "little-red-riding-hood"
+            }
+          ],
+          "startTime": 403,
+          "stopTime": 424,
+          "speechText": "Who helps the girl?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "grandma",
+                "viewUri": "grandmother"
+              },
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "correctHints": [
+            {
+              "attributes": {
+                "speechText": "cookies",
+                "viewUri": "cookies"
+              },
+              "type": "image"
+            }
+          ],
+          "indicator": {
+            "angle": 75,
+            "center": {
+              "x": 0.3,
+              "y": 0.5
+            }
+          },
+          "intentions": [
+            {
+              "entityParameter": "lrrh",
+              "entityValue": "cookies",
+              "name": "little-red-riding-hood"
+            }
+          ],
+          "startTime": 450,
+          "stopTime": 457,
+          "speechText": "What does they eat?",
+          "wrongHints": [
+            {
+              "attributes": {
+                "speechText": "cake",
+                "viewUri": "cake"
+              },
+              "type": "image"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "lrrh",
+        "wolf",
+        "forest",
+        "grandmother"
+      ],
+      "title": "Little Red Riding Hood",
+      "media": {
+        "type": "video",
+        "provider": "youtube",
+        "id": "RT-EwqgHqCk"
+      },
+      "scenario": [
+        "story",
+        "question",
+        "answer"
+      ],
+      "skills": [
+        "comprehension",
+        "listening",
+        "speaking"
+      ]
+    }
+  ]
+}
