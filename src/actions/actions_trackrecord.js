@@ -7,7 +7,7 @@ import {
 
 export function fetchTrackRecords() {
     const request = API.get(
-        "TrackRecordsAPI",
+        "MainAPI",
         "/trackrecords"
     );
 
@@ -22,7 +22,7 @@ export function fetchTrackRecords() {
 
 export function fetchTrackRecord(contentId) {
     const request = API.get(
-        "TrackRecordsAPI",
+        "MainAPI",
         `/trackrecords/${contentId}`
     );
 
@@ -43,7 +43,7 @@ export function fetchTrackRecord(contentId) {
 
 export function createTrackRecord(trackRecord) {
     const request = API.post(
-        "TrackRecordsAPI",
+        "MainAPI",
         `/trackrecords/${trackRecord.contentId}`,
         { body: trackRecord }
     );
@@ -60,7 +60,7 @@ export function createTrackRecord(trackRecord) {
 
 export function updateTrackRecord(trackRecord) {
     const request = API.put(
-        "TrackRecordsAPI",
+        "MainAPI",
         `/trackrecords/${trackRecord.contentId}`,
         { body: trackRecord }
     );
@@ -77,7 +77,7 @@ export function updateTrackRecord(trackRecord) {
 
 export function deleteTrackRecord(contentId) {
     const request = API.del(
-        "TrackRecordsAPI",
+        "MainAPI",
         `/trackrecords/${contentId}`
     );
 

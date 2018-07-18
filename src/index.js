@@ -8,12 +8,12 @@ import thunk from 'redux-thunk';
 
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import stack from "./stack";
+import config from "./config";
 import "./index.css";
 
 import rootReducer from "./reducers";
 
-Amplify.configure(stack);
+Amplify.configure(config);
 
 const store = createStore(
   rootReducer,

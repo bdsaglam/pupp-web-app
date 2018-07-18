@@ -71,7 +71,7 @@ class Contact extends Component {
         try {
             await API.post(
                 "ContactAPI",
-                "",
+                "/contact",
                 { body: body }
             );
             this.setState({ isLoading: false, isSuccessfullySent: true });
