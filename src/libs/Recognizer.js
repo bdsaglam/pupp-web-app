@@ -1,3 +1,9 @@
+const DEFAULT_OPTIONS = {
+    continuous: true,
+    interimResults: false,
+    lang: 'en-US'
+};
+
 class Recognizer {
     constructor(props) {
         this.props = props;
@@ -21,20 +27,14 @@ class Recognizer {
                 this.recognition.addEventListener(event.name, event.action);
             });
 
-            this.recognition.addEventListener('result', this.bindResult);
+            this.recognition.addEventListener('result', this.onResult);
         } else {
             console.warn('The current browser does not support the SpeechRecognition API.');
         }
     }
 
     createRecognition = (SpeechRecognition) => {
-        const defaults = {
-            continuous: true,
-            interimResults: false,
-            lang: 'en-US'
-        };
-
-        const options = Object.assign({}, defaults, this.props.options);
+        const options = Object.assign({}, DEFAULT_OPTIONS, this.props.options);
 
         let recognition = new SpeechRecognition();
 
@@ -45,7 +45,7 @@ class Recognizer {
         return recognition;
     }
 
-    bindResult = (event) => {
+    onResult = (event) => {
         let interimTranscript = '';
         let finalTranscript = '';
 
@@ -77,5 +77,6 @@ class Recognizer {
         this.isRunning = false;
     }
 }
+
 
 export default Recognizer;

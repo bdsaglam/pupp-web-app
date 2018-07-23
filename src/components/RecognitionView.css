@@ -1,4 +1,4 @@
-.RecordView .RecordButton {
+.RecognitionView .RecordButton {
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -8,29 +8,29 @@
     outline: none;
 }
 
-.RecordView .RecordButton .fa-microphone {
+.RecognitionView .RecordButton .fa-microphone {
     font-size: 1.5em;
     color: white;
 }
 
-.RecordView .RecordButton:focus {
+.RecognitionView .RecordButton:focus {
     outline: none;
 }
 
-.RecordView .RecordButton.Still {
+.RecognitionView .RecordButton.Still {
     background-color: #e40956;
 }
 
-.RecordView .RecordButton.Still:hover {
+.RecognitionView .RecordButton.Still:hover {
     background-color: #c51261;
 }
 
-.RecordView .RecordButton.Recording {
+.RecognitionView .RecordButton.Recording {
     animation: pulse 2s infinite linear;
     background-color: #298d77;
 }
 
-.RecordView .RecordButton.Recording:hover {
+.RecognitionView .RecordButton.Recording:hover {
     background-color: #25806c;
 }
 

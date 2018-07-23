@@ -15,7 +15,7 @@ import { sleep, playSound } from "../libs/Utils";
 import { sendText } from "../libs/dialogFlowV1";
 
 import VideoDetail from "../components/VideoDetail";
-import RecordView from "../components/RecordView";
+import RecognitionView from "../components/RecognitionView";
 import Indicator from "../components/Indicator";
 import HintCard from "../components/HintCard";
 import ScoreBoard from "../components/ScoreBoard";
@@ -297,7 +297,7 @@ class LecturePanel extends Component {
         const scoreBoard = <ScoreBoard ref={this.scoreBoardRef} score={score} />;
 
         let skipButton;
-        let recordView;
+        let recognitionView;
         if (this.state.isWaitingAnswer) {
             skipButton = (
                 <div className="SkipButton">
@@ -307,7 +307,7 @@ class LecturePanel extends Component {
                 </div>
             );
 
-            recordView = <RecordView record={this.state.isRecording} onResult={(result) => this.onResult(result)} />;
+            recognitionView = <RecognitionView record={this.state.isRecording} onResult={(result) => this.onResult(result)} />;
         }
 
         let avatar;
@@ -342,7 +342,7 @@ class LecturePanel extends Component {
                                 {correctHint}
                             </Col>
                             <Col sm={8}>
-                                {recordView}
+                                {recognitionView}
                             </Col>
                             <Col sm={2}>
                                 {wrongHint}
