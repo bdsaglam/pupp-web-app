@@ -13,7 +13,7 @@ import faUndo from "@fortawesome/fontawesome-free-solid/faUndo";
 
 import Tracker from "../libs/Tracker";
 import getSpeaker from "../libs/Speaker";
-import { sleep, playSound } from "../libs/Utils";
+import { sleep, playSound, shuffle, sliceByIndices } from "../libs/Utils";
 import { sendText } from "../libs/dialogFlowV1";
 import AnswerState from "../libs/AnswerState";
 
@@ -52,6 +52,7 @@ class LecturePanel extends Component {
             isWaitingAnswer: false,
             isRecording: false,
             attempt: 0,
+            hintOrder: null,
             answers: Object.assign({}, this.props.answers),
         };
     }
@@ -66,11 +67,19 @@ class LecturePanel extends Component {
         return contexts;
     }
 
+    createHintOrder = (question) => {
+        const numHints = question.correctHints.length + question.wrongHints.length;
+        let hintOrder = [...Array(numHints).keys()];
+        shuffle(hintOrder);
+        return hintOrder;
+    }
+
     getCurrentQuestion = () => {
         const idx = this.state.currentQuestionIndex;
         const question = this.props.content.questions[idx];
         return question;
     }
+
 
     //TODO get if unanswered
     findClosestQuestionIndex = (currentTime) => {
@@ -108,8 +117,8 @@ class LecturePanel extends Component {
             this.tracker = new Tracker(this.videoPlayer, stopTime, () => this.onTracked());
             this.tracker.start();
         }
-
-        this.setState({ currentQuestionIndex: idx, isAsking: false, isWaitingAnswer: false, isRecording: false, attempt: 0 });
+        const hintOrder = this.createHintOrder(question);
+        this.setState({ currentQuestionIndex: idx, hintOrder: hintOrder, isAsking: false, isWaitingAnswer: false, isRecording: false, attempt: 0 });
     }
 
     createIndicator = () => {
@@ -142,7 +151,15 @@ class LecturePanel extends Component {
         const ch = this.createHint(question.correctHints[0], this.correctHintRef);
         const wh = this.createHint(question.wrongHints[0], this.wrongHintRef);
 
-        return [ch, wh];
+        let hints;
+        if (this.state.hintOrder) {
+            hints = sliceByIndices([ch, wh], this.state.hintOrder);
+        }
+        else {
+            hints = [ch, wh];
+        }
+
+        return hints;
     }
 
     getScore = () => {
@@ -174,7 +191,6 @@ class LecturePanel extends Component {
         }
         videoPlayer.pauseVideo();
         this.setState({ isAsking: true });
-        this.createHints();
         this.ask();
     }
 
@@ -186,6 +202,20 @@ class LecturePanel extends Component {
 
         const correctHint = this.correctHintRef.current;
         const wrongHint = this.wrongHintRef.current;
+
+        let hints = [
+            { element: correctHint, speechText: correctHintText },
+            { element: wrongHint, speechText: wrongHintText }
+        ];
+
+
+        let hint1, hint2;
+        if (this.state.hintOrder) {
+            [hint1, hint2] = sliceByIndices(hints, this.state.hintOrder);
+        } else {
+            [hint1, hint2] = hints;
+        }
+
         const avatar = this.avatarRef.current;
 
         await sleep(500);
@@ -194,11 +224,11 @@ class LecturePanel extends Component {
         avatar.stopAnimation();
         await sleep(500);
 
-        correctHint.startAnimation();
+        hint1.element.startAnimation();
         avatar.startAnimation();
-        await this.speechSynthesizer.speak(correctHintText);
+        await this.speechSynthesizer.speak(hint1.speechText);
         avatar.stopAnimation();
-        correctHint.stopAnimation();
+        hint1.element.stopAnimation();
         await sleep(200);
 
         avatar.startAnimation();
@@ -206,11 +236,11 @@ class LecturePanel extends Component {
         avatar.stopAnimation();
         await sleep(300);
 
-        wrongHint.startAnimation();
+        hint2.element.startAnimation();
         avatar.startAnimation();
-        await this.speechSynthesizer.speak(wrongHintText);
+        await this.speechSynthesizer.speak(hint2.speechText);
         avatar.stopAnimation();
-        wrongHint.stopAnimation();
+        hint2.element.stopAnimation();
         await sleep(200);
 
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
