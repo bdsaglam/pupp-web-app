@@ -2,20 +2,6 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-evenly;
-    padding: 10px;
-}
-
-.LectureNavigator>.NavigationButton {
-    flex: auto;
-    text-align: center;
-    background-color: Transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-}
-
-.LectureNavigator>.NavigationButton:focus {
-    outline: none;
+    height: 25px;
+    margin-top: 5px;
 }

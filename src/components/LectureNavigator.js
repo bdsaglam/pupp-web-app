@@ -40,17 +40,33 @@ class LectureNavigator extends Component {
             }
 
 
-            let icon;
+            let style = {
+                "background-color": color,
+                "background-repeat": "no - repeat",
+                "border": "none",
+                "cursor": "pointer",
+                "overflow": "hidden",
+                "outline": "none",
+                "transition-duration": "0.7s",
+                "flex-wrap": "nowrap",
+                "flex-direction": "row",
+                "margin": "0px 2px 0px 2px",
+                "color": "white",
+                "border-radius": "15px",
+                "font-size": "0.8em",
+            };
+
             if (i === this.props.currentIndex) {
-                icon = faBullseye;
-            }
-            else {
-                icon = faCircle;
+                style["border"] = "1px";
+                style["flex"] = "8";
+            } else {
+                style["flex"] = "1";
             }
 
+
             return (
-                <button onClick={() => this.handleClick(i)} className="NavigationButton" key={this.keyOffset + i}>
-                    <FontAwesomeIcon icon={icon} color={color} size="2x" />
+                <button onClick={() => this.handleClick(i)} style={style} key={this.keyOffset + i}>
+                    {i + 1}
                 </button>
             );
         }
