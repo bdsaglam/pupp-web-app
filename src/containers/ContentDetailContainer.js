@@ -5,7 +5,7 @@ import LecturePanel from "./LecturePanel";
 
 class ContentDetailContainer extends Component {
   componentDidMount() {
-    const id = parseInt(this.props.match.params.id, 10);
+    const id = this.props.match.params.id;
     if (!this.props.content) {
       this.props.fetchContent(id);
     }
