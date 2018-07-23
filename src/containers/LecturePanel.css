@@ -23,3 +23,22 @@
 .LecturePanel .AnswerPanel {
     padding: 10px;
 }
+
+
+.LecturePanel .VideoJumpButton {
+    margin: 10px;
+    text-align: center;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.LecturePanel .VideoJumpButton:focus {
+    outline: none;
+}
+
+
+

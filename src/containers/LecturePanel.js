@@ -8,11 +8,14 @@ import Button from 'react-bootstrap/lib/Button';
 
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import faForward from "@fortawesome/fontawesome-free-solid/faForward";
+import faRedo from "@fortawesome/fontawesome-free-solid/faRedo";
+import faUndo from "@fortawesome/fontawesome-free-solid/faUndo";
 
 import Tracker from "../libs/Tracker";
 import getSpeaker from "../libs/Speaker";
 import { sleep, playSound } from "../libs/Utils";
 import { sendText } from "../libs/dialogFlowV1";
+import AnswerState from "../libs/AnswerState";
 
 import VideoDetail from "../components/VideoDetail";
 import RecognitionView from "../components/RecognitionView";
@@ -20,6 +23,7 @@ import Indicator from "../components/Indicator";
 import HintCard from "../components/HintCard";
 import ScoreBoard from "../components/ScoreBoard";
 import Avatar from "../components/Avatar";
+import LectureNavigator from "../components/LectureNavigator";
 
 import correct_sound from "../media/correct_answer.mp3";
 import wrong_sound from "../media/wrong_answer.mp3";
@@ -91,6 +95,7 @@ class LecturePanel extends Component {
     }
 
     prepareForQuestion = (idx) => {
+        window.speechSynthesis.cancel();
         const question = this.props.content.questions[idx];
         if (!question || !this.videoPlayer) {
             this.destroyTracker();
@@ -104,10 +109,10 @@ class LecturePanel extends Component {
             this.tracker.start();
         }
 
-        this.setState({ currentQuestionIndex: idx, isAsking: false, isWaitingAnswer: false, attempt: 0 });
+        this.setState({ currentQuestionIndex: idx, isAsking: false, isWaitingAnswer: false, isRecording: false, attempt: 0 });
     }
 
-    getIndicator = () => {
+    createIndicator = () => {
         const question = this.getCurrentQuestion();
 
         if (!question.indicator) {
@@ -120,13 +125,33 @@ class LecturePanel extends Component {
         return (<Indicator left={left} top={top} rotate={rotate} />);
     }
 
+    createHint = (hintInfo, ref) => {
+        const hint = (
+            <HintCard
+                imageURL={`${contentBucketURL}/flashcards/${hintInfo.attributes.viewUri}.png`}
+                onClick={(event) => this.speechSynthesizer.aspeak(hintInfo.attributes.speechText)}
+                ref={ref}
+            />
+        );
+
+        return hint;
+    }
+
+    createHints = () => {
+        const question = this.getCurrentQuestion();
+        const ch = this.createHint(question.correctHints[0], this.correctHintRef);
+        const wh = this.createHint(question.wrongHints[0], this.wrongHintRef);
+
+        return [ch, wh];
+    }
+
     getScore = () => {
         const answers = this.state.answers;
         if (!answers) {
             return 0;
         }
         const states = _.map(answers, answer => answer.state);
-        return states.filter(s => (s === "CORRECT")).length;
+        return states.filter(s => (s === AnswerState.CORRECT)).length;
     };
 
     onPlayerReady = (player) => {
@@ -196,7 +221,7 @@ class LecturePanel extends Component {
         const idx = this.state.currentQuestionIndex;
         let answers = Object.assign({}, this.state.answers);
         if (isCorrect) {
-            answers[idx] = { "state": "CORRECT" };
+            answers[idx] = { "state": AnswerState.CORRECT };
             this.setState({ answers: answers });
 
             this.scoreBoardRef.current.startAnimation();
@@ -206,7 +231,7 @@ class LecturePanel extends Component {
             this.passQuestion();
         } else {
             if (this.state.attempt < this.props.maxAnswerAttempt) {
-                answers[idx] = { "state": "ATTEMPTED" };
+                answers[idx] = { "state": AnswerState.ATTEMPTED };
                 this.setState({ answers: answers });
 
                 await playSound(wrong_sound);
@@ -214,7 +239,7 @@ class LecturePanel extends Component {
                 this.tryAgain();
             }
             else {
-                answers[idx] = { "state": "FAIL" };
+                answers[idx] = { "state": AnswerState.FAILED };
                 this.setState({ answers: answers });
 
                 await playSound(fail_sound);
@@ -231,6 +256,21 @@ class LecturePanel extends Component {
         this.videoPlayer.playVideo();
         this.setState({ isAsking: false, isWaitingAnswer: false, isRecording: false });
         this.props.onUpdateAnswers(this.state.answers);
+    }
+
+    jumpToQuestion = (idx) => {
+        const question = this.props.content.questions[idx];
+        const startTime = question.startTime;
+        this.videoPlayer.seekTo(startTime);
+        this.videoPlayer.playVideo();
+    }
+
+    handleJumpVideo = async (direction) => {
+        const dt = 5;
+        const currentTime = await this.videoPlayer.getCurrentTime();
+        this.videoPlayer.seekTo(currentTime + dt * direction);
+        this.videoPlayer.playVideo();
+
     }
 
     tryAgain = () => {
@@ -257,27 +297,6 @@ class LecturePanel extends Component {
     onSkipClick = (event) => {
         this.passQuestion();
     }
-
-    createHint = (hintInfo, ref) => {
-        const hint = (
-            <HintCard
-                imageURL={`${contentBucketURL}/flashcards/${hintInfo.attributes.viewUri}.png`}
-                onClick={(event) => this.speechSynthesizer.aspeak(hintInfo.attributes.speechText)}
-                ref={ref}
-            />
-        );
-
-        return hint;
-    }
-
-    createHints = () => {
-        const question = this.getCurrentQuestion();
-        const ch = this.createHint(question.correctHints[0], this.correctHintRef);
-        const wh = this.createHint(question.wrongHints[0], this.wrongHintRef);
-
-        return [ch, wh];
-    }
-
 
     // just for debugging, to be removed later
     onButtonClick = async (event) => {
@@ -316,14 +335,21 @@ class LecturePanel extends Component {
         let wrongHint;
         if (this.state.isAsking || this.state.isWaitingAnswer) {
             avatar = <Avatar ref={this.avatarRef} />;
-            indicator = this.getIndicator();
+            indicator = this.createIndicator();
             [correctHint, wrongHint] = this.createHints();
         }
 
         return (
             <div className="LecturePanel">
                 <Row className="justify-content-center">
-                    <Col xs={12} md={10} mdOffset={1} lg={8} lgOffset={2}>
+                    <Col xs={1}>
+                        <Row>
+                            <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(-1)} >
+                                <FontAwesomeIcon icon={faUndo} color="#496179" size="2x" />
+                            </button>
+                        </Row>
+                    </Col>
+                    <Col xs={10}>
                         <Row>
                             <div className="VideoPanel">
                                 <VideoDetail
@@ -337,20 +363,33 @@ class LecturePanel extends Component {
                                 {indicator}
                             </div>
                         </Row>
+                        <Row>
+                            <LectureNavigator
+                                questions={this.props.content.questions}
+                                answers={this.state.answers}
+                                currentIndex={this.state.currentQuestionIndex}
+                                onSelect={(idx) => this.jumpToQuestion(idx)}
+                            />
+                        </Row>
                         <Row className="AnswerPanel">
-                            <Col sm={2}>
+                            <Col xs={2}>
                                 {correctHint}
                             </Col>
-                            <Col sm={8}>
+                            <Col xs={8}>
                                 {recognitionView}
                             </Col>
-                            <Col sm={2}>
+                            <Col xs={2}>
                                 {wrongHint}
                             </Col>
                         </Row>
                         <Row></Row>
                     </Col>
-                    <Col md={2}>
+                    <Col xs={1}>
+                        <Row>
+                            <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(1)} >
+                                <FontAwesomeIcon icon={faRedo} color="#496179" size="2x" />
+                            </button>
+                        </Row>
                         <Row>
                             <Button onClick={event => this.onButtonClick(event)} bsStyle="info">
                                 debug
