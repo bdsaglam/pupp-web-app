@@ -10,10 +10,8 @@ class Avatar extends Component {
         const className = "Avatar " + this.props.className;
         return (
             <div className={className}>
-                <img className="static"
-                    src={avatarStatic} />
-                <img className="active"
-                    src={avatarGIF} />
+                <img className="static" src={avatarStatic} alt='' />
+                <img className="active" src={avatarGIF} alt='' />
             </div>
         );
     }

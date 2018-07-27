@@ -22,6 +22,10 @@ class ContentDetailContainer extends Component {
     this.props.updateTrackRecord(trackRecord);
   };
 
+  onBackHome = () => {
+    this.props.history.push('/');
+  }
+
   render() {
     if (!this.props.content || !this.props.video) {
       return <div>Content loading...</div>;
@@ -29,7 +33,15 @@ class ContentDetailContainer extends Component {
 
     const trackRecord = this.props.trackRecord;
     var answers = trackRecord ? trackRecord.answers : {};
-    return <ContentDetail content={this.props.content} video={this.props.video} answers={answers} onUpdateAnswers={this.onUpdateAnswers} />;
+    return (
+      <ContentDetail
+        content={this.props.content}
+        video={this.props.video}
+        answers={answers}
+        onUpdateAnswers={this.onUpdateAnswers}
+        onBackHome={this.onBackHome}
+      />
+    );
   }
 }
 

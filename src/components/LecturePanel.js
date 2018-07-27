@@ -26,7 +26,6 @@ import HintCard from "./HintCard";
 import ScoreBoard from "./ScoreBoard";
 import Avatar from "./Avatar";
 import QuestionNavigator from "./QuestionNavigator";
-import FinishPanel from "./FinishPanel";
 
 import wrong_sound from "../media/wrong_answer.mp3";
 
@@ -53,7 +52,6 @@ class LecturePanel extends Component {
             isRecording: false,
             isFeedbacking: false,
             feedbackMediaURL: null,
-            hasEnded: false,
             hasStarted: false,
             attempt: 0,
             hintOrder: null,
@@ -184,7 +182,7 @@ class LecturePanel extends Component {
     }
 
     onPlayerProgress = (event) => {
-        if (this.state.hasEnded || this.state.isAsking || this.state.isWaitingAnswer || this.state.isRecording || this.state.isFeedbacking) return;
+        if (this.state.isAsking || this.state.isWaitingAnswer || this.state.isRecording || this.state.isFeedbacking) return;
 
         const currentTime = event.playedSeconds;
         if (this.isQuestionTime(currentTime)) {
@@ -193,13 +191,13 @@ class LecturePanel extends Component {
             this.ask();
         }
         else if (this.isContentEndTime(currentTime)) {
-            this.onEnd();
+            this.onFinish();
         }
 
     }
 
     onPlayerEnded = () => {
-        this.onEnd();
+        this.onFinish();
     }
 
     isQuestionTime = (currentTime) => {
@@ -225,10 +223,9 @@ class LecturePanel extends Component {
         return false;
     }
 
-    onEnd = () => {
-        this.setState({ hasEnded: true });
+    onFinish = () => {
         this.clear();
-        if (this.props.onEnd) this.props.onEnd(this.state.answers);
+        if (this.props.onFinish) this.props.onFinish(this.state.answers);
     }
     // player events - end
 
@@ -392,11 +389,6 @@ class LecturePanel extends Component {
     }
 
     render() {
-        let finishPanel;
-        if (this.state.hasEnded) {
-            finishPanel = <FinishPanel content={this.props.content} answers={this.props.answers} />;
-        }
-
         const video = this.props.video;
         const question = this.getCurrentQuestion();
 
@@ -471,7 +463,6 @@ class LecturePanel extends Component {
                                 {skipButton}
                                 {indicator}
                                 {feedbackMedia}
-                                {finishPanel}
                             </div>
                         </Row>
                         <Row>
@@ -519,6 +510,8 @@ LecturePanel.propTypes = {
     video: PropTypes.object.isRequired,
     answers: PropTypes.object.isRequired,
     maxAnswerAttempt: PropTypes.number,
+    onUpdateAnswers: PropTypes.func,
+    onFinish: PropTypes.func,
 };
 
 // Specifies the default values for props:

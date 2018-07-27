@@ -33,6 +33,7 @@ class FilterableContentList extends Component {
             if (levels.includes(content.level)) {
                 return true;
             }
+            return false;
         });
     }
 
