@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { getRandomInt } from "../libs/Utils";
-import "./LectureNavigator.css";
+import "./QuestionNavigator.css";
 
-class LectureNavigator extends Component {
+class QuestionNavigator extends Component {
     constructor(props) {
         super(props);
         this.keyOffset = getRandomInt(2000, 2999);
@@ -36,18 +36,18 @@ class LectureNavigator extends Component {
 
     render() {
         return (
-            <div className="LectureNavigator">
+            <div className="QuestionNavigator">
                 {this.renderButtons()}
             </div>
         );
     }
 }
 
-LectureNavigator.propTypes = {
+QuestionNavigator.propTypes = {
     questions: PropTypes.arrayOf(PropTypes.object).isRequired,
     answers: PropTypes.object.isRequired,
     currentIndex: PropTypes.number.isRequired,
     onSelect: PropTypes.func.isRequired,
 };
 
-export default LectureNavigator;
+export default QuestionNavigator;

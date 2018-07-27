@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchContent, fetchTrackRecord, updateTrackRecord } from "../actions";
-import LecturePanel from "./LecturePanel";
+import ContentDetail from "../components/ContentDetail";
 
 class ContentDetailContainer extends Component {
   componentDidMount() {
@@ -26,9 +26,10 @@ class ContentDetailContainer extends Component {
     if (!this.props.content || !this.props.video) {
       return <div>Content loading...</div>;
     }
+
     const trackRecord = this.props.trackRecord;
     var answers = trackRecord ? trackRecord.answers : {};
-    return <LecturePanel content={this.props.content} video={this.props.video} answers={answers} onUpdateAnswers={this.onUpdateAnswers} maxAnswerAttempt={1} />;
+    return <ContentDetail content={this.props.content} video={this.props.video} answers={answers} onUpdateAnswers={this.onUpdateAnswers} />;
   }
 }
 

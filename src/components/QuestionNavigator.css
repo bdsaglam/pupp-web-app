@@ -1,4 +1,4 @@
-.LectureNavigator {
+.QuestionNavigator {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -7,7 +7,7 @@
     margin-top: 5px;
 }
 
-.LectureNavigator .NavigationButton {
+.QuestionNavigator .NavigationButton {
     border: none;
     cursor: pointer;
     overflow: hidden;
@@ -19,27 +19,27 @@
     transition-duration: 0.7s;
 }
 
-.LectureNavigator .NavigationButton.Inactive {
+.QuestionNavigator .NavigationButton.Inactive {
     flex: 1;
 }
 
-.LectureNavigator .NavigationButton.Active {
+.QuestionNavigator .NavigationButton.Active {
     flex: 8;
 }
 
-.LectureNavigator .NavigationButton.CORRECT {
+.QuestionNavigator .NavigationButton.CORRECT {
     background-color: #27ae60;
     background-repeat: no - repeat;
 }
 
-.LectureNavigator .NavigationButton.ATTEMPTED {
+.QuestionNavigator .NavigationButton.ATTEMPTED {
     background-color: #f1c40f;
 }
 
-.LectureNavigator .NavigationButton.FAILED {
+.QuestionNavigator .NavigationButton.FAILED {
     background-color: #d35400;
 }
 
-.LectureNavigator .NavigationButton.INITIAL {
+.QuestionNavigator .NavigationButton.INITIAL {
     background-color: #bdc3c7;
 }

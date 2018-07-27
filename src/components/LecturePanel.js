@@ -13,23 +13,22 @@ import faUndo from "@fortawesome/fontawesome-free-solid/faUndo";
 
 import ReactPlayer from 'react-player';
 
-import Tracker from "../libs/Tracker";
-import getSpeaker from "../libs/Speaker";
-import { sleep, playSound, shuffle, sliceByIndices } from "../libs/Utils";
-import { sendText } from "../libs/dialogFlowV1";
 import AnswerState from "../libs/AnswerState";
+import getSpeaker from "../libs/Speaker";
+import { sendText } from "../libs/dialogFlowV1";
+import { sleep, playSound, shuffle, sliceByIndices } from "../libs/Utils";
 import { positive_sounds, negative_sounds, positive_videos, negative_videos } from "../libs/feedbacks";
 
-import VideoDetail from "../components/VideoDetail";
-import RecognitionView from "../components/RecognitionView";
-import Indicator from "../components/Indicator";
-import HintCard from "../components/HintCard";
-import ScoreBoard from "../components/ScoreBoard";
-import Avatar from "../components/Avatar";
-import LectureNavigator from "../components/LectureNavigator";
+import VideoDetail from "./VideoDetail";
+import RecognitionView from "./RecognitionView";
+import Indicator from "./Indicator";
+import HintCard from "./HintCard";
+import ScoreBoard from "./ScoreBoard";
+import Avatar from "./Avatar";
+import QuestionNavigator from "./QuestionNavigator";
+import FinishPanel from "./FinishPanel";
 
 import wrong_sound from "../media/wrong_answer.mp3";
-
 
 import "./LecturePanel.css";
 
@@ -39,7 +38,6 @@ class LecturePanel extends Component {
     constructor(props) {
         super(props);
         this.videoPlayer = null;
-        this.tracker = null;
         this.speechSynthesizer = getSpeaker();
         this.contexts = this.createContexts(this.props.content);
 
@@ -55,6 +53,8 @@ class LecturePanel extends Component {
             isRecording: false,
             isFeedbacking: false,
             feedbackMediaURL: null,
+            hasEnded: false,
+            hasStarted: false,
             attempt: 0,
             hintOrder: null,
             answers: Object.assign({}, this.props.answers),
@@ -72,9 +72,13 @@ class LecturePanel extends Component {
     }
 
     createHintOrder = (question) => {
-        const numHints = question.correctHints.length + question.wrongHints.length;
-        let hintOrder = [...Array(numHints).keys()];
-        shuffle(hintOrder);
+        let hintOrder;
+        if (question.correctHints && question.wrongHints) {
+            const numHints = question.correctHints.length + question.wrongHints.length;
+            let hintOrder = [...Array(numHints).keys()];
+            shuffle(hintOrder);
+        }
+
         return hintOrder;
     }
 
@@ -84,6 +88,14 @@ class LecturePanel extends Component {
         return question;
     }
 
+    getScore = () => {
+        const answers = this.state.answers;
+        if (!answers) {
+            return 0;
+        }
+        const states = _.map(answers, answer => answer.state);
+        return states.filter(s => (s === AnswerState.CORRECT)).length;
+    };
 
     //TODO get if unanswered
     findClosestQuestionIndex = (currentTime) => {
@@ -100,34 +112,17 @@ class LecturePanel extends Component {
         return idx;
     }
 
-    destroyTracker = () => {
-        if (this.tracker) {
-            this.tracker.destroy();
-        }
-        this.tracker = null;
-    }
-
     prepareForQuestion = (idx) => {
-        window.speechSynthesis.cancel();
         const question = this.props.content.questions[idx];
-        if (!question || !this.videoPlayer) {
-            this.destroyTracker();
-            return;
+        let hintOrder;
+        if (question) {
+            hintOrder = this.createHintOrder(question);
         }
-
-        const stopTime = question.stopTime;
-        if (this.tracker == null || this.tracker.stopTime !== stopTime) {
-            this.destroyTracker();
-            this.tracker = new Tracker(this.videoPlayer, stopTime, () => this.onTracked());
-            this.tracker.start();
-        }
-        const hintOrder = this.createHintOrder(question);
         this.setState({ currentQuestionIndex: idx, hintOrder: hintOrder, isAsking: false, isWaitingAnswer: false, isRecording: false, attempt: 0 });
     }
 
-    createIndicator = () => {
-        const question = this.getCurrentQuestion();
-
+    // render helpers - start
+    createIndicator = (question) => {
         if (!question.indicator) {
             return;
         }
@@ -150,10 +145,12 @@ class LecturePanel extends Component {
         return hint;
     }
 
-    createHints = () => {
-        const question = this.getCurrentQuestion();
-        const ch = this.createHint(question.correctHints[0], this.correctHintRef);
-        const wh = this.createHint(question.wrongHints[0], this.wrongHintRef);
+    createHints = (question) => {
+        let ch, wh;
+        if (question.correctHints && question.wrongHints) {
+            ch = this.createHint(question.correctHints[0], this.correctHintRef);
+            wh = this.createHint(question.wrongHints[0], this.wrongHintRef);
+        }
 
         let hints;
         if (this.state.hintOrder) {
@@ -165,60 +162,79 @@ class LecturePanel extends Component {
 
         return hints;
     }
+    // render helpers - end
 
-    getScore = () => {
-        const answers = this.state.answers;
-        if (!answers) {
-            return 0;
-        }
-        const states = _.map(answers, answer => answer.state);
-        return states.filter(s => (s === AnswerState.CORRECT)).length;
-    };
-
-    onPlayerReady = (player) => {
-        this.videoPlayer = player;
+    // player events - start
+    onPlayerReady = (playerRef) => {
+        this.playerRef = playerRef;
+        this.videoPlayer = playerRef.current.getInternalPlayer();
     }
 
-    onPlayerStateChange = (event) => {
-        if (event.data === 1) { // Started playing
-            const currentTime = event.target.getCurrentTime();
-            const idx = this.findClosestQuestionIndex(currentTime);
-            this.prepareForQuestion(idx);
-        }
+    onPlayerStart = () => {
+        const startTime = this.props.content.media.startTime || 1;
+        this.videoPlayer.seekTo(startTime);
+        this.videoPlayer.playVideo();
     }
 
-    onTracked = () => {
-        this.destroyTracker(); // hopefully helping GC
-        const videoPlayer = this.videoPlayer;
-        if (!videoPlayer) {
-            return;
-        }
-        videoPlayer.pauseVideo();
-        this.setState({ isAsking: true });
-        this.ask();
+    onPlayerPlay = () => {
+        window.speechSynthesis.cancel();
+        const currentTime = this.videoPlayer.getCurrentTime();
+        const idx = this.findClosestQuestionIndex(currentTime);
+        this.prepareForQuestion(idx);
     }
+
+    onPlayerProgress = (event) => {
+        if (this.state.hasEnded || this.state.isAsking || this.state.isWaitingAnswer || this.state.isRecording || this.state.isFeedbacking) return;
+
+        const currentTime = event.playedSeconds;
+        if (this.isQuestionTime(currentTime)) {
+            this.setState({ isAsking: true });
+            this.videoPlayer.pauseVideo();
+            this.ask();
+        }
+        else if (this.isContentEndTime(currentTime)) {
+            this.onEnd();
+        }
+
+    }
+
+    onPlayerEnded = () => {
+        this.onEnd();
+    }
+
+    isQuestionTime = (currentTime) => {
+        const question = this.props.content.questions[this.state.currentQuestionIndex];
+        if (!question) {
+            return false;
+        };
+
+        const targetTime = question.stopTime;
+        if ((targetTime - 0.5) < currentTime && currentTime < (targetTime + 0.5)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    isContentEndTime = (currentTime) => {
+        const endTime = this.props.content.media.endTime;
+        if (!endTime) return false;
+        if (currentTime > endTime) {
+            return true;
+        }
+        return false;
+    }
+
+    onEnd = () => {
+        this.setState({ hasEnded: true });
+        this.clear();
+        if (this.props.onEnd) this.props.onEnd(this.state.answers);
+    }
+    // player events - end
 
     ask = async () => {
         const question = this.getCurrentQuestion();
         const questionText = question.speechText;
-        const correctHintText = question.correctHints[0].attributes.speechText;
-        const wrongHintText = question.wrongHints[0].attributes.speechText;
-
-        const correctHint = this.correctHintRef.current;
-        const wrongHint = this.wrongHintRef.current;
-
-        let hints = [
-            { element: correctHint, speechText: correctHintText },
-            { element: wrongHint, speechText: wrongHintText }
-        ];
-
-
-        let hint1, hint2;
-        if (this.state.hintOrder) {
-            [hint1, hint2] = sliceByIndices(hints, this.state.hintOrder);
-        } else {
-            [hint1, hint2] = hints;
-        }
 
         const avatar = this.avatarRef.current;
 
@@ -228,24 +244,45 @@ class LecturePanel extends Component {
         avatar.stopAnimation();
         await sleep(500);
 
-        hint1.element.startAnimation();
-        avatar.startAnimation();
-        await this.speechSynthesizer.speak(hint1.speechText);
-        avatar.stopAnimation();
-        hint1.element.stopAnimation();
-        await sleep(200);
+        if (question.correctHints && question.wrongHints) {
+            const correctHintText = question.correctHints[0].attributes.speechText;
+            const wrongHintText = question.wrongHints[0].attributes.speechText;
 
-        avatar.startAnimation();
-        await this.speechSynthesizer.speak("or");
-        avatar.stopAnimation();
-        await sleep(300);
+            const correctHint = this.correctHintRef.current;
+            const wrongHint = this.wrongHintRef.current;
 
-        hint2.element.startAnimation();
-        avatar.startAnimation();
-        await this.speechSynthesizer.speak(hint2.speechText);
-        avatar.stopAnimation();
-        hint2.element.stopAnimation();
-        await sleep(200);
+            let hints = [
+                { element: correctHint, speechText: correctHintText },
+                { element: wrongHint, speechText: wrongHintText }
+            ];
+
+
+            let hint1, hint2;
+            if (this.state.hintOrder) {
+                [hint1, hint2] = sliceByIndices(hints, this.state.hintOrder);
+            } else {
+                [hint1, hint2] = hints;
+            }
+
+            hint1.element.startAnimation();
+            avatar.startAnimation();
+            await this.speechSynthesizer.speak(hint1.speechText);
+            avatar.stopAnimation();
+            hint1.element.stopAnimation();
+            await sleep(200);
+
+            avatar.startAnimation();
+            await this.speechSynthesizer.speak("or");
+            avatar.stopAnimation();
+            await sleep(300);
+
+            hint2.element.startAnimation();
+            avatar.startAnimation();
+            await this.speechSynthesizer.speak(hint2.speechText);
+            avatar.stopAnimation();
+            hint2.element.stopAnimation();
+            await sleep(200);
+        }
 
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
     }
@@ -282,13 +319,20 @@ class LecturePanel extends Component {
             }
         }
 
-
     }
 
     passQuestion = () => {
         window.speechSynthesis.cancel();
+        const currentQuestionIndex = this.state.currentQuestionIndex;
+        this.setState({
+            currentQuestionIndex: currentQuestionIndex + 1,
+            isAsking: false,
+            isWaitingAnswer: false,
+            isRecording: false,
+            isFeedbacking: false,
+            feedbackMediaURL: null
+        });
         this.videoPlayer.playVideo();
-        this.setState({ isAsking: false, isWaitingAnswer: false, isRecording: false, isFeedbacking: false, feedbackMediaURL: null });
         this.props.onUpdateAnswers(this.state.answers);
     }
 
@@ -316,7 +360,7 @@ class LecturePanel extends Component {
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
     }
 
-    onResult = (result) => {
+    onRecognitionResult = (result) => {
         const userAnswer = result.finalTranscript;
         const question = this.getCurrentQuestion();
         const expectedAnswer = question.intentions[0].entityValue;
@@ -337,15 +381,24 @@ class LecturePanel extends Component {
         console.log(this.state);
     }
 
-    componentWillUnmount() {
+    clear = () => {
         window.speechSynthesis.cancel();
         this.speechSynthesizer.deactivate();
-        this.destroyTracker();
         if (this.videoPlayer) this.videoPlayer.pauseVideo();
     }
 
+    componentWillUnmount() {
+        this.clear();
+    }
+
     render() {
+        let finishPanel;
+        if (this.state.hasEnded) {
+            finishPanel = <FinishPanel content={this.props.content} answers={this.props.answers} />;
+        }
+
         const video = this.props.video;
+        const question = this.getCurrentQuestion();
 
         const score = this.getScore().toString();
         const scoreBoard = <ScoreBoard ref={this.scoreBoardRef} score={score} />;
@@ -361,17 +414,17 @@ class LecturePanel extends Component {
                 </div>
             );
 
-            recognitionView = <RecognitionView record={this.state.isRecording} onResult={(result) => this.onResult(result)} />;
+            recognitionView = <RecognitionView record={this.state.isRecording} onResult={(result) => this.onRecognitionResult(result)} />;
         }
 
         let avatar;
         let indicator;
         let correctHint;
         let wrongHint;
-        if (this.state.isAsking || this.state.isWaitingAnswer) {
+        if (question && (this.state.isAsking || this.state.isWaitingAnswer)) {
             avatar = <Avatar ref={this.avatarRef} />;
-            indicator = this.createIndicator();
-            [correctHint, wrongHint] = this.createHints();
+            indicator = this.createIndicator(question);
+            [correctHint, wrongHint] = this.createHints(question);
         }
 
         let feedbackMedia;
@@ -404,19 +457,25 @@ class LecturePanel extends Component {
                         <Row>
                             <div className="VideoPanel">
                                 <VideoDetail
+                                    provider="youtube"
                                     video={video}
                                     onPlayerReady={player => this.onPlayerReady(player)}
-                                    onPlayerStateChange={event => this.onPlayerStateChange(event)}
+                                    onPlayerStart={this.onPlayerStart}
+                                    onPlayerPlay={this.onPlayerPlay}
+                                    onPlayerProgress={this.onPlayerProgress}
+                                    onPlayerEnded={this.onPlayerEnded}
+                                    options={{ progressInterval: 500 }}
                                 />
                                 {avatar}
                                 {scoreBoard}
                                 {skipButton}
                                 {indicator}
                                 {feedbackMedia}
+                                {finishPanel}
                             </div>
                         </Row>
                         <Row>
-                            <LectureNavigator
+                            <QuestionNavigator
                                 questions={this.props.content.questions}
                                 answers={this.state.answers}
                                 currentIndex={this.state.currentQuestionIndex}
