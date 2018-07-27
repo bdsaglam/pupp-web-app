@@ -28,7 +28,7 @@ class ContentDetailContainer extends Component {
     }
     const trackRecord = this.props.trackRecord;
     var answers = trackRecord ? trackRecord.answers : {};
-    return <LecturePanel content={this.props.content} video={this.props.video} answers={answers} onUpdateAnswers={this.onUpdateAnswers} />;
+    return <LecturePanel content={this.props.content} video={this.props.video} answers={answers} onUpdateAnswers={this.onUpdateAnswers} maxAnswerAttempt={1} />;
   }
 }
 

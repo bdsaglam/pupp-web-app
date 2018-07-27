@@ -11,11 +11,14 @@ import faForward from "@fortawesome/fontawesome-free-solid/faForward";
 import faRedo from "@fortawesome/fontawesome-free-solid/faRedo";
 import faUndo from "@fortawesome/fontawesome-free-solid/faUndo";
 
+import ReactPlayer from 'react-player';
+
 import Tracker from "../libs/Tracker";
 import getSpeaker from "../libs/Speaker";
 import { sleep, playSound, shuffle, sliceByIndices } from "../libs/Utils";
 import { sendText } from "../libs/dialogFlowV1";
 import AnswerState from "../libs/AnswerState";
+import { positive_sounds, negative_sounds, positive_videos, negative_videos } from "../libs/feedbacks";
 
 import VideoDetail from "../components/VideoDetail";
 import RecognitionView from "../components/RecognitionView";
@@ -25,9 +28,8 @@ import ScoreBoard from "../components/ScoreBoard";
 import Avatar from "../components/Avatar";
 import LectureNavigator from "../components/LectureNavigator";
 
-import correct_sound from "../media/correct_answer.mp3";
 import wrong_sound from "../media/wrong_answer.mp3";
-import fail_sound from "../media/failed_question.mp3";
+
 
 import "./LecturePanel.css";
 
@@ -51,6 +53,8 @@ class LecturePanel extends Component {
             isAsking: false,
             isWaitingAnswer: false,
             isRecording: false,
+            isFeedbacking: false,
+            feedbackMediaURL: null,
             attempt: 0,
             hintOrder: null,
             answers: Object.assign({}, this.props.answers),
@@ -251,13 +255,13 @@ class LecturePanel extends Component {
         let answers = Object.assign({}, this.state.answers);
         if (isCorrect) {
             answers[idx] = { "state": AnswerState.CORRECT };
-            this.setState({ answers: answers });
 
             this.scoreBoardRef.current.startAnimation();
-            await playSound(correct_sound);
+            await playSound(_.sample(positive_sounds));
             await sleep(500);
             this.scoreBoardRef.current.stopAnimation();
-            this.passQuestion();
+            this.setState({ answers: answers, isFeedbacking: true, feedbackMediaURL: _.sample(positive_videos) });
+
         } else {
             if (this.state.attempt < this.props.maxAnswerAttempt) {
                 answers[idx] = { "state": AnswerState.ATTEMPTED };
@@ -271,8 +275,9 @@ class LecturePanel extends Component {
                 answers[idx] = { "state": AnswerState.FAILED };
                 this.setState({ answers: answers });
 
-                await playSound(fail_sound);
+                await playSound(_.sample(negative_sounds));
                 await sleep(500);
+                this.setState({ answers: answers });
                 this.passQuestion();
             }
         }
@@ -283,7 +288,7 @@ class LecturePanel extends Component {
     passQuestion = () => {
         window.speechSynthesis.cancel();
         this.videoPlayer.playVideo();
-        this.setState({ isAsking: false, isWaitingAnswer: false, isRecording: false });
+        this.setState({ isAsking: false, isWaitingAnswer: false, isRecording: false, isFeedbacking: false, feedbackMediaURL: null });
         this.props.onUpdateAnswers(this.state.answers);
     }
 
@@ -369,6 +374,22 @@ class LecturePanel extends Component {
             [correctHint, wrongHint] = this.createHints();
         }
 
+        let feedbackMedia;
+        if (this.state.isFeedbacking) {
+            feedbackMedia = (
+                <div className='FeedbackMedia'>
+                    <ReactPlayer
+                        volume={1}
+                        width='100%'
+                        height='100%'
+                        url={this.state.feedbackMediaURL}
+                        playing={true}
+                        onEnded={() => setTimeout(this.passQuestion, 300)}
+                    />
+                </div>
+            );
+        }
+
         return (
             <div className="LecturePanel">
                 <Row className="justify-content-center">
@@ -391,6 +412,7 @@ class LecturePanel extends Component {
                                 {scoreBoard}
                                 {skipButton}
                                 {indicator}
+                                {feedbackMedia}
                             </div>
                         </Row>
                         <Row>
