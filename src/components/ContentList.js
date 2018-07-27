@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import AnswerState from "../libs/AnswerState";
 import { isEmpty } from "../libs/Utils";
 import ContentListItem from "./ContentListItem";
 import "./ContentList.css";
@@ -19,7 +20,7 @@ class ContentList extends Component {
             let percentScore = 0;
             if (trackRecord) {
                 const states = _.map(trackRecord.answers, answer => answer.state);
-                const score = states.filter(s => (s === "CORRECT")).length;
+                const score = states.filter(s => (s === AnswerState.CORRECT)).length;
                 percentScore = Math.floor(score / content.questions.length * 100);
             }
 
