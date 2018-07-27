@@ -1,14 +1,15 @@
 class Tracker {
-    constructor(player, target, callback) {
+    constructor(player, targetTime, callback, interval = 200) {
         this.player = player;
-        this.target = target;
+        this.targetTime = targetTime;
         this.callback = callback;
+        this.interval = interval;
 
         this.timer = null;
     }
 
     start = () => {
-        this.timer = setInterval(() => this.check(), 200);
+        this.timer = setInterval(() => this.check(), this.interval);
     }
 
     check = () => {
@@ -19,8 +20,8 @@ class Tracker {
 
         promise.then(currentTime => {
             currentTime = parseInt(currentTime, 10);
-            console.log(currentTime, this.target);
-            if (this.target > (currentTime - 1) && this.target < (currentTime + 1)) {
+            console.log(currentTime, this.targetTime);
+            if (this.targetTime > (currentTime - 1) && this.targetTime < (currentTime + 1)) {
                 this.cancel();
                 this.callback();
             }
