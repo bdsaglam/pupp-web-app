@@ -24,7 +24,7 @@ class RecognitionView extends Component {
     this.initialState = {
       text: "...",
     };
-
+    console.log("recog view constructor", this.props.record);
     this.state = Object.assign({ record: this.props.record }, this.initialState);
 
   }
@@ -73,12 +73,19 @@ class RecognitionView extends Component {
 
 
   componentWillReceiveProps(props) {
-    this.setState(this.initialState);
+    console.log("recog view componentwillreceive", props.record);
     if (props.record) {
-      this.start();
+      this.recognizer.start();
     } else {
-      this.abort();
+      this.recognizer.abort();
     }
+
+    this.setState(Object.assign({}, this.initialState, { record: props.record }));
+  }
+
+  componentWillUnmount() {
+    console.log("component unmount");
+    this.recognizer.abort();
   }
 
   render() {

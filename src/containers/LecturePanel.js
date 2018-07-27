@@ -246,7 +246,6 @@ class LecturePanel extends Component {
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
     }
 
-    //TODO do not mutate props, separate user's performance from contents
     feedback = async (isCorrect) => {
         const idx = this.state.currentQuestionIndex;
         let answers = Object.assign({}, this.state.answers);
@@ -334,9 +333,10 @@ class LecturePanel extends Component {
     }
 
     componentWillUnmount() {
-        this.destroyTracker();
         window.speechSynthesis.cancel();
         this.speechSynthesizer.deactivate();
+        this.destroyTracker();
+        if (this.videoPlayer) this.videoPlayer.pauseVideo();
     }
 
     render() {
@@ -436,7 +436,7 @@ class LecturePanel extends Component {
 LecturePanel.propTypes = {
     content: PropTypes.object.isRequired,
     video: PropTypes.object.isRequired,
-    userPerformance: PropTypes.object,
+    answers: PropTypes.object.isRequired,
     maxAnswerAttempt: PropTypes.number,
 };
 

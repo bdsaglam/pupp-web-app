@@ -45,7 +45,7 @@ class LectureNavigator extends Component {
 
 LectureNavigator.propTypes = {
     questions: PropTypes.arrayOf(PropTypes.object).isRequired,
-    answers: PropTypes.arrayOf(PropTypes.object),
+    answers: PropTypes.object.isRequired,
     currentIndex: PropTypes.number.isRequired,
     onSelect: PropTypes.func.isRequired,
 };
