@@ -429,7 +429,7 @@ class LecturePanel extends Component {
                         height='100%'
                         url={this.state.feedbackMediaURL}
                         playing={true}
-                        onEnded={() => setTimeout(this.passQuestion, 300)}
+                        onEnded={() => setTimeout(this.passQuestion, 200)}
                     />
                 </div>
             );
