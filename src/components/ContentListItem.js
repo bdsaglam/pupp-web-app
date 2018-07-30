@@ -42,7 +42,6 @@ class ContentListItem extends Component {
             <Progress
               percent={percentScore}
               status={status}
-
               theme={{
                 success: {
                   symbol: '😎',
@@ -61,7 +60,7 @@ class ContentListItem extends Component {
           </div>
         </div>
 
-      </li >
+      </li>
     );
   }
 }

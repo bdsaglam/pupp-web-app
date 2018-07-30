@@ -438,14 +438,14 @@ class LecturePanel extends Component {
         return (
             <div className="LecturePanel">
                 <Row>
-                    <Col xs={1}>
+                    <Col xs={2}>
                         <Row>
                             <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(-1)} >
                                 <FontAwesomeIcon icon={faUndo} color="#496179" size="2x" />
                             </button>
                         </Row>
                     </Col>
-                    <Col xs={10}>
+                    <Col xs={8}>
                         <Row>
                             <div className="VideoPanel">
                                 <VideoDetail
@@ -486,7 +486,7 @@ class LecturePanel extends Component {
                         </Row>
                         <Row></Row>
                     </Col>
-                    <Col xs={1}>
+                    <Col xs={2}>
                         <Row>
                             <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(1)} >
                                 <FontAwesomeIcon icon={faRedo} color="#496179" size="2x" />
