@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import ReactPlayer from 'react-player';
+import PropTypes from "prop-types";
+import ReactPlayer from "react-player";
 
 class VideoDetail extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class VideoDetail extends Component {
     const video = this.props.video;
 
     let url;
-    if (this.props.provider === 'youtube') {
+    if (this.props.provider === "youtube") {
       url = `https://www.youtube.com/watch?v=${video.id}`;
     }
 
@@ -80,12 +80,12 @@ VideoDetail.propTypes = {
 
 VideoDetail.defaultProps = {
   options: {
-    'width': '100%',
-    'height': '100%',
-    'volume': 1,
+    "width": "100%",
+    "height": "100%",
+    "volume": 1,
   },
   config: {
-    'youtube': {
+    "youtube": {
       // https://developers.google.com/youtube/player_parameters
       playerVars: {
         autoplay: 1,

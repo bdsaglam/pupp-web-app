@@ -437,7 +437,7 @@ class LecturePanel extends Component {
 
         return (
             <div className="LecturePanel">
-                <Row className="justify-content-center">
+                <Row>
                     <Col xs={1}>
                         <Row>
                             <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(-1)} >

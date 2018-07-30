@@ -1,13 +1,34 @@
+import _ from "lodash";
 import { sleep } from "./Utils";
+
+const VOICE_CONFIGS = [
+    {
+        name: "Google US English",
+        options: {
+            volume: 1,
+            rate: 0.7,
+            pitch: 1,
+            lang: "en-US",
+        }
+    },
+    {
+        name: "Samantha",
+        options: {
+            volume: 1,
+            rate: 0.7,
+            pitch: 1.8,
+            lang: "en-US",
+        }
+    }
+];
 
 class SpeechSynthesizer {
     constructor(options) {
         this.defaults = {
-            text: '',
             volume: 1,
             rate: 0.7,
             pitch: 1,
-            lang: 'en-US',
+            lang: "en-US",
         };
 
         this.options = Object.assign({}, this.defaults, options);
@@ -68,45 +89,50 @@ class SpeechSynthesizer {
     }
 }
 
-function pickVoice(voices, choices) {
-    const matches = voices.filter(v => choices.includes(v.name));
-    for (const name of choices) {
-        for (const voice of matches) {
-            if (voice.name === name) {
-                return voice;
-            }
-        }
-    }
-    return;
-};
-
-
+// getVoices workaround
 var VOICES = [];
-if ('speechSynthesis' in window) {
+if ("speechSynthesis" in window) {
     window.speechSynthesis.onvoiceschanged = e => {
         const vs = window.speechSynthesis.getVoices();
         if (vs.length > 0) VOICES = vs;
         window.speechSynthesis.onvoiceschanged = null;
     };
 } else {
-    console.warn('The current browser does not support the speechSynthesis API.');
+    console.warn("The current browser does not support the speechSynthesis API.");
 }
+
+function getVoices() {
+    const arr = window.speechSynthesis.getVoices();
+    const voices = arr.length > 0 ? arr : VOICES;
+    return voices;
+};
+
+// selects a preferred voice if available
+function pickVoice(voices, configs) {
+    for (const config of configs) {
+        for (const voice of voices) {
+            if (voice.name === config.name) {
+                return Object.assign({}, { voice: voice }, config.options);
+            }
+        }
+    }
+    return {};
+};
 
 var instance;
 function getSpeaker() {
-    if (!('speechSynthesis' in window)) {
-        console.warn('The current browser does not support the speechSynthesis API.');
+    if (!("speechSynthesis" in window)) {
+        console.warn("The current browser does not support the speechSynthesis API.");
         return;
     }
-    // TODO move to config file
-    const choices = ["Google US English", "Samantha"];
+
+    const voiceNames = _.map(VOICE_CONFIGS, "name");
 
     // if no instance or instance voice does not match
-    if (!instance || !choices.includes(instance.options.voice.name)) {
-        const arr = window.speechSynthesis.getVoices();
-        const voices = arr.length > 0 ? arr : VOICES;
-        const voice = pickVoice(voices, choices);
-        instance = new SpeechSynthesizer({ voice: voice });
+    if (!instance || !voiceNames.includes(instance.options.voice.name)) {
+        const voices = getVoices();
+        const options = pickVoice(voices, VOICE_CONFIGS);
+        instance = new SpeechSynthesizer(options);
     }
     instance.activate();
     return instance;
