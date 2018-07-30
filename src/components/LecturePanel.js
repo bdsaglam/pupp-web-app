@@ -16,7 +16,7 @@ import ReactPlayer from 'react-player';
 import AnswerState from "../libs/AnswerState";
 import getSpeaker from "../libs/Speaker";
 import { sendText } from "../libs/dialogFlowV1";
-import { sleep, playSound, shuffle, sliceByIndices } from "../libs/Utils";
+import { sleep, playSound, shuffle, sliceByIndices, isSubset } from "../libs/Utils";
 import { positive_sounds, negative_sounds, positive_videos, negative_videos } from "../libs/feedbacks";
 
 import VideoDetail from "./VideoDetail";
@@ -60,6 +60,7 @@ class LecturePanel extends Component {
     }
 
     createContexts = (content) => {
+        return [];
         var contexts = [];
         for (const question of content.questions) {
             for (const intention of question.intentions) {
@@ -357,16 +358,32 @@ class LecturePanel extends Component {
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
     }
 
-    onRecognitionResult = (result) => {
-        const userAnswer = result.finalTranscript;
+    evaluateAnswer = (expectedAnswers, receivedAnswer) => {
+        for (const expectedAnswer of expectedAnswers) {
+            if (isSubset(expectedAnswer, receivedAnswer)) return true;
+        }
+        return false;
+    }
+
+    onRecognitionResult = async (recognitionResult) => {
+        const userAnswer = recognitionResult.finalTranscript;
         const question = this.getCurrentQuestion();
-        const expectedAnswer = question.intentions[0].entityValue;
+        const intentName = question.intentName;
+        const expectedAnswers = question.expectedAnswers;
         const contexts = this.contexts;
-        sendText(userAnswer, contexts).then(response => {
-            const parameters = response.parameters;
-            const isCorrect = Object.values(parameters).includes(expectedAnswer);
+        try {
+            const result = await sendText(userAnswer, intentName, contexts);
+            const receivedAnswer = result.parameters;
+            const isCorrect = this.evaluateAnswer(expectedAnswers, receivedAnswer);
+            console.log("expectedAnswers");
+            console.log(expectedAnswers);
+            console.log("receivedAnswer");
+            console.log(receivedAnswer);
+            console.log("isCorrect", isCorrect);
             this.feedback(isCorrect);
-        });
+        } catch (error) {
+            console.log("dialog flow api request error");
+        }
     }
 
     onSkipClick = (event) => {

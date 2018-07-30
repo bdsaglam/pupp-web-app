@@ -11,11 +11,12 @@ var config = {
     }
 };
 
-export async function sendText(text, contexts = []) {
+export async function sendText(text, intentName, contexts = []) {
+    const query = `intent-${intentName}. ${text}`;
     var bodyParameters = {
         "v": "20150910",
         "lang": "en",
-        "query": text,
+        "query": query,
         "contexts": contexts,
         "sessionId": SESSION_ID,
     };
@@ -26,5 +27,7 @@ export async function sendText(text, contexts = []) {
         config
     );
 
+    console.log("dialog flow response");
+    console.log(response);
     return response.data.result;
 }

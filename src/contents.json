@@ -8,7 +8,7 @@
         "provider": "youtube",
         "type": "video",
         "startTime": 3,
-        "endTime": 25
+        "endTime": 35
       },
       "questions": [
         {
@@ -28,11 +28,10 @@
               "y": 0.3
             }
           },
-          "intentions": [
+          "intentName": "fruits-vegetables",
+          "expectedAnswers": [
             {
-              "entityParameter": "fruit",
-              "entityValue": "apple",
-              "name": "fruits-vegetables"
+              "lingo_fruits": "apple"
             }
           ],
           "speechText": "What is this?",
@@ -65,11 +64,10 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "fruits-vegetables",
+          "expectedAnswers": [
             {
-              "entityParameter": "fruit",
-              "entityValue": "banana",
-              "name": "fruits-vegetables"
+              "lingo_fruits": "banana"
             }
           ],
           "speechText": "What is this?",
@@ -102,11 +100,10 @@
               "y": 0.3
             }
           },
-          "intentions": [
+          "intentName": "fruits-vegetables",
+          "expectedAnswers": [
             {
-              "entityParameter": "vegetable",
-              "entityValue": "cabbage",
-              "name": "fruits-vegetables"
+              "lingo_vegetables": "cabbage"
             }
           ],
           "speechText": "What is this?",
@@ -166,11 +163,10 @@
               "y": 0.4
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "parrot",
-              "name": "Animals"
+              "lingo_animals": "parrot"
             }
           ],
           "speechText": "What is this?",
@@ -203,11 +199,10 @@
               "y": 0.35
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "monkey",
-              "name": "Animals"
+              "lingo_animals": "monkey"
             }
           ],
           "speechText": "What is this?",
@@ -240,11 +235,10 @@
               "y": 0.5
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "giraffe",
-              "name": "Animals"
+              "lingo_animals": "giraffe"
             }
           ],
           "speechText": "What is this?",
@@ -277,11 +271,10 @@
               "y": 0.2
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "zebra",
-              "name": "Animals"
+              "lingo_animals": "zebra"
             }
           ],
           "speechText": "What is this?",
@@ -314,11 +307,10 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "hippo",
-              "name": "Animals"
+              "lingo_animals": "hippo"
             }
           ],
           "speechText": "What is this?",
@@ -380,11 +372,10 @@
               "y": 0.4
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "horse",
-              "name": "animal"
+              "lingo_animals": "horse"
             }
           ],
           "speechText": "What is this?",
@@ -417,11 +408,10 @@
               "y": 0.35
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "color",
-              "entityValue": "green",
-              "name": "color"
+              "color": "green"
             }
           ],
           "speechText": "What color is the horse?",
@@ -454,11 +444,10 @@
               "y": 0.5
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "cow",
-              "name": "animal"
+              "lingo_animals": "cow"
             }
           ],
           "speechText": "What is this?",
@@ -491,11 +480,10 @@
               "y": 0.2
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "color",
-              "entityValue": "purple",
-              "name": "color"
+              "color": "purple"
             }
           ],
           "speechText": "What color are the cows?",
@@ -528,11 +516,10 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "color",
-              "entityValue": "yellow",
-              "name": "color"
+              "color": "yellow"
             }
           ],
           "speechText": "What color are the pigs?",
@@ -565,11 +552,10 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "animal",
-              "entityValue": "ship",
-              "name": "animal"
+              "lingo_animals": "sheep"
             }
           ],
           "speechText": "What is this?",
@@ -602,11 +588,10 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "animals",
+          "expectedAnswers": [
             {
-              "entityParameter": "color",
-              "entityValue": "yellow",
-              "name": "color"
+              "color": "yellow"
             }
           ],
           "speechText": "What color are the sheeps?",
@@ -661,15 +646,14 @@
               "type": "image"
             }
           ],
-          "intentions": [
+          "intentName": "red-riding-hood",
+          "expectedAnswers": [
             {
-              "entityParameter": "lrrh",
-              "entityValue": "grandmother",
-              "name": "little-red-riding-hood"
+              "lingo_relatives": "grandmother"
             }
           ],
           "speechText": "Who is ill?",
-          "startTime": 26,
+          "startTime": 17,
           "stopTime": 32,
           "wrongHints": [
             {
@@ -698,11 +682,10 @@
               "y": 0.55
             }
           },
-          "intentions": [
+          "intentName": "red-riding-hood",
+          "expectedAnswers": [
             {
-              "entityParameter": "lrrh",
-              "entityValue": "flowers",
-              "name": "little-red-riding-hood"
+              "lingo_environment": "flower"
             }
           ],
           "speechText": "What is the road filled with?",
@@ -735,16 +718,15 @@
               "y": 0.08
             }
           },
-          "intentions": [
+          "intentName": "red-riding-hood",
+          "expectedAnswers": [
             {
-              "entityParameter": "lrrh",
-              "entityValue": "hunter",
-              "name": "little-red-riding-hood"
+              "content_rrh": "hunter"
             }
           ],
           "speechText": "Who takes the girl to her grandma's home?",
           "startTime": 193,
-          "stopTime": 201,
+          "stopTime": 202,
           "wrongHints": [
             {
               "attributes": {
@@ -759,8 +741,8 @@
           "correctHints": [
             {
               "attributes": {
-                "speechText": "night cab and glasses",
-                "viewUri": "night_cab_and_glasses"
+                "speechText": "night cap and glasses",
+                "viewUri": "cap_and_glasses"
               },
               "type": "image"
             }
@@ -772,11 +754,13 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "red-riding-hood",
+          "expectedAnswers": [
             {
-              "entityParameter": "lrrh",
-              "entityValue": "night cab and glasses",
-              "name": "little-red-riding-hood"
+              "lingo_wearables": [
+                "cap",
+                "glasses"
+              ]
             }
           ],
           "speechText": "What does the wolf wear to look like the grandma?",
@@ -809,11 +793,10 @@
               "y": 0.1
             }
           },
-          "intentions": [
+          "intentName": "red-riding-hood",
+          "expectedAnswers": [
             {
-              "entityParameter": "lrrh",
-              "entityValue": "hunter",
-              "name": "little-red-riding-hood"
+              "content_rrh": "hunter"
             }
           ],
           "speechText": "Who helps the girl?",
@@ -846,11 +829,10 @@
               "y": 0.5
             }
           },
-          "intentions": [
+          "intentName": "red-riding-hood",
+          "expectedAnswers": [
             {
-              "entityParameter": "lrrh",
-              "entityValue": "cookies",
-              "name": "little-red-riding-hood"
+              "lingo_foods": "cookie"
             }
           ],
           "speechText": "What does they eat?",
@@ -884,6 +866,112 @@
         "grandmother"
       ],
       "title": "Little Red Riding Hood"
+    },
+    {
+      "id": "5",
+      "level": 3,
+      "media": {
+        "id": "HKSRbsJVli0",
+        "provider": "youtube",
+        "type": "video"
+      },
+      "questions": [
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "number": "2"
+            }
+          ],
+          "speechText": "How many daughters does the evil mother have?",
+          "startTime": 28,
+          "stopTime": 34
+        },
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "lingo_adjectives": "bad"
+            }
+          ],
+          "speechText": "How do they behave Cinderella?",
+          "startTime": 39,
+          "stopTime": 62
+        },
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "number": "7"
+            }
+          ],
+          "speechText": "How many mice do the fairy use?",
+          "startTime": 154,
+          "stopTime": 179
+        },
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "lingo_adjectives": "beautiful"
+            }
+          ],
+          "speechText": "How does Cinderella seem at the ball?",
+          "startTime": 239,
+          "stopTime": 253
+        },
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "lingo_wearables": "shoe"
+            }
+          ],
+          "speechText": "What does she drop at the palace?",
+          "startTime": 301,
+          "stopTime": 310
+        },
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "content_cinderella": "cinderella"
+            }
+          ],
+          "speechText": "To whom does the shoe fit well?",
+          "startTime": 377,
+          "stopTime": 388
+        },
+        {
+          "intentName": "cinderella",
+          "expectedAnswers": [
+            {
+              "content_cinderella": "cinderella",
+              "lingo_relatives": "mother"
+            }
+          ],
+          "speechText": "Who is that fairy?",
+          "startTime": 433,
+          "stopTime": 441
+        }
+      ],
+      "scenario": [
+        "story",
+        "question",
+        "answer"
+      ],
+      "skills": [
+        "comprehension",
+        "listening",
+        "speaking"
+      ],
+      "tags": [
+        "fairy",
+        "cinderella",
+        "prince",
+        "palace"
+      ],
+      "title": "Cinderella"
     }
   ]
 }

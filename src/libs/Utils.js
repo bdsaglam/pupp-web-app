@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export function sleep(time) {
     /* 
     usage in async function 
@@ -51,4 +53,15 @@ export function sliceByIndices(a, indices) {
     const b = indices.map(i => a[i]);
     return b;
 }
+
+
+export function isSubset(aSubset, aSuperset) {
+    return _.every(aSubset, (val, key) => _.isEqual(val, aSuperset[key]));
+}
+
+
+
+
+
+
 
