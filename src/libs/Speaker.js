@@ -12,11 +12,20 @@ const VOICE_CONFIGS = [
         }
     },
     {
-        name: "Samantha",
+        name: "Google UK English Male",
         options: {
             volume: 1,
             rate: 0.7,
-            pitch: 1.8,
+            pitch: 1,
+            lang: "en-GB",
+        }
+    },
+    {
+        name: "Samantha",
+        options: {
+            volume: 1,
+            rate: 0.6,
+            pitch: 1.5,
             lang: "en-US",
         }
     }
@@ -127,7 +136,6 @@ function getSpeaker() {
     }
 
     const voiceNames = _.map(VOICE_CONFIGS, "name");
-
     // if no instance or instance voice does not match
     if (!instance || !voiceNames.includes(instance.options.voice.name)) {
         const voices = getVoices();
