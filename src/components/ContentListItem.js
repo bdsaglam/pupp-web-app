@@ -19,12 +19,18 @@ class ContentListItem extends Component {
       source = placeholderImage;
     }
 
-    let status = "default";
-    if (percentScore > 80) {
+    let status;
+    if (percentScore > 90) {
       status = "success";
+    }
+    else if (percentScore > 60) {
+      status = "good";
     }
     else if (percentScore > 0) {
       status = "active";
+    }
+    else {
+      status = "default";
     }
 
     return (
@@ -45,11 +51,15 @@ class ContentListItem extends Component {
               theme={{
                 success: {
                   symbol: '😎',
-                  color: "#009644"
+                  color: "#27ae60"
+                },
+                good: {
+                  symbol: '😀',
+                  color: "#2ecc71"
                 },
                 active: {
-                  symbol: '😀',
-                  color: '#03a9f4'
+                  symbol: '🤔',
+                  color: '#3498db'
                 },
                 default: {
                   symbol: '😴',

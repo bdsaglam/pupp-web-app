@@ -4,23 +4,40 @@
       "id": "1",
       "level": 1,
       "media": {
+        "endTime": 35,
         "id": "utwgf_G91Eo",
         "provider": "youtube",
-        "type": "video",
         "startTime": 3,
-        "endTime": 35
+        "type": "video"
       },
       "questions": [
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "apple",
-                "viewUri": "apple"
-              },
-              "type": "image"
+              "lingo_fruits": "apple"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "apple",
+                  "viewUri": "apple"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "grapes",
+                  "viewUri": "grapes"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 0,
             "center": {
@@ -29,34 +46,37 @@
             }
           },
           "intentName": "fruits-vegetables",
-          "expectedAnswers": [
-            {
-              "lingo_fruits": "apple"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 5,
-          "stopTime": 8,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "grapes",
-                "viewUri": "grapes"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 8
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "banana",
-                "viewUri": "banana"
-              },
-              "type": "image"
+              "lingo_fruits": "banana"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "banana",
+                  "viewUri": "banana"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "orange",
+                  "viewUri": "orange"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 0,
             "center": {
@@ -65,34 +85,37 @@
             }
           },
           "intentName": "fruits-vegetables",
-          "expectedAnswers": [
-            {
-              "lingo_fruits": "banana"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 11,
-          "stopTime": 20,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "orange",
-                "viewUri": "orange"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 20
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "cabbage",
-                "viewUri": "cabbage"
-              },
-              "type": "image"
+              "lingo_vegetables": "cabbage"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "cabbage",
+                  "viewUri": "cabbage"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "apple",
+                  "viewUri": "apple"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 0,
             "center": {
@@ -101,23 +124,9 @@
             }
           },
           "intentName": "fruits-vegetables",
-          "expectedAnswers": [
-            {
-              "lingo_vegetables": "cabbage"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 21,
-          "stopTime": 30,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "apple",
-                "viewUri": "apple"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 30
         }
       ],
       "scenario": [
@@ -134,28 +143,45 @@
         "vegetable",
         "food"
       ],
-      "title": "Fruits and Vegetables"
+      "title": "Fruits and Vegetables 🍎🥦"
     },
     {
       "id": "2",
       "level": 2,
       "media": {
+        "endTime": 227,
         "id": "9nHuh8SrvR4",
         "provider": "youtube",
-        "type": "video",
-        "endTime": 227
+        "type": "video"
       },
       "questions": [
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "parrot",
-                "viewUri": "parrot"
-              },
-              "type": "image"
+              "lingo_animals": "parrot"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "parrot",
+                  "viewUri": "parrot"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "hippo",
+                  "viewUri": "hippo"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": -90,
             "center": {
@@ -164,34 +190,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "parrot"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 17,
-          "stopTime": 46,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "hippo",
-                "viewUri": "hippo"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 46
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "monkey",
-                "viewUri": "monkey"
-              },
-              "type": "image"
+              "lingo_animals": "monkey"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "monkey",
+                  "viewUri": "monkey"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "zebra",
+                  "viewUri": "zebra"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -200,34 +229,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "monkey"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 66,
-          "stopTime": 108,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "zebra",
-                "viewUri": "zebra"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 108
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "giraffe",
-                "viewUri": "giraffe"
-              },
-              "type": "image"
+              "lingo_animals": "giraffe"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "giraffe",
+                  "viewUri": "giraffe"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "parrot",
+                  "viewUri": "parrot"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": -45,
             "center": {
@@ -236,34 +268,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "giraffe"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 118,
-          "stopTime": 150,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "parrot",
-                "viewUri": "parrot"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 150
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "zebra",
-                "viewUri": "zebra"
-              },
-              "type": "image"
+              "lingo_animals": "zebra"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "zebra",
+                  "viewUri": "zebra"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "giraffe",
+                  "viewUri": "giraffe"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -272,34 +307,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "zebra"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 164,
-          "stopTime": 190,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "giraffe",
-                "viewUri": "giraffe"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 190
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "hippo",
-                "viewUri": "hippo"
-              },
-              "type": "image"
+              "lingo_animals": "hippo"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "hippo",
+                  "viewUri": "hippo"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "monkey",
+                  "viewUri": "monkey"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -308,23 +346,9 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "hippo"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 211,
-          "stopTime": 220,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "monkey",
-                "viewUri": "monkey"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 220
         }
       ],
       "scenario": [
@@ -342,29 +366,46 @@
         "safari",
         "steve and maggie"
       ],
-      "title": "Animals"
+      "title": "Animals 🐒🦒🦓"
     },
     {
       "id": "3",
       "level": 2,
       "media": {
+        "endTime": 397,
         "id": "B1F-o7DP3A0",
         "provider": "youtube",
-        "type": "video",
         "startTime": 1,
-        "endTime": 397
+        "type": "video"
       },
       "questions": [
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "horse",
-                "viewUri": "horse"
-              },
-              "type": "image"
+              "lingo_animals": "horse"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "horse",
+                  "viewUri": "horse"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "cow",
+                  "viewUri": "cow"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": -90,
             "center": {
@@ -373,34 +414,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "horse"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 53,
-          "stopTime": 59,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "cow",
-                "viewUri": "cow"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 59
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "green",
-                "viewUri": "green"
-              },
-              "type": "image"
+              "color": "green"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "green",
+                  "viewUri": "green"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "purple",
+                  "viewUri": "purple"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -409,34 +453,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "color": "green"
-            }
-          ],
           "speechText": "What color is the horse?",
           "startTime": 86,
-          "stopTime": 111,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "purple",
-                "viewUri": "purple"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 111
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "cow",
-                "viewUri": "cow"
-              },
-              "type": "image"
+              "lingo_animals": "cow"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "cow",
+                  "viewUri": "cow"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "sheep",
+                  "viewUri": "sheep"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": -45,
             "center": {
@@ -445,34 +492,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "lingo_animals": "cow"
-            }
-          ],
           "speechText": "What is this?",
           "startTime": 118,
-          "stopTime": 134,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "sheep",
-                "viewUri": "sheep"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 134
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "purple",
-                "viewUri": "purple"
-              },
-              "type": "image"
+              "color": "purple"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "purple",
+                  "viewUri": "purple"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "red",
+                  "viewUri": "red"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -481,70 +531,37 @@
             }
           },
           "intentName": "animals",
-          "expectedAnswers": [
-            {
-              "color": "purple"
-            }
-          ],
           "speechText": "What color are the cows?",
           "startTime": 153,
-          "stopTime": 187,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "red",
-                "viewUri": "red"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 187
         },
         {
-          "correctHints": [
-            {
-              "attributes": {
-                "speechText": "yellow",
-                "viewUri": "yellow"
-              },
-              "type": "image"
-            }
-          ],
-          "indicator": {
-            "angle": 45,
-            "center": {
-              "x": 0.5,
-              "y": 0.1
-            }
-          },
-          "intentName": "animals",
           "expectedAnswers": [
             {
               "color": "yellow"
             }
           ],
-          "speechText": "What color are the pigs?",
-          "startTime": 211,
-          "stopTime": 220,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "green",
-                "viewUri": "green"
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "yellow",
+                  "viewUri": "yellow"
+                },
+                "isCorrect": true,
+                "type": "image"
               },
-              "type": "image"
-            }
-          ]
-        },
-        {
-          "correctHints": [
-            {
-              "attributes": {
-                "speechText": "sheep",
-                "viewUri": "sheep"
-              },
-              "type": "image"
-            }
-          ],
+              {
+                "attributes": {
+                  "speechText": "green",
+                  "viewUri": "green"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -553,34 +570,37 @@
             }
           },
           "intentName": "animals",
+          "speechText": "What color are the pigs?",
+          "startTime": 211,
+          "stopTime": 220
+        },
+        {
           "expectedAnswers": [
             {
               "lingo_animals": "sheep"
             }
           ],
-          "speechText": "What is this?",
-          "startTime": 268,
-          "stopTime": 285,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "horse",
-                "viewUri": "horse"
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "sheep",
+                  "viewUri": "sheep"
+                },
+                "isCorrect": true,
+                "type": "image"
               },
-              "type": "image"
-            }
-          ]
-        },
-        {
-          "correctHints": [
-            {
-              "attributes": {
-                "speechText": "red",
-                "viewUri": "red"
-              },
-              "type": "image"
-            }
-          ],
+              {
+                "attributes": {
+                  "speechText": "horse",
+                  "viewUri": "horse"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 45,
             "center": {
@@ -589,23 +609,48 @@
             }
           },
           "intentName": "animals",
+          "speechText": "What is this?",
+          "startTime": 268,
+          "stopTime": 285
+        },
+        {
           "expectedAnswers": [
             {
               "color": "yellow"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "red",
+                  "viewUri": "red"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "yellow",
+                  "viewUri": "yellow"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "indicator": {
+            "angle": 45,
+            "center": {
+              "x": 0.5,
+              "y": 0.1
+            }
+          },
+          "intentName": "animals",
           "speechText": "What color are the sheeps?",
           "startTime": 324,
-          "stopTime": 344,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "yellow",
-                "viewUri": "yellow"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 344
         }
       ],
       "scenario": [
@@ -625,7 +670,7 @@
         "farm",
         "steve and maggie"
       ],
-      "title": "Animals and Colors"
+      "title": "Animals and Colors 🐑🐄🐎🌈"
     },
     {
       "id": "4",
@@ -637,44 +682,64 @@
       },
       "questions": [
         {
-          "correctHints": [
-            {
-              "attributes": {
-                "speechText": "grandmother",
-                "viewUri": "grandmother"
-              },
-              "type": "image"
-            }
-          ],
-          "intentName": "red-riding-hood",
           "expectedAnswers": [
             {
               "lingo_relatives": "grandmother"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "grandmother",
+                  "viewUri": "grandmother"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "mother",
+                  "viewUri": "mother"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "intentName": "red-riding-hood",
           "speechText": "Who is ill?",
           "startTime": 17,
-          "stopTime": 32,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "mother",
-                "viewUri": "mother"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 32
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "flowers",
-                "viewUri": "flowers"
-              },
-              "type": "image"
+              "lingo_environment": "flower"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "flowers",
+                  "viewUri": "flowers"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "bushes",
+                  "viewUri": "bushes"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 240,
             "center": {
@@ -683,34 +748,37 @@
             }
           },
           "intentName": "red-riding-hood",
-          "expectedAnswers": [
-            {
-              "lingo_environment": "flower"
-            }
-          ],
           "speechText": "What is the road filled with?",
           "startTime": 59,
-          "stopTime": 73,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "bushes",
-                "viewUri": "bushes"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 73
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "hunter",
-                "viewUri": "hunter"
-              },
-              "type": "image"
+              "content_rrh": "hunter"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "hunter",
+                  "viewUri": "hunter"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "the big wolf",
+                  "viewUri": "wolf"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 180,
             "center": {
@@ -719,42 +787,11 @@
             }
           },
           "intentName": "red-riding-hood",
-          "expectedAnswers": [
-            {
-              "content_rrh": "hunter"
-            }
-          ],
           "speechText": "Who takes the girl to her grandma's home?",
           "startTime": 193,
-          "stopTime": 202,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "the big wolf",
-                "viewUri": "wolf"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 202
         },
         {
-          "correctHints": [
-            {
-              "attributes": {
-                "speechText": "night cap and glasses",
-                "viewUri": "cap_and_glasses"
-              },
-              "type": "image"
-            }
-          ],
-          "indicator": {
-            "angle": 180,
-            "center": {
-              "x": 0.65,
-              "y": 0.1
-            }
-          },
-          "intentName": "red-riding-hood",
           "expectedAnswers": [
             {
               "lingo_wearables": [
@@ -763,29 +800,66 @@
               ]
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "night cap and glasses",
+                  "viewUri": "cap_and_glasses"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "drapes",
+                  "viewUri": "drapes"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "indicator": {
+            "angle": 180,
+            "center": {
+              "x": 0.65,
+              "y": 0.1
+            }
+          },
+          "intentName": "red-riding-hood",
           "speechText": "What does the wolf wear to look like the grandma?",
           "startTime": 311,
-          "stopTime": 326,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "drapes",
-                "viewUri": "drapes"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 326
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "hunter",
-                "viewUri": "hunter"
-              },
-              "type": "image"
+              "content_rrh": "hunter"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "hunter",
+                  "viewUri": "hunter"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "grandma",
+                  "viewUri": "grandmother"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 15,
             "center": {
@@ -794,34 +868,37 @@
             }
           },
           "intentName": "red-riding-hood",
-          "expectedAnswers": [
-            {
-              "content_rrh": "hunter"
-            }
-          ],
           "speechText": "Who helps the girl?",
           "startTime": 403,
-          "stopTime": 424,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "grandma",
-                "viewUri": "grandmother"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 424
         },
         {
-          "correctHints": [
+          "expectedAnswers": [
             {
-              "attributes": {
-                "speechText": "cookies",
-                "viewUri": "cookies"
-              },
-              "type": "image"
+              "lingo_foods": "cookie"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "cookies",
+                  "viewUri": "cookies"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "cake",
+                  "viewUri": "cake"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
           "indicator": {
             "angle": 75,
             "center": {
@@ -830,23 +907,9 @@
             }
           },
           "intentName": "red-riding-hood",
-          "expectedAnswers": [
-            {
-              "lingo_foods": "cookie"
-            }
-          ],
           "speechText": "What does they eat?",
           "startTime": 450,
-          "stopTime": 457,
-          "wrongHints": [
-            {
-              "attributes": {
-                "speechText": "cake",
-                "viewUri": "cake"
-              },
-              "type": "image"
-            }
-          ]
+          "stopTime": 457
         }
       ],
       "scenario": [
@@ -877,79 +940,184 @@
       },
       "questions": [
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "number": "2"
             }
           ],
+          "intentName": "cinderella",
           "speechText": "How many daughters does the evil mother have?",
           "startTime": 28,
           "stopTime": 34
         },
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "lingo_adjectives": "bad"
             }
           ],
+          "intentName": "cinderella",
           "speechText": "How do they behave Cinderella?",
           "startTime": 39,
           "stopTime": 62
         },
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "number": "7"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "seven mice",
+                  "viewUri": "cinderella_seven_mice"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "four mice",
+                  "viewUri": "cinderella_four_mice"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "intentName": "cinderella",
           "speechText": "How many mice do the fairy use?",
           "startTime": 154,
           "stopTime": 179
         },
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "lingo_adjectives": "beautiful"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "beautiful",
+                  "viewUri": "cinderella_beautiful"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "sad",
+                  "viewUri": "cinderella_sad"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "intentName": "cinderella",
           "speechText": "How does Cinderella seem at the ball?",
           "startTime": 239,
           "stopTime": 253
         },
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "lingo_wearables": "shoe"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "her magic shoes",
+                  "viewUri": "cinderella_shoe"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "her crown",
+                  "viewUri": "cinderella_crown"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "intentName": "cinderella",
           "speechText": "What does she drop at the palace?",
           "startTime": 301,
           "stopTime": 310
         },
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "content_cinderella": "cinderella"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "to her sister",
+                  "viewUri": "cinderella_sister"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "to Cinderella",
+                  "viewUri": "cinderella_cinderella"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "intentName": "cinderella",
           "speechText": "To whom does the shoe fit well?",
           "startTime": 377,
           "stopTime": 388
         },
         {
-          "intentName": "cinderella",
           "expectedAnswers": [
             {
               "content_cinderella": "cinderella",
               "lingo_relatives": "mother"
             }
           ],
+          "hint": {
+            "choices": [
+              {
+                "attributes": {
+                  "speechText": "Cinderella's mother",
+                  "viewUri": "cinderella_mother"
+                },
+                "isCorrect": true,
+                "type": "image"
+              },
+              {
+                "attributes": {
+                  "speechText": "Cinderella's evil mother",
+                  "viewUri": "cinderella_evil_mother"
+                },
+                "isCorrect": false,
+                "type": "image"
+              }
+            ],
+            "type": "multi-choice"
+          },
+          "intentName": "cinderella",
           "speechText": "Who is that fairy?",
           "startTime": 433,
           "stopTime": 441
@@ -972,6 +1140,111 @@
         "palace"
       ],
       "title": "Cinderella"
+    },
+    {
+      "id": "6",
+      "level": 4,
+      "media": {
+        "id": "aewbOlGXv6s",
+        "provider": "youtube",
+        "type": "video"
+      },
+      "questions": [
+        {
+          "expectedAnswers": [
+            {
+              "content_pinocchio": "puppet"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "What does he do with the wood?",
+          "startTime": 31,
+          "stopTime": 38
+        },
+        {
+          "expectedAnswers": [
+            {
+              "content_pinocchio": "pinocchio"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "What is the name of the puppet?",
+          "startTime": 142,
+          "stopTime": 149
+        },
+        {
+          "expectedAnswers": [
+            {
+              "content_pinocchio": "clown"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "Who is calling the costumers?",
+          "startTime": 187,
+          "stopTime": 211
+        },
+        {
+          "expectedAnswers": [
+            {
+              "lingo_school": "school"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "Where is he going?",
+          "startTime": 339,
+          "stopTime": 352
+        },
+        {
+          "expectedAnswers": [
+            {
+              "lingo_verbs": "lie"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "Why does his nose start to grow?",
+          "startTime": 428,
+          "stopTime": 480
+        },
+        {
+          "expectedAnswers": [
+            {
+              "content_pinocchio": "made of wood"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "How does he stay on the water?",
+          "startTime": 516,
+          "stopTime": 539
+        },
+        {
+          "expectedAnswers": [
+            {
+              "lingo_adjectives": "giant",
+              "lingo_animals": "fish"
+            }
+          ],
+          "intentName": "pinocchio",
+          "speechText": "Who swallows Pinnochio?",
+          "startTime": 540,
+          "stopTime": 564
+        }
+      ],
+      "scenario": [
+        "story",
+        "question",
+        "answer"
+      ],
+      "skills": [
+        "comprehension",
+        "listening",
+        "speaking"
+      ],
+      "tags": [
+        "pinocchio",
+        "puppet",
+        "gephetto"
+      ],
+      "title": "Pinocchio 🤥"
     }
   ]
 }

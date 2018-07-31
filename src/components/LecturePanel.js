@@ -72,8 +72,8 @@ class LecturePanel extends Component {
 
     createHintOrder = (question) => {
         let hintOrder;
-        if (question.correctHints && question.wrongHints) {
-            const numHints = question.correctHints.length + question.wrongHints.length;
+        if (question.hint && question.hint.type === "multi-choice") {
+            const numHints = question.hint.choices.length;
             let hintOrder = [...Array(numHints).keys()];
             shuffle(hintOrder);
         }
@@ -133,7 +133,7 @@ class LecturePanel extends Component {
     }
 
     createHint = (hintInfo, ref) => {
-        const hint = (
+        const hintCard = (
             <HintCard
                 imageURL={`${contentBucketURL}/flashcards/${hintInfo.attributes.viewUri}.png`}
                 onClick={(event) => this.speechSynthesizer.aspeak(hintInfo.attributes.speechText)}
@@ -141,14 +141,14 @@ class LecturePanel extends Component {
             />
         );
 
-        return hint;
+        return hintCard;
     }
 
     createHints = (question) => {
         let ch, wh;
-        if (question.correctHints && question.wrongHints) {
-            ch = this.createHint(question.correctHints[0], this.correctHintRef);
-            wh = this.createHint(question.wrongHints[0], this.wrongHintRef);
+        if (question.hint && question.hint.type === "multi-choice") {
+            ch = this.createHint(question.hint.choices[0], this.correctHintRef);
+            wh = this.createHint(question.hint.choices[1], this.wrongHintRef);
         }
 
         let hints;
@@ -242,18 +242,17 @@ class LecturePanel extends Component {
         avatar.stopAnimation();
         await sleep(500);
 
-        if (question.correctHints && question.wrongHints) {
-            const correctHintText = question.correctHints[0].attributes.speechText;
-            const wrongHintText = question.wrongHints[0].attributes.speechText;
+        if (question.hint && question.hint.type === 'multi-choice') {
+            const correctHint = _.find(question.hint.choices, ['isCorrect', true]);
+            const wrongHint = _.find(question.hint.choices, ['isCorrect', false]);
 
-            const correctHint = this.correctHintRef.current;
-            const wrongHint = this.wrongHintRef.current;
+            const ch = this.correctHintRef.current;
+            const wh = this.wrongHintRef.current;
 
             let hints = [
-                { element: correctHint, speechText: correctHintText },
-                { element: wrongHint, speechText: wrongHintText }
+                { element: ch, speechText: correctHint.attributes.speechText },
+                { element: wh, speechText: wrongHint.attributes.speechText }
             ];
-
 
             let hint1, hint2;
             if (this.state.hintOrder) {
