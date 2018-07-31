@@ -1,0 +1,29 @@
+.ContentCurrent .Thumbnail {
+    position: relative;
+}
+
+.ContentCurrent .Thumbnail img {
+    width: 100%;
+    filter: brightness(70%);
+}
+
+.ContentCurrent .Thumbnail .PlayIcon {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    border-radius: 10px;
+    padding: 10px 25px;
+    background-color: #dd2b27;
+    transition: all 0.3s;
+}
+
+.ContentCurrent .Thumbnail .PlayIcon:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.ContentCurrent .Caption {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}

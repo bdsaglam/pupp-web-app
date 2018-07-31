@@ -1,10 +1,10 @@
 import _ from "lodash";
 import Fuse from "fuse.js";
 import React, { Component } from "react";
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 import ContentList from "./ContentList";
 import SearchBar from "./SearchBar";
+
+import "./FilterableContentList.css";
 
 class FilterableContentList extends Component {
     constructor(props) {
@@ -67,14 +67,8 @@ class FilterableContentList extends Component {
 
         return (
             <div className="FilterableContentList">
-                <Row>
-                    <Col sm={12} md={4} mdPush={8}>
-                        <SearchBar onSubmit={this.handleSearch} />
-                    </Col>
-                    <Col sm={12} md={8} mdPull={4}>
-                        <ContentList contents={contents} videos={videos} trackRecords={trackRecords} />
-                    </Col>
-                </Row>
+                <SearchBar onSubmit={this.handleSearch} />
+                <ContentList contents={contents} videos={videos} trackRecords={trackRecords} />
             </div>
         );
     }

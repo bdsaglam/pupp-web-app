@@ -41,7 +41,7 @@ class ContentListItem extends Component {
           </div>
           <div className="media-body">
             <div className="media-info">
-              <h3>{content.title}</h3>
+              <h4>{content.title}</h4>
               <Level level={content.level}></Level>
             </div>
 
@@ -77,6 +77,8 @@ class ContentListItem extends Component {
 
 ContentListItem.propTypes = {
   content: PropTypes.object.isRequired,
+  video: PropTypes.object,
+  percentScore: PropTypes.number,
 };
 
 

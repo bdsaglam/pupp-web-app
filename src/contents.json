@@ -143,7 +143,8 @@
         "vegetable",
         "food"
       ],
-      "title": "Fruits and Vegetables 🍎🥦"
+      "title": "Fruits and Vegetables",
+      "emojiTitle": "🍎🥦"
     },
     {
       "id": "2",
@@ -366,7 +367,9 @@
         "safari",
         "steve and maggie"
       ],
-      "title": "Animals 🐒🦒🦓"
+      "title": "Animals",
+      "emojiTitle": "🐒🦒🦓"
+      
     },
     {
       "id": "3",
@@ -670,7 +673,8 @@
         "farm",
         "steve and maggie"
       ],
-      "title": "Animals and Colors 🐑🐄🐎🌈"
+      "title": "Animals and Colors",
+      "emojiTitle": "🐑🐄🐎🌈"
     },
     {
       "id": "4",
@@ -928,7 +932,8 @@
         "forest",
         "grandmother"
       ],
-      "title": "Little Red Riding Hood"
+      "title": "Little Red Riding Hood",
+      "emojiTitle": "👧🏻🌲😈🐕🌲👵🏼"
     },
     {
       "id": "5",
@@ -1139,7 +1144,9 @@
         "prince",
         "palace"
       ],
-      "title": "Cinderella 👸🏼 🤴🏼 🧚‍♀️"
+      "title": "Cinderella",
+      "emojiTitle": "🧚‍♀️👸🤴"
+      
     },
     {
       "id": "6",
@@ -1249,7 +1256,8 @@
         "puppet",
         "gephetto"
       ],
-      "title": "Pinocchio 🤥"
+      "title": "Pinocchio",
+      "emojiTitle": "🤥"
     }
   ]
 }

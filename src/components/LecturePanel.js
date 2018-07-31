@@ -374,11 +374,11 @@ class LecturePanel extends Component {
             const result = await sendText(userAnswer, intentName, contexts);
             const receivedAnswer = result.parameters;
             const isCorrect = this.evaluateAnswer(expectedAnswers, receivedAnswer);
-            console.log("expectedAnswers");
-            console.log(expectedAnswers);
-            console.log("receivedAnswer");
-            console.log(receivedAnswer);
-            console.log("isCorrect", isCorrect);
+            // console.log("expectedAnswers");
+            // console.log(expectedAnswers);
+            // console.log("receivedAnswer");
+            // console.log(receivedAnswer);
+            // console.log("isCorrect", isCorrect);
             this.feedback(isCorrect);
         } catch (error) {
             console.log("dialog flow api request error");

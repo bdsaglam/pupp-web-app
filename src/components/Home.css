@@ -1,0 +1,11 @@
+.Home .ContentCurrent {
+    margin-bottom: 20px;
+}
+
+.Home a {
+    color: rgb(29, 25, 25);
+}
+
+.Home a:hover {
+    text-decoration: none;
+}

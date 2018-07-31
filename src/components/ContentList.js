@@ -10,7 +10,7 @@ import "./ContentList.css";
 class ContentList extends Component {
     renderContents() {
         if (isEmpty(this.props.contents)) {
-            return <p>No content was found</p>;
+            return <div>loading contents...</div>;
         }
 
         // map from object to array
@@ -35,7 +35,6 @@ class ContentList extends Component {
     render() {
         return (
             <div className="ContentList">
-                <h3>Contents</h3>
                 <ul className="list-group">
                     {this.renderContents()}
                 </ul>

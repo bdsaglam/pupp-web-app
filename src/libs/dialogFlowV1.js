@@ -26,8 +26,5 @@ export async function sendText(text, intentName, contexts = []) {
         bodyParameters,
         config
     );
-
-    console.log("dialog flow response");
-    console.log(response);
     return response.data.result;
 }

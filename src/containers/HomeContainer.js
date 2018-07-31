@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchContents, fetchTrackRecords } from "../actions/index";
-import FilterableContentList from "../components/FilterableContentList";
+import Home from "../components/Home";
 
-class ContentListContainer extends Component {
+class HomeContainer extends Component {
   componentDidMount() {
     this.props.fetchContents();
     if (this.props.isAuthenticated) {
@@ -12,11 +12,13 @@ class ContentListContainer extends Component {
   }
 
   render() {
+    console.log("HomeContainer props");
+    console.log(this.props);
     if (!this.props.contents) {
       return <div>Contents loading...</div>;
     }
     return (
-      <FilterableContentList contents={this.props.contents} videos={this.props.videos} trackRecords={this.props.trackRecords} />
+      <Home contents={this.props.contents} videos={this.props.videos} trackRecords={this.props.trackRecords} currentContentId={"2"}/>
     );
   }
 
@@ -26,4 +28,4 @@ function mapStateToProps({ contents, videos, trackRecords, isAuthenticated }) {
   return { contents, videos, trackRecords, isAuthenticated };
 }
 
-export default connect(mapStateToProps, { fetchContents, fetchTrackRecords })(ContentListContainer);
+export default connect(mapStateToProps, { fetchContents, fetchTrackRecords })(HomeContainer);
