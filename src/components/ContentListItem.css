@@ -26,9 +26,10 @@
 .ContentItem .media-info {
     display: flex !important;
     align-items: baseline;
+    justify-content: space-between;
 }
 
-.ContentItem .media-info h3{
-    margin-right: 15px;
-}
 
+.ContentItem .media-info .Level{
+    margin-right: 10px;
+}

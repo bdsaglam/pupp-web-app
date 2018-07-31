@@ -1139,7 +1139,7 @@
         "prince",
         "palace"
       ],
-      "title": "Cinderella"
+      "title": "Cinderella 👸🏼 🤴🏼 🧚‍♀️"
     },
     {
       "id": "6",
@@ -1159,7 +1159,7 @@
           "intentName": "pinocchio",
           "speechText": "What does he do with the wood?",
           "startTime": 31,
-          "stopTime": 38
+          "stopTime": 39
         },
         {
           "expectedAnswers": [
@@ -1170,7 +1170,7 @@
           "intentName": "pinocchio",
           "speechText": "What is the name of the puppet?",
           "startTime": 142,
-          "stopTime": 149
+          "stopTime": 156
         },
         {
           "expectedAnswers": [
@@ -1179,9 +1179,9 @@
             }
           ],
           "intentName": "pinocchio",
-          "speechText": "Who is calling the costumers?",
+          "speechText": "Who is calling the customers?",
           "startTime": 187,
-          "stopTime": 211
+          "stopTime": 217
         },
         {
           "expectedAnswers": [
@@ -1209,12 +1209,17 @@
           "expectedAnswers": [
             {
               "content_pinocchio": "made of wood"
+            },
+            {
+              "lingo_conjunction": "because",
+              "lingo_pronouns": "he",
+              "content_pinocchio": "made of wood"
             }
           ],
           "intentName": "pinocchio",
           "speechText": "How does he stay on the water?",
           "startTime": 516,
-          "stopTime": 539
+          "stopTime": 537
         },
         {
           "expectedAnswers": [
@@ -1226,7 +1231,7 @@
           "intentName": "pinocchio",
           "speechText": "Who swallows Pinnochio?",
           "startTime": 540,
-          "stopTime": 564
+          "stopTime": 569
         }
       ],
       "scenario": [
