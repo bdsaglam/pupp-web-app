@@ -12,7 +12,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./App.css";
 
 import Routes from "./Routes";
-import { updateAuth } from "./actions";
+import { updateAuth, userLogOut } from "./actions";
 
 
 class App extends Component {
@@ -24,22 +24,18 @@ class App extends Component {
     };
   }
 
-  userHasAuthenticated = authenticated => {
-    this.props.updateAuth(authenticated);
-  }
-
   handleLogout = async event => {
     await Auth.signOut();
 
-    this.userHasAuthenticated(false);
-
+    this.props.updateAuth(false);
+    this.props.userLogOut();
     this.props.history.push("/login");
   }
 
   async componentDidMount() {
     try {
       if (await Auth.currentSession()) {
-        this.userHasAuthenticated(true);
+        this.props.updateAuth(true);
       }
     }
     catch (e) {
@@ -110,4 +106,4 @@ function mapStateToProps({ isAuthenticated }, ownProps) {
   return { isAuthenticated };
 }
 
-export default withRouter(connect(mapStateToProps, { updateAuth })(App));
+export default withRouter(connect(mapStateToProps, { updateAuth, userLogOut })(App));

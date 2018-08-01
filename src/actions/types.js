@@ -1,5 +1,6 @@
 // user action types
 export const UPDATE_AUTH = "UPDATE_AUTH";
+export const USER_LOGOUT = "USER_LOGOUT";
 
 // content action types
 export const FETCH_CONTENTS = "FETCH_CONTENTS";

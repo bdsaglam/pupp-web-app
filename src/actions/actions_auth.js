@@ -1,4 +1,4 @@
-import { UPDATE_AUTH } from "./types";
+import { UPDATE_AUTH, USER_LOGOUT } from "./types";
 
 export function updateAuth(isAuthenticated) {
     return {
@@ -6,3 +6,10 @@ export function updateAuth(isAuthenticated) {
         payload: isAuthenticated
     };
 }
+
+export function userLogOut() {
+    return {
+        type: USER_LOGOUT
+    };
+}
+
