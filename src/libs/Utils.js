@@ -17,7 +17,6 @@ export function playSound(source) {
     });
 }
 
-
 export function parseYoutubeURL(url) {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);
@@ -37,9 +36,10 @@ export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function isEmpty(obj) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
-}
+export function pickRandomProperty(obj) {
+    var keys = Object.keys(obj);
+    return obj[keys[keys.length * Math.random() << 0]];
+};
 
 export function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -54,14 +54,13 @@ export function sliceByIndices(a, indices) {
     return b;
 }
 
-
 export function isSubset(aSubset, aSuperset) {
     return _.every(aSubset, (val, key) => _.isEqual(val, aSuperset[key]));
 }
 
-
-
-
+export function isEmpty(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
 
 
 

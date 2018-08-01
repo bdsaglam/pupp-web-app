@@ -3,13 +3,12 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import AnswerState from "../libs/AnswerState";
-import { isEmpty } from "../libs/Utils";
 import ContentListItem from "./ContentListItem";
 import "./ContentList.css";
 
 class ContentList extends Component {
     renderContents() {
-        if (isEmpty(this.props.contents)) {
+        if (_.isEmpty(this.props.contents)) {
             return <div>loading contents...</div>;
         }
 

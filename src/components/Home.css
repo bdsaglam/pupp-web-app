@@ -1,11 +1,28 @@
-.Home .ContentCurrent {
-    margin-bottom: 20px;
-}
-
 .Home a {
     color: rgb(29, 25, 25);
 }
 
 .Home a:hover {
     text-decoration: none;
+}
+
+.Home .ContentCurrentWrapper .ContentCurrent {
+    margin-bottom: 20px;
+}
+
+.Home .FilterableContentList .SearchBar {
+    position: sticky;
+    /* Safari */
+    position: -webkit-sticky;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    padding: 10px 10px 10px 20px;
+    background-color: white;
+    opacity: 1;
+}
+
+.Home .FilterableContentList .ContentList {
+    overflow: hidden;
 }

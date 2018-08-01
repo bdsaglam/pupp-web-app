@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/lib/Row';
@@ -20,8 +19,7 @@ class Home extends Component {
                     <Col xs={12} md={6}>
                         <ContentCurrent content={currentContent} video={currentVideo} trackRecord={currentTrackRecord} />
                     </Col>
-                    <Col xs={12} md={1}></Col>
-                    <Col xs={12} md={5}>
+                    <Col xs={12} md={6}>
                         <FilterableContentList contents={this.props.contents} videos={this.props.videos} trackRecords={this.props.trackRecords} />
                     </Col>
                 </Row>

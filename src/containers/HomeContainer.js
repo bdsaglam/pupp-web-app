@@ -1,6 +1,8 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchContents, fetchTrackRecords } from "../actions/index";
+import { recommendContent } from "../libs/contentLib";
 import Home from "../components/Home";
 
 class HomeContainer extends Component {
@@ -12,13 +14,13 @@ class HomeContainer extends Component {
   }
 
   render() {
-    console.log("HomeContainer props");
-    console.log(this.props);
-    if (!this.props.contents) {
-      return <div>Contents loading...</div>;
+    if (!this.props.contents || _.isEmpty(this.props.contents)) {
+      return <div>Loading contents...</div>;
     }
+
+    const currentContentId = recommendContent(this.props.contents, this.props.trackRecords);
     return (
-      <Home contents={this.props.contents} videos={this.props.videos} trackRecords={this.props.trackRecords} currentContentId={"2"}/>
+      <Home contents={this.props.contents} videos={this.props.videos} trackRecords={this.props.trackRecords} currentContentId={currentContentId} />
     );
   }
 
