@@ -170,6 +170,7 @@ class LecturePanel extends Component {
     }
 
     onPlayerStart = () => {
+        this.props.onUpdateAnswers(this.state.answers);
         const startTime = this.props.content.media.startTime || 1;
         this.videoPlayer.seekTo(startTime);
         this.videoPlayer.playVideo();

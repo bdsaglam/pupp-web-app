@@ -20,23 +20,23 @@ export function recommendContent(contents, trackRecords) {
 }
 
 export function findLastViewedContent(contents, trackRecords) {
-    const trackRecordArray = Object.values(trackRecords).filter(tr => tr.contentId in contents);
+    const trackRecordArray = Object.values(trackRecords);
     // sort track records from new to old
-    trackRecordArray.sort((a, b) => (a.createdAt - b.createdAt));
-    trackRecordArray.reverse();
+    trackRecordArray.sort((a, b) => (b.updatedAt - a.updatedAt));
     for (const tr of trackRecordArray) {
         const content = contents[tr.contentId];
         if (content && !isContentCompleted(content, tr)) {
             return content.id;
         }
     }
-    return trackRecordArray[0];
 }
 
 export function recommentNewContent(contents, trackRecords) {
     const contentArray = Object.values(contents);
     const watchedContentIds = _.map(trackRecords, tr => tr.contentId);
-    const freshContents = contentArray.filter(content => !(content.id in watchedContentIds));
+    const freshContents = contentArray.filter(content => watchedContentIds.indexOf(content.id) < 0);
+    // sort contents from easy to hard
+    freshContents.sort((a, b) => (a.level - b.level));
     if (freshContents) return freshContents[0].id;
 }
 
