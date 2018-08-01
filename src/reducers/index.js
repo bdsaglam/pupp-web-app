@@ -14,9 +14,6 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === "USER_LOGOUT") {
-    // if (!action.payload) {
-    //   state = Object.assign({}, state, { trackRecords: {} });
-    // }
     state = Object.assign({}, state, { trackRecords: {} });
   }
 
