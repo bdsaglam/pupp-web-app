@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchContents, fetchTrackRecords } from "../actions/index";
 import { recommendContent } from "../libs/contentLib";
 import Home from "../components/Home";
+import HomeLoader from "../components/HomeLoader";
 
 class HomeContainer extends Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ class HomeContainer extends Component {
 
   render() {
     if (!this.props.contents || _.isEmpty(this.props.contents)) {
-      return <div>Loading contents...</div>;
+      return <HomeLoader />;
     }
 
     const currentContentId = recommendContent(this.props.contents, this.props.trackRecords);

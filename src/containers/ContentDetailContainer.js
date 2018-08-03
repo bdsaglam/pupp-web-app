@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchContent, fetchTrackRecord, updateTrackRecord } from "../actions";
 import ContentDetail from "../components/ContentDetail";
+import ContentDetailLoader from "../components/ContentDetailLoader";
 
 class ContentDetailContainer extends Component {
   componentDidMount() {
@@ -28,7 +29,7 @@ class ContentDetailContainer extends Component {
 
   render() {
     if (!this.props.content || !this.props.video) {
-      return <div>Content loading...</div>;
+      return <ContentDetailLoader />;
     }
 
     const trackRecord = this.props.trackRecord;
