@@ -4,18 +4,16 @@ import ContentLoader from 'react-content-loader';
 const ContentDetailLoader = () => (
     <div className="ContentDetailLoader">
         <ContentLoader
-            height={600}
-            width={800}
+            height={400}
+            width={720}
         >
-            <rect x="0" y="10" rx="5" ry="5" width="800" height="420" />
+            <rect x="40" y="0" rx="5" ry="5" width="640" height="360" />
 
-            <rect x="0" y="440" rx="5" ry="5" width="250" height="20" />
-            <rect x="260" y="440" rx="5" ry="5" width="80" height="20" />
-            <rect x="350" y="440" rx="5" ry="5" width="80" height="20" />
-            <rect x="440" y="440" rx="5" ry="5" width="80" height="20" />
-            <rect x="530" y="440" rx="5" ry="5" width="80" height="20" />
-            <rect x="620" y="440" rx="5" ry="5" width="80" height="20" />
-            <rect x="710" y="440" rx="5" ry="5" width="80" height="20" />
+            <rect x="40" y="370" rx="5" ry="5" width="240" height="20" />
+            <rect x="300" y="370" rx="5" ry="5" width="80" height="20" />
+            <rect x="400" y="370" rx="5" ry="5" width="80" height="20" />
+            <rect x="500" y="370" rx="5" ry="5" width="80" height="20" />
+            <rect x="600" y="370" rx="5" ry="5" width="80" height="20" />
         </ContentLoader>
     </div>
 );
