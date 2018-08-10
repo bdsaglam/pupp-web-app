@@ -41,11 +41,13 @@ class LecturePanel extends Component {
         this.speechSynthesizer = getSpeaker();
         this.contexts = this.createContexts(this.props.content);
         this.celebrationMediaURL = pv0;
-
+        
         this.correctHintRef = React.createRef();
         this.wrongHintRef = React.createRef();
         this.scoreBoardRef = React.createRef();
         this.avatarRef = React.createRef();
+
+        const isSucceeded = this.checkSuccess(this.props.answers);
 
         this.state = {
             currentQuestionIndex: 0,
@@ -53,6 +55,7 @@ class LecturePanel extends Component {
             isWaitingAnswer: false,
             isRecording: false,
             isCelebrating: false,
+            isSucceeded: isSucceeded,
             hasStarted: false,
             attempt: 0,
             hintOrder: null,
@@ -305,8 +308,8 @@ class LecturePanel extends Component {
             this.scoreBoardRef.current.stopAnimation();
 
             this.setState({ answers: answers});
-            const isCelebrating = this.checkSuccess(answers);
-            if (isCelebrating) {
+            const success = this.checkSuccess(answers);
+            if (success && !this.state.isSucceeded) {
                 this.celebrate();
             }
             else {
@@ -405,7 +408,7 @@ class LecturePanel extends Component {
     }
 
     celebrate = () => {
-        this.setState({ isCelebrating: true });
+        this.setState({ isCelebrating: true, isSucceeded: true });
     }
 
     onCelebrationEnded = () => {

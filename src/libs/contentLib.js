@@ -40,3 +40,27 @@ export function recommentNewContent(contents, trackRecords) {
     if (freshContents) return freshContents[0].id;
 }
 
+export function getProgress({ content, trackRecord }) {
+    let percent = 0;
+    let status = "default";
+    if (trackRecord) {
+        const states = _.map(trackRecord.answers, answer => answer.state);
+        const score = states.filter(s => (s === AnswerState.CORRECT)).length;
+        percent = Math.floor(score / content.questions.length * 100) + 5;
+
+        if (percent > 90) {
+            status = "success";
+        }
+        else if (percent > 60) {
+            status = "good";
+        }
+        else if (percent > 5) {
+            status = "started";
+        }
+        else if (percent > 0 && trackRecord.updatedAt > trackRecord.createdAt) {
+            status = "active";
+        }
+    }
+
+    return { percent, status };
+}

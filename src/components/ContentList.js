@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import AnswerState from "../libs/AnswerState";
+import { getProgress } from "../libs/contentLib";
 import ContentListItem from "./ContentListItem";
 import "./ContentList.css";
 
@@ -16,16 +16,11 @@ class ContentList extends Component {
         return _.map(this.props.contents, content => {
             const video = this.props.videos[content.id];
             const trackRecord = this.props.trackRecords[content.id];
-            let percentScore = 0;
-            if (trackRecord) {
-                const states = _.map(trackRecord.answers, answer => answer.state);
-                const score = states.filter(s => (s === AnswerState.CORRECT)).length;
-                percentScore = Math.floor(score / content.questions.length * 100);
-            }
+            const progress = getProgress({ content, trackRecord });
 
             return (
                 <Link key={content.id} to={`/contents/${content.id}`}>
-                    <ContentListItem content={content} video={video} key={content.id} percentScore={percentScore} />
+                    <ContentListItem key={content.id} content={content} video={video} progress={progress} />
                 </Link>
             );
         });
