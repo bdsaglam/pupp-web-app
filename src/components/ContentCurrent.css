@@ -27,3 +27,7 @@
     align-items: baseline;
     justify-content: space-between;
 }
+
+.ContentCurrent .react-sweet-progress-symbol {
+    font-size: 2em;
+}

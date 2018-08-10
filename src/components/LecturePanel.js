@@ -18,6 +18,7 @@ import getSpeaker from "../libs/Speaker";
 import { sendText } from "../libs/dialogFlowV1";
 import { sleep, playSound, shuffle, sliceByIndices, isSubset } from "../libs/Utils";
 import { positive_sounds, negative_sounds, positive_videos, negative_videos } from "../libs/feedbacks";
+import pv0 from "../media/pv0.mp4";
 
 import VideoDetail from "./VideoDetail";
 import RecognitionView from "./RecognitionView";
@@ -39,6 +40,7 @@ class LecturePanel extends Component {
         this.videoPlayer = null;
         this.speechSynthesizer = getSpeaker();
         this.contexts = this.createContexts(this.props.content);
+        this.celebrationMediaURL = pv0;
 
         this.correctHintRef = React.createRef();
         this.wrongHintRef = React.createRef();
@@ -50,8 +52,7 @@ class LecturePanel extends Component {
             isAsking: false,
             isWaitingAnswer: false,
             isRecording: false,
-            isFeedbacking: false,
-            feedbackMediaURL: null,
+            isCelebrating: false,
             hasStarted: false,
             attempt: 0,
             hintOrder: null,
@@ -184,7 +185,7 @@ class LecturePanel extends Component {
     }
 
     onPlayerProgress = (event) => {
-        if (this.state.isAsking || this.state.isWaitingAnswer || this.state.isRecording || this.state.isFeedbacking) return;
+        if (this.state.isAsking || this.state.isWaitingAnswer || this.state.isRecording || this.state.isCelebrating) return;
 
         const currentTime = event.playedSeconds;
         if (this.isQuestionTime(currentTime)) {
@@ -285,6 +286,13 @@ class LecturePanel extends Component {
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
     }
 
+    checkSuccess = (answers) => {
+        const questionCount = this.props.content.questions.length;
+        const answerArray = Object.values(answers);
+        const corrects = answerArray.filter(answer => answer.state === AnswerState.CORRECT);
+        return corrects.length === questionCount;
+    }
+
     feedback = async (isCorrect) => {
         const idx = this.state.currentQuestionIndex;
         let answers = Object.assign({}, this.state.answers);
@@ -295,7 +303,15 @@ class LecturePanel extends Component {
             await playSound(_.sample(positive_sounds));
             await sleep(500);
             this.scoreBoardRef.current.stopAnimation();
-            this.setState({ answers: answers, isFeedbacking: true, feedbackMediaURL: _.sample(positive_videos) });
+
+            this.setState({ answers: answers});
+            const isCelebrating = this.checkSuccess(answers);
+            if (isCelebrating) {
+                this.celebrate();
+            }
+            else {
+                this.passQuestion();
+            }
 
         } else {
             if (this.state.attempt < this.props.maxAnswerAttempt) {
@@ -327,8 +343,6 @@ class LecturePanel extends Component {
             isAsking: false,
             isWaitingAnswer: false,
             isRecording: false,
-            isFeedbacking: false,
-            feedbackMediaURL: null
         });
         this.videoPlayer.playVideo();
         this.props.onUpdateAnswers(this.state.answers);
@@ -390,6 +404,15 @@ class LecturePanel extends Component {
         this.passQuestion();
     }
 
+    celebrate = () => {
+        this.setState({ isCelebrating: true });
+    }
+
+    onCelebrationEnded = () => {
+        this.setState({ isCelebrating: false });
+        this.passQuestion();
+    }
+
     // just for debugging, to be removed later
     onButtonClick = async (event) => {
         console.log(this.state);
@@ -436,17 +459,17 @@ class LecturePanel extends Component {
             [correctHint, wrongHint] = this.createHints(question);
         }
 
-        let feedbackMedia;
-        if (this.state.isFeedbacking) {
-            feedbackMedia = (
-                <div className='FeedbackMedia'>
+        let celebrationMedia;
+        if (this.state.isCelebrating) {
+            celebrationMedia = (
+                <div className='CelebrationMedia'>
                     <ReactPlayer
                         volume={1}
                         width='100%'
                         height='100%'
-                        url={this.state.feedbackMediaURL}
+                        url={this.celebrationMediaURL}
                         playing={true}
-                        onEnded={() => setTimeout(this.passQuestion, 200)}
+                        onEnded={() => setTimeout(this.onCelebrationEnded, 200)}
                     />
                 </div>
             );
@@ -479,7 +502,7 @@ class LecturePanel extends Component {
                                 {scoreBoard}
                                 {skipButton}
                                 {indicator}
-                                {feedbackMedia}
+                                {celebrationMedia}
                             </div>
                         </Row>
                         <Row>

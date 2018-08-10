@@ -67,7 +67,6 @@ export function updateTrackRecord(trackRecord) {
 
     return (dispatch) => {
         request.then(response => {
-            console.log("updateTrackRecord success", response);
             dispatch({ type: UPDATE_TRACKRECORD, payload: trackRecord });
         }).catch(error => {
             console.log(error.response);
