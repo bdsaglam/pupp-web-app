@@ -13,6 +13,13 @@
     z-index: 110;
 }
 
+.LecturePanel .VideoPanel .ScorePoint {
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    z-index: 120;
+}
+
 .LecturePanel .VideoPanel .Avatar {
     position: absolute;
     top: 0px;
@@ -39,7 +46,7 @@
     width: 100%;
     height: 100%;
     background-color: black;
-    z-index: 120;
+    z-index: 130;
 }
 
 .LecturePanel .AnswerPanel {

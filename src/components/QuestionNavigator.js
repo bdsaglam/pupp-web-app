@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { getRandomInt } from "../libs/Utils";
 import "./QuestionNavigator.css";
+import { AnswerState } from "../libs/contentLib";
 
 class QuestionNavigator extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class QuestionNavigator extends Component {
     renderButtons() {
         return this.props.questions.map((question, i) => {
             const answer = this.props.answers[i];
-            const answerState = answer ? answer.state : "INITIAL";
+            const answerState = answer ? answer.state : AnswerState.INITIAL;
 
             let className;
             if (i === this.props.currentIndex) {

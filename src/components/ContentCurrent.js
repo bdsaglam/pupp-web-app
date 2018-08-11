@@ -6,7 +6,6 @@ import faPlay from "@fortawesome/fontawesome-free-solid/faPlay";
 import { getProgress } from "../libs/contentLib";
 import Level from "./Level";
 import ContentProgress from "./ContentProgress";
-import placeholderImage from "../img/placeholder_image_video.png";
 import "./ContentCurrent.css";
 
 class ContentCurrent extends Component {

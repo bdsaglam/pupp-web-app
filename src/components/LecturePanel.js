@@ -13,22 +13,24 @@ import faUndo from "@fortawesome/fontawesome-free-solid/faUndo";
 
 import ReactPlayer from 'react-player';
 
-import AnswerState from "../libs/AnswerState";
 import getSpeaker from "../libs/Speaker";
 import { sendText } from "../libs/dialogFlowV1";
 import { sleep, playSound, shuffle, sliceByIndices, isSubset } from "../libs/Utils";
-import { positive_sounds, negative_sounds, positive_videos, negative_videos } from "../libs/feedbacks";
-import pv0 from "../media/pv0.mp4";
+import { AnswerState, calculateScore, CORRECT_SCORE_POINT, FAILED_SCORE_POINT } from "../libs/contentLib";
 
 import VideoDetail from "./VideoDetail";
 import RecognitionView from "./RecognitionView";
 import Indicator from "./Indicator";
 import HintCard from "./HintCard";
 import ScoreBoard from "./ScoreBoard";
+import ScorePoint from "./ScorePoint";
 import Avatar from "./Avatar";
 import QuestionNavigator from "./QuestionNavigator";
 
-import wrong_sound from "../media/wrong_answer.mp3";
+import CELEBRATION_VIDEO from "../media/celebration-video.mp4";
+import CORRECT_ANSWER_SOUND from "../media/correct-answer-sound.mp3";
+import WRONG_ANSWER_SOUND from "../media/wrong-answer-sound.mp3";
+import FAIL_SOUND from "../media/fail-sound.mp3";
 
 import "./LecturePanel.css";
 
@@ -40,11 +42,13 @@ class LecturePanel extends Component {
         this.videoPlayer = null;
         this.speechSynthesizer = getSpeaker();
         this.contexts = this.createContexts(this.props.content);
-        this.celebrationMediaURL = pv0;
-        
+        this.celebrationMediaURL = CELEBRATION_VIDEO;
+
         this.correctHintRef = React.createRef();
         this.wrongHintRef = React.createRef();
         this.scoreBoardRef = React.createRef();
+        this.successScorePointRef = React.createRef();
+        this.failScorePointRef = React.createRef();
         this.avatarRef = React.createRef();
 
         const isSucceeded = this.checkSuccess(this.props.answers);
@@ -90,15 +94,6 @@ class LecturePanel extends Component {
         const question = this.props.content.questions[idx];
         return question;
     }
-
-    getScore = () => {
-        const answers = this.state.answers;
-        if (!answers) {
-            return 0;
-        }
-        const states = _.map(answers, answer => answer.state);
-        return states.filter(s => (s === AnswerState.CORRECT)).length;
-    };
 
     //TODO get if unanswered
     findClosestQuestionIndex = (currentTime) => {
@@ -192,7 +187,7 @@ class LecturePanel extends Component {
 
         const currentTime = event.playedSeconds;
         if (this.isQuestionTime(currentTime)) {
-            this.setState({ isAsking: true });
+
             this.videoPlayer.pauseVideo();
             this.ask();
         }
@@ -236,6 +231,8 @@ class LecturePanel extends Component {
     // player events - end
 
     ask = async () => {
+        this.setState({ isAsking: true });
+
         const question = this.getCurrentQuestion();
         const questionText = question.speechText;
 
@@ -302,12 +299,12 @@ class LecturePanel extends Component {
         if (isCorrect) {
             answers[idx] = { "state": AnswerState.CORRECT };
 
-            this.scoreBoardRef.current.startAnimation();
-            await playSound(_.sample(positive_sounds));
-            await sleep(500);
-            this.scoreBoardRef.current.stopAnimation();
+            this.successScorePointRef.current.startAnimation();
+            playSound(CORRECT_ANSWER_SOUND);
+            await sleep(1500);
+            this.successScorePointRef.current.stopAnimation();
 
-            this.setState({ answers: answers});
+            this.setState({ answers: answers });
             const success = this.checkSuccess(answers);
             if (success && !this.state.isSucceeded) {
                 this.celebrate();
@@ -321,16 +318,17 @@ class LecturePanel extends Component {
                 answers[idx] = { "state": AnswerState.ATTEMPTED };
                 this.setState({ answers: answers });
 
-                await playSound(wrong_sound);
+                await playSound(WRONG_ANSWER_SOUND);
                 await sleep(500);
                 this.tryAgain();
             }
             else {
-                answers[idx] = { "state": AnswerState.FAILED };
-                this.setState({ answers: answers });
+                this.failScorePointRef.current.startAnimation();
+                playSound(FAIL_SOUND);
+                await sleep(1500);
+                this.failScorePointRef.current.stopAnimation();
 
-                await playSound(_.sample(negative_sounds));
-                await sleep(500);
+                answers[idx] = { "state": AnswerState.FAILED };
                 this.setState({ answers: answers });
                 this.passQuestion();
             }
@@ -435,8 +433,10 @@ class LecturePanel extends Component {
         const video = this.props.video;
         const question = this.getCurrentQuestion();
 
-        const score = this.getScore().toString();
+        const score = calculateScore(this.state.answers);
         const scoreBoard = <ScoreBoard ref={this.scoreBoardRef} score={score} />;
+        const successScorePoint = <ScorePoint ref={this.successScorePointRef} point={CORRECT_SCORE_POINT} className="Success" />;
+        const failScorePoint = <ScorePoint ref={this.failScorePointRef} point={FAILED_SCORE_POINT} className="Fail" />;
 
         let skipButton;
         let recognitionView;
@@ -481,14 +481,14 @@ class LecturePanel extends Component {
         return (
             <div className="LecturePanel">
                 <Row>
-                    <Col xs={2}>
+                    <Col xs={1}>
                         <Row>
                             <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(-1)} >
                                 <FontAwesomeIcon icon={faUndo} color="#496179" size="2x" />
                             </button>
                         </Row>
                     </Col>
-                    <Col xs={8}>
+                    <Col xs={10}>
                         <Row>
                             <div className="VideoPanel">
                                 <VideoDetail
@@ -503,6 +503,8 @@ class LecturePanel extends Component {
                                 />
                                 {avatar}
                                 {scoreBoard}
+                                {successScorePoint}
+                                {failScorePoint}
                                 {skipButton}
                                 {indicator}
                                 {celebrationMedia}
@@ -529,7 +531,7 @@ class LecturePanel extends Component {
                         </Row>
                         <Row></Row>
                     </Col>
-                    <Col xs={2}>
+                    <Col xs={1}>
                         <Row>
                             <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(1)} >
                                 <FontAwesomeIcon icon={faRedo} color="#496179" size="2x" />

@@ -8,7 +8,7 @@ import faTimesCircle from "@fortawesome/fontawesome-free-solid/faTimesCircle";
 import faCircle from "@fortawesome/fontawesome-free-solid/faCircle";
 
 import { getRandomInt } from "../libs/Utils";
-import AnswerState from "../libs/AnswerState";
+import { AnswerState} from "../libs/contentLib";
 
 import "./LectureSummary.css";
 

@@ -11,8 +11,8 @@ class ScoreBoard extends Component {
         return (
             <div className={className}>
                 <FontAwesomeIcon icon={faStar} size='3x' style={{ color: 'orange' }} />
-                <div className="score-text">
-                    {this.props.score}
+                <div className="ScoreText">
+                    <span>{this.props.score}</span>
                 </div>
             </div>
         );
@@ -20,7 +20,7 @@ class ScoreBoard extends Component {
 }
 
 ScoreBoard.propTypes = {
-    score: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
     className: PropTypes.string,
 };
 

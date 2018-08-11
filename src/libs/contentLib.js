@@ -1,5 +1,11 @@
 import _ from "lodash";
-import AnswerState from "./AnswerState";
+
+export const AnswerState = {
+    INITIAL: "INITIAL",
+    CORRECT: "CORRECT",
+    ATTEMPTED: "ATTEMPTED",
+    FAILED: "FAILED",
+};
 
 export function isContentCompleted(content, trackRecord) {
     const answerArray = Object.values(trackRecord.answers);
@@ -46,7 +52,7 @@ export function getProgress({ content, trackRecord }) {
     if (trackRecord) {
         const states = _.map(trackRecord.answers, answer => answer.state);
         const score = states.filter(s => (s === AnswerState.CORRECT)).length;
-        percent = Math.floor(score / content.questions.length * 100) + 5;
+        percent = Math.floor(score / content.questions.length * 100);
 
         if (percent > 90) {
             status = "success";
@@ -54,13 +60,38 @@ export function getProgress({ content, trackRecord }) {
         else if (percent > 60) {
             status = "good";
         }
-        else if (percent > 5) {
+        else if (percent > 0) {
             status = "started";
         }
-        else if (percent > 0 && trackRecord.updatedAt > trackRecord.createdAt) {
+        else if (percent === 0 && trackRecord.updatedAt > trackRecord.createdAt) {
+            percent = 5;
             status = "active";
         }
     }
 
     return { percent, status };
 }
+
+export const CORRECT_SCORE_POINT = 10;
+export const FAILED_SCORE_POINT = -5;
+
+export function calculateScore(answers) {
+    if (!answers) {
+        return 0;
+    }
+    const states = _.map(answers, answer => answer.state);
+    let score = 0;
+    for (const state of states) {
+        switch (state) {
+            case AnswerState.CORRECT:
+                score += CORRECT_SCORE_POINT;
+                break;
+            case AnswerState.FAILED:
+                score += FAILED_SCORE_POINT;
+                break;
+            default:
+                break;
+        }
+    }
+    return score;
+};
