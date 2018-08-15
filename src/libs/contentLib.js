@@ -73,7 +73,7 @@ export function getProgress({ content, trackRecord }) {
 }
 
 export const CORRECT_SCORE_POINT = 10;
-export const FAILED_SCORE_POINT = -5;
+export const FAILED_SCORE_POINT = 0;
 
 export function calculateScore(answers) {
     if (!answers) {
