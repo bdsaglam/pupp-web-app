@@ -481,15 +481,8 @@ class LecturePanel extends Component {
         return (
             <div className="LecturePanel">
                 <Row>
-                    <Col xs={1}>
-                        <Row>
-                            <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(-1)} >
-                                <FontAwesomeIcon icon={faUndo} color="#496179" size="2x" />
-                            </button>
-                        </Row>
-                    </Col>
-                    <Col xs={10}>
-                        <Row>
+                    <Col xs={10} xsOffset={1}>
+                        <Row className="VideoRow">
                             <div className="VideoPanel">
                                 <VideoDetail
                                     provider="youtube"
@@ -510,7 +503,7 @@ class LecturePanel extends Component {
                                 {celebrationMedia}
                             </div>
                         </Row>
-                        <Row>
+                        <Row className="QuestionRow">
                             <QuestionNavigator
                                 questions={this.props.content.questions}
                                 answers={this.state.answers}
@@ -518,29 +511,16 @@ class LecturePanel extends Component {
                                 onSelect={(idx) => this.jumpToQuestion(idx)}
                             />
                         </Row>
-                        <Row className="AnswerPanel">
-                            <Col xs={2}>
+                        <Row className="AnswerRow">
+                            <Col xs={3}>
                                 {correctHint}
                             </Col>
-                            <Col xs={8}>
+                            <Col xs={6}>
                                 {recognitionView}
                             </Col>
-                            <Col xs={2}>
+                            <Col xs={3}>
                                 {wrongHint}
                             </Col>
-                        </Row>
-                        <Row></Row>
-                    </Col>
-                    <Col xs={1}>
-                        <Row>
-                            <button className="VideoJumpButton" onClick={e => this.handleJumpVideo(1)} >
-                                <FontAwesomeIcon icon={faRedo} color="#496179" size="2x" />
-                            </button>
-                        </Row>
-                        <Row>
-                            <Button onClick={event => this.onButtonClick(event)} bsStyle="info">
-                                debug
-                            </Button>
                         </Row>
                     </Col>
                 </Row>

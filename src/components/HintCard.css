@@ -1,5 +1,7 @@
 .HintCard img {
-    width: 6vw;
+    max-height: 20vh;
+    display: block;
+    margin: auto;
 }
 
 .HintCard.Animate {

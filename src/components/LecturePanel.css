@@ -1,3 +1,7 @@
+.LecturePanel {
+    height: 100%;
+}
+
 .LecturePanel .VideoPanel {
     position: relative;
 }
@@ -49,8 +53,9 @@
     z-index: 130;
 }
 
-.LecturePanel .AnswerPanel {
-    padding: 10px;
+.LecturePanel .AnswerRow {
+    padding-top: 10px;
+    min-height: 20vh;
 }
 
 .LecturePanel .VideoJumpButton {
