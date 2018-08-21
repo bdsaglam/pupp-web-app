@@ -6,7 +6,7 @@
     text-decoration: none;
 }
 
-.Home .ContentCurrentWrapper .ContentCurrent {
+.Home .ContentCurrent {
     margin-bottom: 20px;
 }
 
@@ -17,8 +17,7 @@
     top: 0;
     left: 0;
     z-index: 99;
-    width: 100%;
-    padding: 10px 10px 10px 20px;
+    margin: 0 20px -15px 20px;
     background-color: white;
     opacity: 1;
 }

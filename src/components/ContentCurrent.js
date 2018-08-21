@@ -30,12 +30,12 @@ class ContentCurrent extends Component {
 
         return (
             <div className="ContentCurrent">
-                <h2>Continue...</h2>
+                <p class="Continue">Continue...</p>
                 <Link key={content.id} to={`/contents/${content.id}`}>
                     <div className="Thumbnail">
                         <img src={thumbnailSrc} alt="" />
                         <div className="PlayIcon">
-                            <FontAwesomeIcon icon={faPlay} color="white" size="2x" />
+                            <FontAwesomeIcon icon={faPlay} color="white" size="1x" />
                         </div>
                     </div>
                 </Link>

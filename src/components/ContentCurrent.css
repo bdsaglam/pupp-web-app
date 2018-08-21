@@ -1,3 +1,11 @@
+.ContentCurrent {
+    padding: 5px;
+}
+
+.ContentCurrent .Continue{
+    font-size: 1.5em;
+}
+
 .ContentCurrent .Thumbnail {
     position: relative;
 }

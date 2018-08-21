@@ -1,3 +1,7 @@
+.SearchBar {
+    padding: 5px;
+}
+
 .SearchBar .LevelGroup .control-label {
     margin-right: 10px;
 }
