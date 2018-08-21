@@ -16,7 +16,7 @@ class ScorePoint extends Component {
 }
 
 ScorePoint.propTypes = {
-    point: PropTypes.string.isRequired,
+    point: PropTypes.number.isRequired,
     className: PropTypes.string,
 };
 
