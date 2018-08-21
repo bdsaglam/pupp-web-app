@@ -38,11 +38,11 @@ class VideoDetail extends Component {
 
 
   render() {
-    const video = this.props.video;
+    const media = this.props.media;
 
     let url;
-    if (this.props.provider === "youtube") {
-      url = `https://www.youtube.com/watch?v=${video.id}`;
+    if (media.provider === "youtube") {
+      url = `https://www.youtube.com/watch?v=${media.id}`;
     }
 
     return (

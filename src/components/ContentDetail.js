@@ -37,7 +37,6 @@ class ContentDetail extends Component {
             <div className="ContentDetail">
                 <LecturePanel
                     content={this.props.content}
-                    video={this.props.video}
                     answers={this.props.answers}
                     maxAnswerAttempt={1}
                     onUpdateAnswers={this.onUpdateAnswers}
@@ -66,7 +65,6 @@ class ContentDetail extends Component {
 
 ContentDetail.propTypes = {
     content: PropTypes.object.isRequired,
-    video: PropTypes.object.isRequired,
     answers: PropTypes.object.isRequired,
     onUpdateAnswers: PropTypes.func.isRequired,
 };

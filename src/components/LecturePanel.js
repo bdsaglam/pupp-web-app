@@ -8,8 +8,6 @@ import Button from 'react-bootstrap/lib/Button';
 
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import faForward from "@fortawesome/fontawesome-free-solid/faForward";
-import faRedo from "@fortawesome/fontawesome-free-solid/faRedo";
-import faUndo from "@fortawesome/fontawesome-free-solid/faUndo";
 
 import ReactPlayer from 'react-player';
 
@@ -430,7 +428,7 @@ class LecturePanel extends Component {
     }
 
     render() {
-        const video = this.props.video;
+        const content = this.props.content;
         const question = this.getCurrentQuestion();
 
         const score = calculateScore(this.state.answers);
@@ -485,8 +483,7 @@ class LecturePanel extends Component {
                         <Row className="VideoRow">
                             <div className="VideoPanel">
                                 <VideoDetail
-                                    provider="youtube"
-                                    video={video}
+                                    media={content.media}
                                     onPlayerReady={player => this.onPlayerReady(player)}
                                     onPlayerStart={this.onPlayerStart}
                                     onPlayerPlay={this.onPlayerPlay}
@@ -532,7 +529,6 @@ class LecturePanel extends Component {
 
 LecturePanel.propTypes = {
     content: PropTypes.object.isRequired,
-    video: PropTypes.object.isRequired,
     answers: PropTypes.object.isRequired,
     maxAnswerAttempt: PropTypes.number,
     onUpdateAnswers: PropTypes.func,

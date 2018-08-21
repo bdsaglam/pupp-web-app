@@ -28,7 +28,7 @@ class ContentDetailContainer extends Component {
   }
 
   render() {
-    if (!this.props.content || !this.props.video) {
+    if (!this.props.content) {
       return <ContentDetailLoader />;
     }
 
@@ -37,7 +37,6 @@ class ContentDetailContainer extends Component {
     return (
       <ContentDetail
         content={this.props.content}
-        video={this.props.video}
         answers={answers}
         onUpdateAnswers={this.onUpdateAnswers}
         onBackHome={this.onBackHome}
@@ -46,15 +45,15 @@ class ContentDetailContainer extends Component {
   }
 }
 
-function mapStateToProps({ contents, videos, trackRecords, isAuthenticated }, ownProps) {
+function mapStateToProps({ contents, trackRecords, isAuthenticated }, ownProps) {
   const id = ownProps.match.params.id;
   const content = contents[id];
   if (!content) {
     return { isAuthenticated };
   }
-  const video = videos[content.id];
+
   const trackRecord = trackRecords[content.id];
-  return { content, video, trackRecord, isAuthenticated };
+  return { content, trackRecord, isAuthenticated };
 }
 
 export default connect(mapStateToProps, { fetchContent, fetchTrackRecord, updateTrackRecord })(ContentDetailContainer);
