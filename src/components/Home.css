@@ -17,9 +17,10 @@
     top: 0;
     left: 0;
     z-index: 99;
-    margin: 0 20px -15px 20px;
+    margin: 0 20px 0px 20px;
     background-color: white;
     opacity: 1;
+    border-bottom: 2px solid;
 }
 
 .Home .FilterableContentList .ContentList {
