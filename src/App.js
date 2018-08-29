@@ -7,8 +7,10 @@ import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Grid from 'react-bootstrap/lib/Grid';
-
 import { LinkContainer } from "react-router-bootstrap";
+import { FormattedMessage } from "react-intl";
+import { BounceLoader } from 'react-spinners';
+
 import "./App.css";
 
 import Routes from "./Routes";
@@ -50,7 +52,17 @@ class App extends Component {
   render() {
     if (this.state.isAuthenticating) {
       return (
-        <div>"Logging in..."</div>
+        <div className="App Loading">
+          <div className="LoginMessage">
+            Logging in...
+          </div>
+          <div className="LoginSpinner">
+            <BounceLoader
+              color={"#29c7a8"}
+              loading={true}
+            />
+          </div>
+        </div>
       );
     }
 
@@ -59,18 +71,15 @@ class App extends Component {
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Pupp</Link>
+              <Link to="/">pupp</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
               <Fragment>
-                <LinkContainer to="/about">
-                  <NavItem>About Us</NavItem>
-                </LinkContainer>
                 <LinkContainer to="/contact">
-                  <NavItem>Contact</NavItem>
+                  <NavItem><FormattedMessage id="App.contact" /></NavItem>
                 </LinkContainer>
               </Fragment>
             </Nav>
@@ -78,16 +87,18 @@ class App extends Component {
               {this.props.isAuthenticated
                 ? <Fragment>
                   <LinkContainer to="/settings">
-                    <NavItem>Settings</NavItem>
+                    <NavItem><FormattedMessage id="App.settings" /></NavItem>
                   </LinkContainer>
-                  <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                  <NavItem onClick={this.handleLogout}>
+                    <FormattedMessage id="App.logout" />
+                  </NavItem>
                 </Fragment>
                 : <Fragment>
                   <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
+                    <NavItem><FormattedMessage id="App.signup" /></NavItem>
                   </LinkContainer>
                   <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
+                    <NavItem><FormattedMessage id="App.login" /></NavItem>
                   </LinkContainer>
                 </Fragment>
               }

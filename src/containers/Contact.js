@@ -7,6 +7,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import { DotLoader } from 'react-spinners';
+import { FormattedMessage } from "react-intl";
 
 import LoaderButton from "../components/LoaderButton";
 import "./Contact.css";
@@ -99,8 +100,8 @@ class Contact extends Component {
             return (
                 <div className="ContactSuccessful">
                     <div className="ThanksMessage">
-                        <p>Thank you for getting in touch! We'll do our best to fulfill your request.</p>
-                        <p>Have a great day!</p>
+                        <p><FormattedMessage id="Contact.thanksMessage" /></p>
+                        <p><FormattedMessage id="Contact.greatDay" /></p>
                     </div>
                     <div className="RedirectSpinner">
                         <DotLoader
@@ -109,7 +110,7 @@ class Contact extends Component {
                         />
                     </div>
                     <div className="RedirectMessage">
-                        redirecting to home in a few seconds
+                        <FormattedMessage id="Contact.redirectMessage" />
                     </div>
                 </div>
             );
@@ -121,7 +122,10 @@ class Contact extends Component {
                     <Col md={8} mdOffset={2}>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup controlId="email" validationState={this.getValidationState("email")} bsSize="small">
-                                <ControlLabel>Email <small>(required)</small></ControlLabel>
+                                <ControlLabel>
+                                    <FormattedMessage id="Contact.email" />
+                                    <small> (<FormattedMessage id="Contact.required" />)</small>
+                                </ControlLabel>
                                 <FormControl
                                     autoFocus
                                     type="email"
@@ -131,7 +135,10 @@ class Contact extends Component {
                                 <FormControl.Feedback />
                             </FormGroup>
                             <FormGroup controlId="name" validationState={this.getValidationState("name")} bsSize="small">
-                                <ControlLabel>Name <small>(required)</small></ControlLabel>
+                                <ControlLabel>
+                                    <FormattedMessage id="Contact.name" />
+                                    <small> (<FormattedMessage id="Contact.required" />)</small>
+                                </ControlLabel>
                                 <FormControl
                                     value={this.state.name}
                                     onChange={this.handleChange}
@@ -140,21 +147,21 @@ class Contact extends Component {
                                 <FormControl.Feedback />
                             </FormGroup>
                             <FormGroup controlId="message" bsSize="large">
-                                <ControlLabel>Your message</ControlLabel>
+                                <ControlLabel><FormattedMessage id="Contact.message" /></ControlLabel>
                                 <FormControl
                                     value={this.state.message}
                                     onChange={this.handleChange}
                                     componentClass="textarea"
-                                    placeholder="Your opinion matters for us."
+                                    placeholder="Your opinions matter for us"
                                 />
                             </FormGroup>
                             <FormGroup controlId="contentRequest" bsSize="large">
-                                <ControlLabel>Request a content</ControlLabel>
+                                <ControlLabel><FormattedMessage id="Contact.suggest" /></ControlLabel>
                                 <FormControl
                                     value={this.state.contentRequest}
                                     onChange={this.handleChange}
                                     type="text"
-                                    placeholder="Please write the link of material, video, game etc. that you want to see in our platform."
+                                    placeholder="http://..."
                                 />
                             </FormGroup>
                             <LoaderButton
@@ -163,8 +170,8 @@ class Contact extends Component {
                                 disabled={!this.validateForm()}
                                 type="submit"
                                 isLoading={this.state.isLoading}
-                                text="Send"
-                                loadingText="Sending..."
+                                text={<FormattedMessage id="Contact.sendMessage" />}
+                                loadingText={<FormattedMessage id="Contact.sendingMessage" />}
                             />
                         </form>
                     </Col>

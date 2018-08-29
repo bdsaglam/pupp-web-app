@@ -7,6 +7,7 @@ import { getProgress } from "../libs/contentLib";
 import Level from "./Level";
 import ContentProgress from "./ContentProgress";
 import "./ContentCurrent.css";
+import { FormattedMessage } from "react-intl";
 
 class ContentCurrent extends Component {
     render() {
@@ -30,7 +31,11 @@ class ContentCurrent extends Component {
 
         return (
             <div className="ContentCurrent">
-                <p class="Continue">Continue...</p>
+                <p class="Continue">
+                    <FormattedMessage
+                        id="ContentCurrent.continueHeader"
+                    />
+                </p>
                 <Link key={content.id} to={`/contents/${content.id}`}>
                     <div className="Thumbnail">
                         <img src={thumbnailSrc} alt="" />

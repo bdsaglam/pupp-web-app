@@ -5,3 +5,17 @@
 .App .navbar-brand {
   font-weight: bold;
 }
+
+.App.Loading {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 10vw 10vh 10vw;
+}
+
+.App.Loading .LoginSpinner {
+  margin-top: 2vh;
+}

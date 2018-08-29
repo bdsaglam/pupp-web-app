@@ -5,6 +5,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
+import { FormattedMessage } from "react-intl";
 
 import "./SearchBar.css";
 
@@ -73,7 +74,7 @@ class SearchBar extends Component {
                         />
                     </FormGroup>
                     <FormGroup className="LevelGroup">
-                        <ControlLabel>Level</ControlLabel>
+                        <ControlLabel><FormattedMessage id="SearchBar.level" /></ControlLabel>
                         <Checkbox value={1} onChange={this.handleLevelChange} inline>1</Checkbox>
                         <Checkbox value={2} onChange={this.handleLevelChange} inline>2</Checkbox>
                         <Checkbox value={3} onChange={this.handleLevelChange} inline>3</Checkbox>
