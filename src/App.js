@@ -68,10 +68,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar fluid collapseOnSelect>
+        <Navbar collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">pupp</Link>
+              <Link to="/">PUPP</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -94,10 +94,11 @@ class App extends Component {
                   </NavItem>
                 </Fragment>
                 : <Fragment>
-                  <LinkContainer to="/signup">
-                    <NavItem><FormattedMessage id="App.signup" /></NavItem>
+                  <LinkContainer to="/signup" id="signup">
+                    <NavItem >
+                      <FormattedMessage id="App.signup" /></NavItem>
                   </LinkContainer>
-                  <LinkContainer to="/login">
+                  <LinkContainer to="/login" id="login">
                     <NavItem><FormattedMessage id="App.login" /></NavItem>
                   </LinkContainer>
                 </Fragment>

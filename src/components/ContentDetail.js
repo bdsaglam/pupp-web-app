@@ -32,9 +32,15 @@ class ContentDetail extends Component {
         this.props.onBackHome();
     };
 
+    componentDidMount() {
+        const element = document.getElementById("contentDetail");
+
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+
     render() {
         return (
-            <div className="ContentDetail">
+            <div className="ContentDetail" id="contentDetail">
                 <LecturePanel
                     content={this.props.content}
                     answers={this.props.answers}

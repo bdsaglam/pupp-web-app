@@ -2,10 +2,6 @@
   height: 100%;
 }
 
-.App .navbar-brand {
-  font-weight: bold;
-}
-
 .App.Loading {
   height: 100%;
   width: 100%;
@@ -18,4 +14,70 @@
 
 .App.Loading .LoginSpinner {
   margin-top: 2vh;
+}
+
+.App .navbar {
+  border-bottom: 1px solid rgba(34, 34, 34, 0.05);
+  background-color: white;
+  letter-spacing: 1px;
+  -webkit-transition: all .35s;
+  -moz-transition: all .35s;
+  transition: all .35s;
+}
+
+.App .navbar .navbar-brand {
+  color: #fdcc52;
+  letter-spacing: 1px;
+  font-size: 3rem;
+}
+
+.App .navbar .navbar-brand:hover {
+  color: #f1c40f;
+}
+
+.App .navbar .navbar-nav>li>a {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: #666666;
+}
+
+.App .navbar .navbar-nav>li>a.active {
+  color: #222222;
+}
+
+.App .navbar .navbar-nav>li>a:hover {
+  color: black;
+}
+
+.App .navbar .navbar-nav.navbar-right>li #signup, .App .navbar .navbar-nav.navbar-right>li #login {
+  width: 120px;
+  padding: 8px 2px;
+  border-radius: 300px;
+  margin: 5px 10px;
+  text-align: center;
+}
+
+.App .navbar .navbar-nav.navbar-right>li #signup {
+  color: white;
+  background-color: #8e44ad;
+  border: 1px solid;
+  border-color: white;
+}
+
+.App .navbar .navbar-nav.navbar-right>li #signup:hover {
+  color: #222222;
+  background-color: #fdcc52;
+  border-color: #fdcc52;
+}
+
+.App .navbar .navbar-nav.navbar-right>li #login {
+  color: #222222;
+  background-color: white;
+  border: 1px solid;
+  border-color: #bdc3c7;
+}
+
+.App .navbar .navbar-nav.navbar-right>li #login:hover {
+  background-color: #fdcc52;
+  border-color: #fdcc52;
 }

@@ -2,8 +2,8 @@
     padding: 5px;
 }
 
-.ContentCurrent .Continue{
-    font-size: 1.5em;
+.ContentCurrent>p {
+    font-size: 2rem;
 }
 
 .ContentCurrent .Thumbnail {
@@ -37,5 +37,5 @@
 }
 
 .ContentCurrent .react-sweet-progress-symbol {
-    font-size: 2em;
+    font-size: 2rem;
 }

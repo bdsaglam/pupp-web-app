@@ -31,7 +31,7 @@ class ContentCurrent extends Component {
 
         return (
             <div className="ContentCurrent">
-                <p class="Continue">
+                <p>
                     <FormattedMessage
                         id="ContentCurrent.continueHeader"
                     />

@@ -1,3 +1,7 @@
+.ContentDetail {
+    min-height: 99vh;
+}
+
 .FinishModal {
     position: relative;
     top: 20vh;

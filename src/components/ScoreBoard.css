@@ -1,7 +1,7 @@
 .ScoreBoard {
     position: relative;
-    width: 54px;
-    height: 48px;
+    width: 63px;
+    height: 56px;
 }
 
 .ScoreBoard .ScoreText {
@@ -10,10 +10,12 @@
     left: 0%;
     width: 100%;
     height: 100%;
-    line-height: 48px;
+    line-height: 56px;
     text-align: center;
     vertical-align: middle;
-    color: blue;
+    color: black;
+    font-size: 1.5em;
+    font-weight: 700;
 }
 
 .ScoreBoard.Animate {
@@ -25,8 +27,7 @@
 }
 
 @keyframes flashNpulse {
-    from,
-    to {
+    from, to {
         transform: scale3d(1, 1, 1);
         opacity: 1;
     }

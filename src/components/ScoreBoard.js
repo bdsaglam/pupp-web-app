@@ -10,7 +10,7 @@ class ScoreBoard extends Component {
         const className = "ScoreBoard " + this.props.className;
         return (
             <div className={className}>
-                <FontAwesomeIcon icon={faStar} size='3x' style={{ color: 'orange' }} />
+                <FontAwesomeIcon icon={faStar} size='4x' style={{ color: '#fdcc52' }} />
                 <div className="ScoreText">
                     <span>{this.props.score}</span>
                 </div>
