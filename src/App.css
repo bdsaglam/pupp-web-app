@@ -60,14 +60,11 @@
 .App .navbar .navbar-nav.navbar-right>li #signup {
   color: white;
   background-color: #8e44ad;
-  border: 1px solid;
-  border-color: white;
 }
 
 .App .navbar .navbar-nav.navbar-right>li #signup:hover {
   color: #222222;
   background-color: #fdcc52;
-  border-color: #fdcc52;
 }
 
 .App .navbar .navbar-nav.navbar-right>li #login {
@@ -80,4 +77,12 @@
 .App .navbar .navbar-nav.navbar-right>li #login:hover {
   background-color: #fdcc52;
   border-color: #fdcc52;
+}
+
+.App .navbar .languages .flag a {
+  padding: 5px !important;
+}
+
+.App .navbar .languages .flag img {
+  width: 32px;
 }

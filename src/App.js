@@ -3,19 +3,22 @@ import { Auth } from "aws-amplify";
 import { connect } from "react-redux";
 
 import { Link, withRouter } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
+import Routes from "./Routes";
+
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Grid from 'react-bootstrap/lib/Grid';
-import { LinkContainer } from "react-router-bootstrap";
-import { FormattedMessage } from "react-intl";
+
 import { BounceLoader } from 'react-spinners';
+import { FormattedMessage } from "react-intl";
+import trFlag from "./img/turkey-flag-round.svg";
+import ukFlag from "./img/united-kingdom-flag-round.svg";
+
+import { updateAuth, userLogOut, setLocales } from "./actions";
 
 import "./App.css";
-
-import Routes from "./Routes";
-import { updateAuth, userLogOut } from "./actions";
-
 
 class App extends Component {
   constructor(props) {
@@ -49,6 +52,21 @@ class App extends Component {
     this.setState({ isAuthenticating: false });
   }
 
+  setLanguage = (langCode) => {
+    let locales;
+    switch (langCode) {
+      case 'en':
+        locales = { locale: 'en-US', language: 'en' };
+        break;
+      case 'tr':
+        locales = { locale: 'tr-TR', language: 'tr' };
+        break;
+      default:
+        locales = { locale: 'en-US', language: 'en' };
+    }
+    this.props.setLocales(locales);
+  }
+
   render() {
     if (this.state.isAuthenticating) {
       return (
@@ -76,6 +94,16 @@ class App extends Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
+            <Nav className="languages">
+              <Fragment>
+                <NavItem className="flag">
+                  <img src={ukFlag} alt="English" onClick={() => this.setLanguage('en')} />
+                </NavItem>
+                <NavItem className="flag">
+                  <img src={trFlag} alt="Turkish" onClick={() => this.setLanguage('tr')} />
+                </NavItem>
+              </Fragment>
+            </Nav>
             <Nav>
               <Fragment>
                 <LinkContainer to="/contact">
@@ -114,8 +142,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ isAuthenticated }, ownProps) {
-  return { isAuthenticated };
+function mapStateToProps({ isAuthenticated, locales }, ownProps) {
+  return { isAuthenticated, locales };
 }
 
-export default withRouter(connect(mapStateToProps, { updateAuth, userLogOut })(App));
+export default withRouter(connect(mapStateToProps, { updateAuth, userLogOut, setLocales })(App));

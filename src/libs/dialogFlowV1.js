@@ -11,13 +11,12 @@ var config = {
     }
 };
 
-export async function sendText(text, intentName, contexts = []) {
+export async function sendText(text, intentName) {
     const query = `intent-${intentName}. ${text}`;
     var bodyParameters = {
         "v": "20150910",
         "lang": "en",
         "query": query,
-        "contexts": contexts,
         "sessionId": SESSION_ID,
     };
 

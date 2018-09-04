@@ -39,7 +39,6 @@ class LecturePanel extends Component {
         super(props);
         this.videoPlayer = null;
         this.speechSynthesizer = getSpeaker();
-        this.contexts = this.createContexts(this.props.content);
         this.celebrationMediaURL = CELEBRATION_VIDEO;
 
         this.correctHintRef = React.createRef();
@@ -65,17 +64,7 @@ class LecturePanel extends Component {
         };
     }
 
-    createContexts = (content) => {
-        return [];
-        var contexts = [];
-        for (const question of content.questions) {
-            for (const intention of question.intentions) {
-                contexts.push(intention.entityValue);
-            }
-        }
-        return contexts;
-    }
-
+    
     createHintOrder = (question) => {
         let hintOrder;
         if (question.hint && question.hint.type === "multi-choice") {
@@ -383,9 +372,8 @@ class LecturePanel extends Component {
         const question = this.getCurrentQuestion();
         const intentName = question.intentName;
         const expectedAnswers = question.expectedAnswers;
-        const contexts = this.contexts;
         try {
-            const result = await sendText(userAnswer, intentName, contexts);
+            const result = await sendText(userAnswer, intentName);
             const receivedAnswer = result.parameters;
             const isCorrect = this.evaluateAnswer(expectedAnswers, receivedAnswer);
             // console.log("expectedAnswers");

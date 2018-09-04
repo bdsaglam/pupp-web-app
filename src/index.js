@@ -1,52 +1,43 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Amplify from "aws-amplify";
+import config from "./config";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from 'redux-thunk';
+import rootReducer from "./reducers";
 
-import { addLocaleData, IntlProvider } from "react-intl";
+import { addLocaleData } from "react-intl";
 import en from "react-intl/locale-data/en";
 import tr from "react-intl/locale-data/tr";
-import es from "react-intl/locale-data/es";
-import { flattenMessages } from "./libs/Utils";
-import messages from "./messages";
+import ConnectedIntlProvider from './containers/ConnectedIntlProvider';
 
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import config from "./config";
 import "./index.css";
-import rootReducer from "./reducers";
 
+// locale config
+addLocaleData([...en, ...tr]);
 
-addLocaleData([...en, ...tr, ...es]);
-
-const locale =
-  (navigator.languages && navigator.languages[0]) ||
-  navigator.language ||
-  navigator.userLanguage ||
-  'en-US';
-
-const language = locale.toLowerCase().split(/[_-]+/)[0];
-
-
+// AWS SDK config
 Amplify.configure(config);
 
+// redux + initialState + thunk middleware
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk)
 );
 
-
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider locale={locale} messages={flattenMessages(messages[language])}>
+    <ConnectedIntlProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </IntlProvider>
+    </ConnectedIntlProvider>
   </Provider>,
   document.getElementById("root")
 );
+
 registerServiceWorker();
