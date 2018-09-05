@@ -86,3 +86,22 @@
 .App .navbar .languages .flag img {
   width: 32px;
 }
+
+.BrowserModal {
+  position: relative;
+  top: 20vh;
+}
+
+.BrowserModal .modal-content .modal-footer .checkbox-inline {
+  float: left;
+}
+
+.BrowserModal .modal-content .modal-footer .btn {
+  margin-left: 5px;
+
+}
+
+.BrowserModal .modal-content .modal-footer .chrome img {
+  width: 24px;
+  margin-right: 5px;
+}

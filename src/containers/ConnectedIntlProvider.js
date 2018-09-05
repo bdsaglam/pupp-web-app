@@ -8,7 +8,7 @@ import messages from "../messages";
 // When the state of the redux store changes, this function will be called, if the props that come out of
 // this function are different, then the component that is wrapped is re-rendered.
 function mapStateToProps(state) {
-    const { locale, language } = state.locales;
+    const { locale, language } = state.preferences;
     return { locale: locale, language: language, messages: flattenMessages(messages[language]) };
 }
 

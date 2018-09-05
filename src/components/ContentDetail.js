@@ -34,7 +34,6 @@ class ContentDetail extends Component {
 
     componentDidMount() {
         const element = document.getElementById("contentDetail");
-
         element.scrollIntoView({ behavior: 'smooth' });
     }
 

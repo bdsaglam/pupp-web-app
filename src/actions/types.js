@@ -16,5 +16,6 @@ export const CREATE_TRACKRECORD = "CREATE_TRACKRECORD";
 export const UPDATE_TRACKRECORD = "UPDATE_TRACKRECORD";
 export const DELETE_TRACKRECORD = "DELETE_TRACKRECORD";
 
-// locales action types
+// preferences action types
 export const SET_LOCALES = "SET_LOCALES";
+export const NO_BROWSER_ALERT = "NO_BROWSER_ALERT";
