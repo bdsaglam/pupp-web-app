@@ -92,6 +92,36 @@ class App extends Component {
   };
 
   render() {
+    if (this.state.showBrowserAlert) {
+      return (
+        <div>
+          <Modal show={this.state.showBrowserAlert} onHide={this.handleClose} dialogClassName="BrowserModal">
+            <Modal.Header closeButton>
+              <Modal.Title><FormattedMessage id="App.browserModal.title" /></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <FormattedMessage id="App.browserModal.alertMessage" />
+            </Modal.Body>
+            <Modal.Footer>
+              <Checkbox value={this.state.doNotAskAgain} onChange={this.handleCheckboxChange} inline>
+                <FormattedMessage id="App.browserModal.doNotAskAgain" />
+              </Checkbox>
+
+              <a className="chrome" href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">
+                <Button onClick={this.handleDownload} >
+                  <img src={chromeIcon} alt="Chrome" />
+                  <FormattedMessage id="App.browserModal.downloadChrome" />
+                </Button>
+              </a>
+              <Button onClick={this.handleClose}>
+                <FormattedMessage id="App.browserModal.close" />
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      );
+    }
+
     if (this.state.isAuthenticating) {
       return (
         <div className="App Loading">
@@ -161,29 +191,6 @@ class App extends Component {
         <Grid>
           <Routes isAuthenticated={this.props.isAuthenticated} />
         </Grid>
-        <Modal show={this.state.showBrowserAlert} onHide={this.handleClose} dialogClassName="BrowserModal">
-          <Modal.Header closeButton>
-            <Modal.Title><FormattedMessage id="App.browserModal.title" /></Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FormattedMessage id="App.browserModal.alertMessage" />
-          </Modal.Body>
-          <Modal.Footer>
-            <Checkbox value={this.state.doNotAskAgain} onChange={this.handleCheckboxChange} inline>
-              <FormattedMessage id="App.browserModal.doNotAskAgain" />
-            </Checkbox>
-
-            <a className="chrome" href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">
-              <Button onClick={this.handleDownload} >
-                <img src={chromeIcon} alt="Chrome" />
-                <FormattedMessage id="App.browserModal.downloadChrome" />
-              </Button>
-            </a>
-            <Button onClick={this.handleClose}>
-              <FormattedMessage id="App.browserModal.close" />
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     );
   }
