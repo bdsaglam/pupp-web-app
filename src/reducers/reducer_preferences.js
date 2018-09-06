@@ -12,7 +12,8 @@ const locale = (
 const language = locale.toLowerCase().split(/[_-]+/)[0];
 
 // check browser type and user's do not show preference
-const noBrowserAlert = localStorage.getItem('noBrowserAlert') || (!!window.chrome && !!window.chrome.webstore);
+const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+const noBrowserAlert = localStorage.getItem('noBrowserAlert') || isChrome;
 
 const initialState = { locale: locale, language: language, noBrowserAlert: noBrowserAlert };
 
