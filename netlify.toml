@@ -6,12 +6,24 @@
 [build]
   base    = ""
   publish = "build"
-  command = "REACT_APP_STAGE=dev npm run build:netlify"
+  command = "npm run build:netlify"
 
 # Production context: All deploys to the main
 # repository branch will inherit these settings.
 [context.production]
-  command = "REACT_APP_STAGE=prod npm run build:netlify"
+  publish = "build_production"
+  command = "REACT_APP_STAGE=production npm run build:netlify:production"
+  [context.production.environment]
+    REACT_APP_AWS_S3_CONTENT_BUCKET_URL = "https://pupp-content.s3.eu-west-1.amazonaws.com"
+    REACT_APP_GOOGLE_API_KEY = "AIzaSyCGy50jZrEHCvELdYqfnymkHeQDkk1n1Aw"
+    REACT_APP_DIALOG_FLOW_V1_TOKEN = "9a94ba960f0248afa04f6299e8d362fd"
+    REACT_APP_FIREBASE_PROJECT_ID = "fifth-subject-200708"
+    REACT_APP_FIREBASE_STORAGE_URL = "fifth-subject-200708.appspot.com"
+    REACT_APP_FIREBASE_API_KEY = "AIzaSyDZiMXAoxV-MU3qD039n4krPVUcEsbIf_M"
+    REACT_APP_FIREBASE_AUTH_DOMAIN="fifth-subject-200708.firebaseapp.com"
+    REACT_APP_FIREBASE_MESSAGE_SENDER_ID = "839032316734"
+    REACT_APP_FIREBASE_DB_URL = "fifth-subject-200708.firebaseio.com"
+    REACT_APP_FIREBASE_CONTENTS_DB_URL = "pupp-contents.firebaseio.com"
 
 # Deploy Preview context: All Deploy Previews
 # will inherit these settings.
@@ -22,3 +34,22 @@
 # an active Deploy Preview will inherit these settings.
 [context.branch-deploy]
   command = "REACT_APP_STAGE=dev npm run build:netlify"
+
+# Specific branch context: Deploys from this branch
+# will take these settings and override their
+# current ones.
+[context.staging]
+  publish = "build_staging"
+  command = "REACT_APP_STAGE=staging npm run build:netlify:staging"
+  [context.staging.environment]
+    REACT_APP_AWS_S3_CONTENT_BUCKET_URL = "https://pupp-content.s3.eu-west-1.amazonaws.com"
+    REACT_APP_GOOGLE_API_KEY = "AIzaSyCGy50jZrEHCvELdYqfnymkHeQDkk1n1Aw"
+    REACT_APP_DIALOG_FLOW_V1_TOKEN = "9a94ba960f0248afa04f6299e8d362fd"
+    REACT_APP_FIREBASE_PROJECT_ID = "fifth-subject-200708"
+    REACT_APP_FIREBASE_STORAGE_URL = "fifth-subject-200708.appspot.com"
+    REACT_APP_FIREBASE_API_KEY = "AIzaSyDZiMXAoxV-MU3qD039n4krPVUcEsbIf_M"
+    REACT_APP_FIREBASE_AUTH_DOMAIN="fifth-subject-200708.firebaseapp.com"
+    REACT_APP_FIREBASE_MESSAGE_SENDER_ID = "839032316734"
+    REACT_APP_FIREBASE_DB_URL = "fifth-subject-200708.firebaseio.com"
+    REACT_APP_FIREBASE_CONTENTS_DB_URL = "pupp-contents.firebaseio.com"
+

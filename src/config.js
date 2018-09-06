@@ -24,11 +24,11 @@ const dev = {
     }
 };
 
-const prod = dev;
+const production = dev;
 
 // Default to dev if not set
-const config = process.env.REACT_APP_STAGE === 'prod'
-    ? prod
+const config = process.env.REACT_APP_STAGE === 'production'
+    ? production
     : dev;
 
 export default config;
