@@ -10,6 +10,9 @@ class ContentListItem extends Component {
   render() {
     const { content, video, progress } = this.props;
 
+    const arr = [].concat(content.skills).concat(content.scenario).slice(0, 5);
+    const hashTag = arr.map(s => '#' + s).join(' ');
+
     let source;
     if (video) {
       source = video.snippet.thumbnails.default.url;
@@ -29,6 +32,9 @@ class ContentListItem extends Component {
               <h4>{content.title}</h4>
               <Level level={content.level}></Level>
             </div>
+            <div className="media-hashtag">
+              <small className="text-muted">{hashTag}</small>
+            </div>
 
             <ContentProgress
               percent={progress.percent}
@@ -37,7 +43,7 @@ class ContentListItem extends Component {
           </div>
         </div>
 
-      </li>
+      </li >
     );
   }
 }
