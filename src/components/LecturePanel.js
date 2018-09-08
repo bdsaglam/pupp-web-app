@@ -19,7 +19,8 @@ import { AnswerState, calculateScore, CORRECT_SCORE_POINT, FAILED_SCORE_POINT } 
 import VideoDetail from "./VideoDetail";
 import RecognitionView from "./RecognitionView";
 import Indicator from "./Indicator";
-import HintCard from "./HintCard";
+import AnswerImageCard from "./AnswerImageCard";
+import AnswerTextCard from "./AnswerTextCard";
 import ScoreBoard from "./ScoreBoard";
 import ScorePoint from "./ScorePoint";
 import Avatar from "./Avatar";
@@ -37,20 +38,24 @@ const contentBucketURL = process.env.REACT_APP_AWS_S3_CONTENT_BUCKET_URL;
 class LecturePanel extends Component {
     constructor(props) {
         super(props);
+
         this.videoPlayer = null;
         this.speechSynthesizer = getSpeaker();
         this.celebrationMediaURL = CELEBRATION_VIDEO;
 
-        this.correctHintRef = React.createRef();
-        this.wrongHintRef = React.createRef();
+        this.avatarRef = React.createRef();
         this.scoreBoardRef = React.createRef();
+
         this.successScorePointRef = React.createRef();
         this.failScorePointRef = React.createRef();
-        this.avatarRef = React.createRef();
+
+        this.correctChoiceRef = React.createRef();
+        this.wrongChoiceRef = React.createRef();
 
         const isSucceeded = this.checkSuccess(this.props.answers);
 
         this.state = {
+            answers: Object.assign({}, this.props.answers),
             currentQuestionIndex: 0,
             isAsking: false,
             isWaitingAnswer: false,
@@ -59,21 +64,8 @@ class LecturePanel extends Component {
             isSucceeded: isSucceeded,
             hasStarted: false,
             attempt: 0,
-            hintOrder: null,
-            answers: Object.assign({}, this.props.answers),
+            choiceOrder: null,
         };
-    }
-
-    
-    createHintOrder = (question) => {
-        let hintOrder;
-        if (question.hint && question.hint.type === "multi-choice") {
-            const numHints = question.hint.choices.length;
-            let hintOrder = [...Array(numHints).keys()];
-            shuffle(hintOrder);
-        }
-
-        return hintOrder;
     }
 
     getCurrentQuestion = () => {
@@ -99,11 +91,13 @@ class LecturePanel extends Component {
 
     prepareForQuestion = (idx) => {
         const question = this.props.content.questions[idx];
-        let hintOrder;
-        if (question) {
-            hintOrder = this.createHintOrder(question);
+        let choiceOrder;
+        if (question && question.choices) {
+            choiceOrder = [...Array(question.choices.length).keys()];
+            shuffle(choiceOrder);
         }
-        this.setState({ currentQuestionIndex: idx, hintOrder: hintOrder, isAsking: false, isWaitingAnswer: false, isRecording: false, attempt: 0 });
+
+        this.setState({ currentQuestionIndex: idx, isAsking: false, isWaitingAnswer: false, isRecording: false, attempt: 0, choiceOrder: choiceOrder });
     }
 
     // render helpers - start
@@ -118,34 +112,103 @@ class LecturePanel extends Component {
         return (<Indicator left={left} top={top} rotate={rotate} />);
     }
 
-    createHint = (hintInfo, ref) => {
-        const hintCard = (
-            <HintCard
-                imageURL={`${contentBucketURL}/flashcards/${hintInfo.attributes.viewUri}.png`}
-                onClick={(event) => this.speechSynthesizer.aspeak(hintInfo.attributes.speechText)}
-                ref={ref}
-            />
-        );
-
-        return hintCard;
+    createChoiceCard = ({ choice, onClickCallback, ref }) => {
+        switch (choice.type) {
+            case "image":
+                return (
+                    <AnswerImageCard
+                        ref={ref}
+                        imageSrc={`${contentBucketURL}/flashcards/${choice.attributes.viewUri}.png`}
+                        onClick={onClickCallback}
+                    />
+                );
+            case "text":
+                return (
+                    <AnswerTextCard
+                        ref={ref}
+                        text={choice.attributes.text}
+                        onClick={onClickCallback}
+                    />
+                );
+            default:
+                return;
+        }
     }
 
-    createHints = (question) => {
-        let ch, wh;
-        if (question.hint && question.hint.type === "multi-choice") {
-            ch = this.createHint(question.hint.choices[0], this.correctHintRef);
-            wh = this.createHint(question.hint.choices[1], this.wrongHintRef);
-        }
+    createMultiChoiceAnswerPanel = (question) => {
+        const correctChoice = _.find(question.choices, ['isCorrect', true]);
+        const correctCard = this.createChoiceCard(
+            {
+                choice: correctChoice,
+                onClickCallback: (event) => this.feedback(true),
+                ref: this.correctChoiceRef
+            }
+        );
 
-        let hints;
-        if (this.state.hintOrder) {
-            hints = sliceByIndices([ch, wh], this.state.hintOrder);
-        }
-        else {
-            hints = [ch, wh];
-        }
+        const wrongChoice = _.find(question.choices, ['isCorrect', false]);
+        const wrongCard = this.createChoiceCard(
+            {
+                choice: wrongChoice,
+                onClickCallback: (event) => this.feedback(false),
+                ref: this.wrongChoiceRef
+            }
+        );
 
-        return hints;
+        const cards = sliceByIndices([correctCard, wrongCard], this.state.choiceOrder);
+
+        return (
+            <div className="AnswerPanel">
+                {cards[0]}
+                {cards[1]}
+            </div>
+        );
+    }
+
+    createSpeechAnswerPanel = (question) => {
+        const correctChoice = _.find(question.choices, ['isCorrect', true]);
+        const correctCard = this.createChoiceCard(
+            {
+                choice: correctChoice,
+                onClickCallback: (event) => this.speechSynthesizer.aspeak(correctChoice.attributes.speechText),
+                ref: this.correctChoiceRef
+            }
+        );
+
+        const wrongChoice = _.find(question.choices, ['isCorrect', false]);
+        const wrongCard = this.createChoiceCard(
+            {
+                choice: wrongChoice,
+                onClickCallback: (event) => this.speechSynthesizer.aspeak(wrongChoice.attributes.speechText),
+                ref: this.wrongChoiceRef
+            }
+        );
+
+        const cards = sliceByIndices([correctCard, wrongCard], this.state.choiceOrder);
+
+        return (
+            <Row className="AnswerRow" >
+                <Col xs={3}>
+                    {cards[0]}
+                </Col>
+                <Col xs={6}>
+                    <RecognitionView record={this.state.isRecording} onResult={(result) => this.onRecognitionResult(result)} />
+                </Col>
+                <Col xs={3}>
+                    {cards[1]}
+                </Col>
+            </Row >
+        );
+    }
+
+    createAnswerPanel = (question) => {
+        switch (question.type) {
+            case "multi-choice-click":
+                return this.createMultiChoiceAnswerPanel(question);
+            case "multi-choice-speak":
+                return this.createSpeechAnswerPanel(question);
+            default:
+                return;
+        }
     }
     // render helpers - end
 
@@ -221,40 +284,33 @@ class LecturePanel extends Component {
         this.setState({ isAsking: true });
 
         const question = this.getCurrentQuestion();
-        const questionText = question.speechText;
-
         const avatar = this.avatarRef.current;
 
         await sleep(500);
         avatar.startAnimation();
-        await this.speechSynthesizer.speak(questionText);
+        await this.speechSynthesizer.speak(question.speechText);
         avatar.stopAnimation();
         await sleep(500);
 
-        if (question.hint && question.hint.type === 'multi-choice') {
-            const correctHint = _.find(question.hint.choices, ['isCorrect', true]);
-            const wrongHint = _.find(question.hint.choices, ['isCorrect', false]);
+        if (question.type === 'multi-choice-click' || question.type === 'multi-choice-speak') {
+            const correctChoice = _.find(question.choices, ['isCorrect', true]);
+            const wrongChoice = _.find(question.choices, ['isCorrect', false]);
 
-            const ch = this.correctHintRef.current;
-            const wh = this.wrongHintRef.current;
+            const correctCard = this.correctChoiceRef.current;
+            const wrongCard = this.wrongChoiceRef.current;
 
-            let hints = [
-                { element: ch, speechText: correctHint.attributes.speechText },
-                { element: wh, speechText: wrongHint.attributes.speechText }
+            let choiceCards = [
+                { element: correctCard, obj: correctChoice },
+                { element: wrongCard, obj: wrongChoice }
             ];
 
-            let hint1, hint2;
-            if (this.state.hintOrder) {
-                [hint1, hint2] = sliceByIndices(hints, this.state.hintOrder);
-            } else {
-                [hint1, hint2] = hints;
-            }
+            const [firstCard, secondCard] = sliceByIndices(choiceCards, this.state.choiceOrder);
 
-            hint1.element.startAnimation();
+            firstCard.element.startAnimation();
             avatar.startAnimation();
-            await this.speechSynthesizer.speak(hint1.speechText);
+            await this.speechSynthesizer.speak(firstCard.obj.attributes.speechText);
             avatar.stopAnimation();
-            hint1.element.stopAnimation();
+            firstCard.element.stopAnimation();
             await sleep(200);
 
             avatar.startAnimation();
@@ -262,11 +318,11 @@ class LecturePanel extends Component {
             avatar.stopAnimation();
             await sleep(300);
 
-            hint2.element.startAnimation();
+            secondCard.element.startAnimation();
             avatar.startAnimation();
-            await this.speechSynthesizer.speak(hint2.speechText);
+            await this.speechSynthesizer.speak(secondCard.obj.attributes.speechText);
             avatar.stopAnimation();
-            hint2.element.stopAnimation();
+            secondCard.element.stopAnimation();
             await sleep(200);
         }
 
@@ -282,6 +338,8 @@ class LecturePanel extends Component {
 
     feedback = async (isCorrect) => {
         const idx = this.state.currentQuestionIndex;
+        const question = this.getCurrentQuestion();
+
         let answers = Object.assign({}, this.state.answers);
         if (isCorrect) {
             answers[idx] = { "state": AnswerState.CORRECT };
@@ -301,7 +359,8 @@ class LecturePanel extends Component {
             }
 
         } else {
-            if (this.state.attempt < this.props.maxAnswerAttempt) {
+            const attemptLimit = question.attemptLimit || 0;
+            if (this.state.attempt < attemptLimit) {
                 answers[idx] = { "state": AnswerState.ATTEMPTED };
                 this.setState({ answers: answers });
 
@@ -360,7 +419,7 @@ class LecturePanel extends Component {
         this.setState({ isAsking: false, isWaitingAnswer: true, isRecording: false });
     }
 
-    evaluateAnswer = (expectedAnswers, receivedAnswer) => {
+    evaluateSpeechAnswer = (expectedAnswers, receivedAnswer) => {
         for (const expectedAnswer of expectedAnswers) {
             if (isSubset(expectedAnswer, receivedAnswer)) return true;
         }
@@ -375,12 +434,7 @@ class LecturePanel extends Component {
         try {
             const result = await sendText(userAnswer, intentName);
             const receivedAnswer = result.parameters;
-            const isCorrect = this.evaluateAnswer(expectedAnswers, receivedAnswer);
-            // console.log("expectedAnswers");
-            // console.log(expectedAnswers);
-            // console.log("receivedAnswer");
-            // console.log(receivedAnswer);
-            // console.log("isCorrect", isCorrect);
+            const isCorrect = this.evaluateSpeechAnswer(expectedAnswers, receivedAnswer);
             this.feedback(isCorrect);
         } catch (error) {
             console.log("dialog flow api request error");
@@ -398,11 +452,6 @@ class LecturePanel extends Component {
     onCelebrationEnded = () => {
         this.setState({ isCelebrating: false });
         this.passQuestion();
-    }
-
-    // just for debugging, to be removed later
-    onButtonClick = async (event) => {
-        console.log(this.state);
     }
 
     clear = () => {
@@ -424,28 +473,13 @@ class LecturePanel extends Component {
         const successScorePoint = <ScorePoint ref={this.successScorePointRef} point={CORRECT_SCORE_POINT} className="Success" />;
         const failScorePoint = <ScorePoint ref={this.failScorePointRef} point={FAILED_SCORE_POINT} className="Fail" />;
 
-        let skipButton;
-        let recognitionView;
-        if (this.state.isWaitingAnswer) {
-            skipButton = (
-                <div className="SkipButton">
-                    <Button onClick={event => this.onSkipClick(event)} bsStyle="default" bsSize="large">
-                        <FontAwesomeIcon icon={faForward} size='1x' /> Skip
-                    </Button>
-                </div>
-            );
-
-            recognitionView = <RecognitionView record={this.state.isRecording} onResult={(result) => this.onRecognitionResult(result)} />;
-        }
-
         let avatar;
         let indicator;
-        let correctHint;
-        let wrongHint;
+        let answerPanel;
         if (question && (this.state.isAsking || this.state.isWaitingAnswer)) {
             avatar = <Avatar ref={this.avatarRef} />;
             indicator = this.createIndicator(question);
-            [correctHint, wrongHint] = this.createHints(question);
+            answerPanel = this.createAnswerPanel(question);
         }
 
         let celebrationMedia;
@@ -460,6 +494,17 @@ class LecturePanel extends Component {
                         playing={true}
                         onEnded={() => setTimeout(this.onCelebrationEnded, 200)}
                     />
+                </div>
+            );
+        }
+
+        let skipButton;
+        if (this.state.isWaitingAnswer) {
+            skipButton = (
+                <div className="SkipButton">
+                    <Button onClick={event => this.onSkipClick(event)} bsStyle="default" bsSize="large">
+                        <FontAwesomeIcon icon={faForward} size='1x' /> Skip
+                    </Button>
                 </div>
             );
         }
@@ -496,17 +541,7 @@ class LecturePanel extends Component {
                                 onSelect={(idx) => this.jumpToQuestion(idx)}
                             />
                         </Row>
-                        <Row className="AnswerRow">
-                            <Col xs={3}>
-                                {correctHint}
-                            </Col>
-                            <Col xs={6}>
-                                {recognitionView}
-                            </Col>
-                            <Col xs={3}>
-                                {wrongHint}
-                            </Col>
-                        </Row>
+                        {answerPanel}
                     </Col>
                 </Row>
             </div>
@@ -518,14 +553,12 @@ class LecturePanel extends Component {
 LecturePanel.propTypes = {
     content: PropTypes.object.isRequired,
     answers: PropTypes.object.isRequired,
-    maxAnswerAttempt: PropTypes.number,
     onUpdateAnswers: PropTypes.func,
     onFinish: PropTypes.func,
 };
 
 // Specifies the default values for props:
 LecturePanel.defaultProps = {
-    maxAnswerAttempt: 2
 };
 
 export default LecturePanel;

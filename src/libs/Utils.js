@@ -50,6 +50,7 @@ export function shuffle(a) {
 }
 
 export function sliceByIndices(a, indices) {
+    if (!indices) return a;
     const b = indices.map(i => a[i]);
     return b;
 }

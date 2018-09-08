@@ -1,9 +1,9 @@
-.HintCard img {
+.AnswerImageCard img {
     max-height: 20vh;
     display: block;
     margin: auto;
 }
 
-.HintCard.Animate {
+.AnswerImageCard.Animate {
     animation: pulse 1s;
 }

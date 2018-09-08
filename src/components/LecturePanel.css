@@ -54,21 +54,16 @@
 }
 
 .LecturePanel .AnswerRow {
-    padding-top: 10px;
-    min-height: 20vh;
+    margin-top: 20px;
 }
 
-.LecturePanel .VideoJumpButton {
-    margin: 10px;
-    text-align: center;
-    background-color: Transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
+.LecturePanel .RecognitionView {
+    margin-top: 20px;
 }
 
-.LecturePanel .VideoJumpButton:focus {
-    outline: none;
+.LecturePanel .AnswerPanel {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 }

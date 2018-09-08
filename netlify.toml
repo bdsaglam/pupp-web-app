@@ -22,7 +22,6 @@
     REACT_APP_FIREBASE_API_KEY = "AIzaSyDZiMXAoxV-MU3qD039n4krPVUcEsbIf_M"
     REACT_APP_FIREBASE_AUTH_DOMAIN="fifth-subject-200708.firebaseapp.com"
     REACT_APP_FIREBASE_MESSAGE_SENDER_ID = "839032316734"
-    REACT_APP_FIREBASE_DB_URL = "fifth-subject-200708.firebaseio.com"
     REACT_APP_FIREBASE_CONTENTS_DB_URL = "pupp-contents.firebaseio.com"
 
 # Deploy Preview context: All Deploy Previews
@@ -50,6 +49,5 @@
     REACT_APP_FIREBASE_API_KEY = "AIzaSyDZiMXAoxV-MU3qD039n4krPVUcEsbIf_M"
     REACT_APP_FIREBASE_AUTH_DOMAIN="fifth-subject-200708.firebaseapp.com"
     REACT_APP_FIREBASE_MESSAGE_SENDER_ID = "839032316734"
-    REACT_APP_FIREBASE_DB_URL = "fifth-subject-200708.firebaseio.com"
-    REACT_APP_FIREBASE_CONTENTS_DB_URL = "pupp-contents.firebaseio.com"
+    REACT_APP_FIREBASE_CONTENTS_DB_URL = "pupp-contents-dev.firebaseio.com"
 

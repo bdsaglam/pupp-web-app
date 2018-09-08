@@ -12,7 +12,9 @@ class Indicator extends Component {
         const transform = `rotate(${rotate}deg)`;
         const style = {
             position: "absolute",
-            left: left, top: top, transform: transform
+            left: left, 
+            top: top, 
+            transform: transform
         };
         return (
             <div className="Indicator animate"
