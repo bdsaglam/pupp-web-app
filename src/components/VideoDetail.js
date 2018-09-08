@@ -90,7 +90,7 @@ VideoDetail.defaultProps = {
       playerVars: {
         autoplay: 1,
         start: 1,
-        controls: 1,
+        controls: process.env.REACT_APP_STAGE === "production" ? 0 : 1,
         rel: 0,
         modestbranding: 1,
       }
