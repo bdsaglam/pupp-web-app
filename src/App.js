@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Auth } from "aws-amplify";
-import { connect } from "react-redux";
 
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
@@ -10,17 +10,13 @@ import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Grid from 'react-bootstrap/lib/Grid';
-import Modal from 'react-bootstrap/lib/Modal';
-import Button from 'react-bootstrap/lib/Button';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
 
 import { BounceLoader } from 'react-spinners';
 import { FormattedMessage } from "react-intl";
 import trFlag from "./img/turkey-flag-round.svg";
 import ukFlag from "./img/united-kingdom-flag-round.svg";
-import chromeIcon from "./img/chrome.svg";
 
-import { updateAuth, userLogOut, setLocales, doNotShowBrowserAlert } from "./actions";
+import { updateAuth, userLogOut, setLocales } from "./actions";
 
 import "./App.css";
 
@@ -30,8 +26,6 @@ class App extends Component {
 
     this.state = {
       isAuthenticating: true,
-      doNotAskAgain: false,
-      showBrowserAlert: !this.props.preferences.noBrowserAlert,
     };
   }
 
@@ -73,53 +67,7 @@ class App extends Component {
     this.props.setLocales(locales);
   }
 
-  handleCheckboxChange = (event) => {
-    const value = event.target.value;
-    this.setState({ doNotAskAgain: value });
-  };
-
-  handleClose = () => {
-    if (this.state.doNotAskAgain) this.props.doNotShowBrowserAlert();
-    this.setState({ showBrowserAlert: false });
-  };
-
-  handleDownload = (event) => {
-    if (this.state.doNotAskAgain) this.props.doNotShowBrowserAlert();
-    this.setState({ showBrowserAlert: false });
-    this.props.history.push('/');
-  };
-
   render() {
-    if (this.state.showBrowserAlert) {
-      return (
-        <div>
-          <Modal show={this.state.showBrowserAlert} onHide={this.handleClose} dialogClassName="BrowserModal">
-            <Modal.Header closeButton>
-              <Modal.Title><FormattedMessage id="App.browserModal.title" /></Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <FormattedMessage id="App.browserModal.alertMessage" />
-            </Modal.Body>
-            <Modal.Footer>
-              <Checkbox value={this.state.doNotAskAgain} onChange={this.handleCheckboxChange} inline>
-                <FormattedMessage id="App.browserModal.doNotAskAgain" />
-              </Checkbox>
-
-              <a className="chrome" href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">
-                <Button onClick={this.handleDownload} >
-                  <img src={chromeIcon} alt="Chrome" />
-                  <FormattedMessage id="App.browserModal.downloadChrome" />
-                </Button>
-              </a>
-              <Button onClick={this.handleClose}>
-                <FormattedMessage id="App.browserModal.close" />
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      );
-    }
-
     if (this.state.isAuthenticating) {
       return (
         <div className="App Loading">
@@ -194,8 +142,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ isAuthenticated, preferences, showBrowserAlert }, ownProps) {
-  return { isAuthenticated, preferences, showBrowserAlert };
+function mapStateToProps({ isAuthenticated, preferences }, ownProps) {
+  return { isAuthenticated, preferences };
 }
 
-export default withRouter(connect(mapStateToProps, { updateAuth, userLogOut, setLocales, doNotShowBrowserAlert })(App));
+export default withRouter(connect(mapStateToProps, { updateAuth, userLogOut, setLocales })(App));
