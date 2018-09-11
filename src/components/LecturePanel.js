@@ -140,7 +140,7 @@ class LecturePanel extends Component {
         const correctCard = this.createChoiceCard(
             {
                 choice: correctChoice,
-                onClickCallback: (event) => this.feedback(true),
+                onClickCallback: _.debounce((event) => this.feedback(true), 500),
                 ref: this.correctChoiceRef
             }
         );
@@ -149,7 +149,7 @@ class LecturePanel extends Component {
         const wrongCard = this.createChoiceCard(
             {
                 choice: wrongChoice,
-                onClickCallback: (event) => this.feedback(false),
+                onClickCallback: _.debounce((event) => this.feedback(false), 500),
                 ref: this.wrongChoiceRef
             }
         );
@@ -169,7 +169,7 @@ class LecturePanel extends Component {
         const correctCard = this.createChoiceCard(
             {
                 choice: correctChoice,
-                onClickCallback: (event) => this.speechSynthesizer.aspeak(correctChoice.attributes.speechText),
+                onClickCallback: _.debounce((event) => this.speechSynthesizer.aspeak(correctChoice.attributes.speechText), 500),
                 ref: this.correctChoiceRef
             }
         );
@@ -178,7 +178,7 @@ class LecturePanel extends Component {
         const wrongCard = this.createChoiceCard(
             {
                 choice: wrongChoice,
-                onClickCallback: (event) => this.speechSynthesizer.aspeak(wrongChoice.attributes.speechText),
+                onClickCallback: _.debounce((event) => this.speechSynthesizer.aspeak(wrongChoice.attributes.speechText), 500),
                 ref: this.wrongChoiceRef
             }
         );
@@ -460,6 +460,13 @@ class LecturePanel extends Component {
         if (this.videoPlayer) this.videoPlayer.pauseVideo();
     }
 
+    handleAvatar = () => {
+        if (this.state.isWaitingAnswer) {
+            const question = this.getCurrentQuestion();
+            this.speechSynthesizer.speak(question.speechText);
+        }
+    }
+
     componentWillUnmount() {
         this.clear();
     }
@@ -477,7 +484,7 @@ class LecturePanel extends Component {
         let indicator;
         let answerPanel;
         if (question && (this.state.isAsking || this.state.isWaitingAnswer)) {
-            avatar = <Avatar ref={this.avatarRef} />;
+            avatar = <Avatar ref={this.avatarRef} onClick={_.debounce(this.handleAvatar, 500)} />;
             indicator = this.createIndicator(question);
             answerPanel = this.createAnswerPanel(question);
         }

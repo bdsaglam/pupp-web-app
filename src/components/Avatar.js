@@ -9,7 +9,7 @@ class Avatar extends Component {
     render() {
         const className = "Avatar " + this.props.className;
         return (
-            <div className={className}>
+            <div className={className} onClick={this.props.onClick}>
                 <img className="static" src={avatarStatic} alt='' />
                 <img className="active" src={avatarGIF} alt='' />
             </div>
@@ -19,6 +19,7 @@ class Avatar extends Component {
 
 Avatar.propTypes = {
     className: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 Avatar.defaultProps = {
