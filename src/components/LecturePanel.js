@@ -479,11 +479,13 @@ class LecturePanel extends Component {
         const scoreBoard = <ScoreBoard ref={this.scoreBoardRef} score={score} />;
         const successScorePoint = <ScorePoint ref={this.successScorePointRef} point={CORRECT_SCORE_POINT} className="Success" />;
         const failScorePoint = <ScorePoint ref={this.failScorePointRef} point={FAILED_SCORE_POINT} className="Fail" />;
-
+        
+        let overlay;
         let avatar;
         let indicator;
         let answerPanel;
         if (question && (this.state.isAsking || this.state.isWaitingAnswer)) {
+            overlay = <div className="Overlay"></div>;
             avatar = <Avatar ref={this.avatarRef} onClick={_.debounce(this.handleAvatar, 500)} />;
             indicator = this.createIndicator(question);
             answerPanel = this.createAnswerPanel(question);
@@ -531,6 +533,7 @@ class LecturePanel extends Component {
                                     onPlayerEnded={this.onPlayerEnded}
                                     options={{ progressInterval: 500 }}
                                 />
+                                {overlay}
                                 {avatar}
                                 {scoreBoard}
                                 {successScorePoint}
@@ -538,6 +541,7 @@ class LecturePanel extends Component {
                                 {skipButton}
                                 {indicator}
                                 {celebrationMedia}
+
                             </div>
                         </Row>
                         <Row className="QuestionRow">
