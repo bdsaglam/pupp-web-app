@@ -101,17 +101,6 @@ class LecturePanel extends Component {
     }
 
     // render helpers - start
-    createIndicator = (question) => {
-        if (!question.indicator) {
-            return;
-        }
-
-        const left = question.indicator.center.x * 100;
-        const top = question.indicator.center.y * 100;
-        const rotate = question.indicator.angle;
-        return (<Indicator left={left} top={top} rotate={rotate} />);
-    }
-
     createChoiceCard = ({ choice, onClickCallback, ref }) => {
         switch (choice.type) {
             case "image":
@@ -479,7 +468,7 @@ class LecturePanel extends Component {
         const scoreBoard = <ScoreBoard ref={this.scoreBoardRef} score={score} />;
         const successScorePoint = <ScorePoint ref={this.successScorePointRef} point={CORRECT_SCORE_POINT} className="Success" />;
         const failScorePoint = <ScorePoint ref={this.failScorePointRef} point={FAILED_SCORE_POINT} className="Fail" />;
-        
+
         let overlay;
         let avatar;
         let indicator;
@@ -487,7 +476,9 @@ class LecturePanel extends Component {
         if (question && (this.state.isAsking || this.state.isWaitingAnswer)) {
             overlay = <div className="Overlay"></div>;
             avatar = <Avatar ref={this.avatarRef} onClick={_.debounce(this.handleAvatar, 500)} />;
-            indicator = this.createIndicator(question);
+            if (question.indicator) {
+                indicator = <Indicator style={question.indicator} />;
+            };
             answerPanel = this.createAnswerPanel(question);
         }
 

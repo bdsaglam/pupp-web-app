@@ -6,29 +6,21 @@ import "./Indicator.css";
 
 class Indicator extends Component {
     render() {
-        const left = this.props.left + "%";
-        const top = this.props.top + "%";
-        const rotate = this.props.rotate || "0";
-        const transform = `rotate(${rotate}deg)`;
         const style = {
             position: "absolute",
-            left: left, 
-            top: top, 
-            transform: transform
+            ...this.props.style,
         };
         return (
             <div className="Indicator animate"
                 style={style}>
-                <FontAwesomeIcon icon={faArrowRight} size="3x" style={{ color: "yellow" }} />
+                <FontAwesomeIcon icon={faArrowRight} size="4x" style={{ color: "yellow" }} />
             </div>
         );
     }
 }
 
 Indicator.propTypes = {
-    left: PropTypes.number,
-    top: PropTypes.number,
-    rotate: PropTypes.number,
+    style: PropTypes.object.isRequired,
 };
 
 export default Indicator;
