@@ -153,7 +153,7 @@ class LecturePanel extends Component {
         );
     }
 
-    createSpeechAnswerPanel = (question) => {
+    createMultiChoiceSpeechAnswerPanel = (question) => {
         const correctChoice = _.find(question.choices, ['isCorrect', true]);
         const correctCard = this.createChoiceCard(
             {
@@ -189,11 +189,23 @@ class LecturePanel extends Component {
         );
     }
 
+    createSpeechAnswerPanel = (question) => {
+        return (
+            <Row className="AnswerRow" >
+                <Col xs={6} xsOffset={3}>
+                    <RecognitionView record={this.state.isRecording} onResult={(result) => this.onRecognitionResult(result)} />
+                </Col>
+            </Row >
+        );
+    }
+
     createAnswerPanel = (question) => {
         switch (question.type) {
             case "multi-choice-click":
                 return this.createMultiChoiceAnswerPanel(question);
             case "multi-choice-speak":
+                return this.createMultiChoiceSpeechAnswerPanel(question);
+            case "speak":
                 return this.createSpeechAnswerPanel(question);
             default:
                 return;
