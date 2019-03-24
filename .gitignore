@@ -14,6 +14,9 @@ package-lock.json
 # api keys
 credentials.json
 
+# netlify 
+netlify.toml
+
 # misc
 .DS_Store
 .env
