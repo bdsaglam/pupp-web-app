@@ -11,7 +11,7 @@
     "axios": "^0.18.0",
     "firebase": "^5.0.4",
     "fuse.js": "^3.2.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
